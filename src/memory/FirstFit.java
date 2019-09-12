@@ -14,6 +14,7 @@ public class FirstFit extends Memory {
 	private int segmentLength; //storlek på segmentet av lediga blockplatser (ska använas för att lagra det bästa alternativet hitills)
 	private LinkedList<Pointer> freeList;
 	private LinkedList<Pointer> occupiedList;
+	//freelist blir int som pekar på första lediga plats
 
 	/**
 	 * Initializes an instance of a first fit-based memory.
