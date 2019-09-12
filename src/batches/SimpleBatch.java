@@ -48,6 +48,14 @@ public class SimpleBatch {
 		p6.write(range(1, 15));
 		
 		m.printLayout();
+
+		//Upptaget - FirstFit
+		//0-589
+		//620-949
+
+		//Ledigt - FirstFit
+		//590-619
+		//950-999
 		
 //		m.compact();
 //		System.out.println("After compact()");
