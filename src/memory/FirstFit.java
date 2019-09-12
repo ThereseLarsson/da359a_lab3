@@ -10,37 +10,37 @@ import java.util.LinkedList;
  * @since 1.0
  */
 public class FirstFit extends Memory {
-	private int size; //storlek de antal block som ska allokeras
-	private int segmentLength; //storlek på segmentet av lediga blockplatser
+	private int totalMemoryCells; //totalt antal celler i minnet
+	private int segmentLength; //storlek på segmentet av lediga blockplatser (ska använas för att lagra det bästa alternativet hitills)
 	private LinkedList<Pointer> freeList;
 	private LinkedList<Pointer> occupiedList;
 
 	/**
 	 * Initializes an instance of a first fit-based memory.
-	 * 
-	 * @param size The number of cells.
+	 *
+	 * @param totalMemoryCells The number of cells.
 	 */
-	public FirstFit(int size) {
-		super(size);
+	public FirstFit(int totalMemoryCells) {
+		super(totalMemoryCells);
 		freeList = new LinkedList<Pointer>();
 		occupiedList = new LinkedList<Pointer>();
 		// TODO Implement this!
 	}
 
 	/**
-	 * Allocates a number of memory cells. 
-	 * 
-	 * @param size the number of cells to allocate.
+	 * Allocates a number of memory cells.
+	 *
+	 * @param sizeToAllocate the number of cells to allocate.
 	 * @return The address of the first cell.
 	 */
 	@Override
-	public Pointer alloc(int size) {
+	public Pointer alloc(int sizeToAllocate) {
 		Pointer pointer = null;
 
 		for(int i = 0; i < freeList.size(); i++) { //search freeList
 			pointer = freeList.get(i); //keep track of the object in the list of the current iteration
 			segmentsLength = pointer.read(); //?? vill ta reda på segmentets längd
-			if(segmentsLength > size) {
+			if(segmentsLength > sizeToAllocate) {
 				//block = needed part of the found segment
 				//update freeList to reflect the allocation
 				//block[-1] = size + 1;, remember block size, needed for deallocation (= release-method)
@@ -49,7 +49,7 @@ public class FirstFit extends Memory {
 		}
 		return pointer;
 	}
-	
+
 	/**
 	 * Releases a number of data cells
 	 * 
