@@ -10,7 +10,8 @@ import java.util.LinkedList;
  * @since 1.0
  */
 public class FirstFit extends Memory {
-	private int size; //storlek på memory segment
+	private int size; //storlek de antal block som ska allokeras
+	private int segmentLength; //storlek på segmentet av lediga blockplatser
 	private LinkedList<Pointer> freeList;
 	private LinkedList<Pointer> occupiedList;
 
