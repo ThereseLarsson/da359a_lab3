@@ -80,22 +80,28 @@ public class FirstFit extends Memory {
 		String resFree = "";
 
 		for(int i = 0; i < this.cells.length; i++) {
-			//
-			if(this.cells[i] != -1) { //om cellen är upptagen
-				if(this.cells[i + 1] == -1) { //om nästa cell är ledig
-					resOccupied += " - " + this.cells;
+			if(this.cells[i] == -1 && i == 0 || this.cells[i] == -1 && this.cells[i - 1] != -1) { //if current free AND is the first element in the list || if current free AND previous not free
+				resFree += i + " - ";
+			} else if(this.cells[i] == -1 && i == this.cells.length - 1 || this.cells[i] == -1 && this.cells[i + 1] != -1) { //if current free AND is the last element in the list || if current free AND next not free
+				if(i == this.cells.length - 1) { //if last element
+					resFree += i;
+				} else {
+					resFree += i + "\n";
 				}
-
-			} else { //om cellen är fri (dvs. -1)
-
 			}
 
-			System.out.println("Upptaget" + "\n" + resOccupied);
-			//+ skriv ut upptagna platser
-
-			System.out.println("Ledigt" + "\n" + resFree);
+			if(this.cells[i] != -1 && i == 0 || this.cells[i] != -1 && this.cells[i - 1] == -1) { //if current occupied AND is the first element in the list || if current occupied AND previous not occupied
+				resOccupied += i + " - ";
+			} else if(this.cells[i] != -1 && i == this.cells.length - 1 || this.cells[i] != -1 && this.cells[i + 1] == -1) { //if current occupied AND is the last element in the list || if current occupied AND next not occupied
+				if(i == this.cells.length - 1) { //if last element
+					resOccupied += i;
+				} else {
+					resOccupied += i + "\n";
+				}
+			}
 		}
-		//
-		//resOccupied += "\n" +  this.cells[i];
+
+		System.out.println("Free" + "\n" + resFree + "\n");
+		System.out.println("Allocated" + "\n" + resOccupied);
 	}
 }
