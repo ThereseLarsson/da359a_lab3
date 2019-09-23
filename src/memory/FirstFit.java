@@ -78,28 +78,24 @@ public class FirstFit extends Memory {
 	public void printLayout() {
 		String resOccupied = "";
 		String resFree = "";
-		boolean nextIsFree; //om nästa cell är fri, dvs. skilt från -1
 
 		for(int i = 0; i < this.cells.length; i++) {
 			//
 			if(this.cells[i] != -1) { //om cellen är upptagen
-				if(förra cellen också var upptagen OCH nästa cell är fri) {
-					resOccupied += ;
-				} else {
-					//
+				if(this.cells[i + 1] == -1) { //om nästa cell är ledig
+					resOccupied += " - " + this.cells;
 				}
 
 			} else { //om cellen är fri (dvs. -1)
 
 			}
 
-			System.out.println("Upptaget" + "\n");
+			System.out.println("Upptaget" + "\n" + resOccupied);
 			//+ skriv ut upptagna platser
 
-			System.out.println("Upptaget" + "\n");
-			//skriv ut lediga platser
-
+			System.out.println("Ledigt" + "\n" + resFree);
 		}
-		// TODO Implement this!
+		//
+		//resOccupied += "\n" +  this.cells[i];
 	}
 }
