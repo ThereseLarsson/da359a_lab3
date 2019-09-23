@@ -33,29 +33,37 @@ public class FirstFit extends Memory {
 	 * @return The address of the first cell.
 	 */
 	@Override
-	public Pointer alloc(int sizeToAllocate) { //använd pointer.address
-		int counter = 0; //keeps track of the longest segment of non-occupied blocks
+	public Pointer alloc(int sizeToAllocate) { //använd pointer.address (får en int)
+		int nbrOfFreeSpacesInRow = 0; //keeps track of the longest segment of non-occupied blocks that occurs in this.cells in a row
 
-		for(int i = firstFree; i < this.cells.length; i++) { //search list after free space
+		for(int i = firstFree; i < this.cells.length; i++) { //searches list (this.cells) after free space, starts with the first free space (firstFree)
+			nbrOfFreeSpacesInRow++; //öka med 1 för varje iteration
 
+			if(nbrOfFreeSpacesInRow == sizeToAllocate) {
+				//uppdatera firstFree
+
+			}
 		}
 
-		//uppdatera freeList! (ska peka på den första lediga cellen)
+		//-------------------------------------
+		//i den här deluppgiften ska vi "bara" peka om firstFree
+		//för det behöver vi ta reda på den plats där segmentet passar in
+		//returnera begynnelse-adressen för det segmentet (+ uppdatera firstFree)
+		//pointer.address (för vilket syfte??)
+		//ska man sätta point.address = firstFree?
 
-		//return Pointer.address;
 		return null;
 	}
 
 	/**
 	 * Releases a number of data cells
 	 * 
-	 * @param p The pointer to release. //pointer.address
+	 * @param p The pointer to release.
 	 */
 	@Override
 	public void release(Pointer p) {
-
+		//använd pointer.address för att få addressen för det som ska deallokeras
 		//uppdatera freeList! (ska peka på den första lediga cellen)
-
 	}
 	
 	/**
@@ -68,9 +76,28 @@ public class FirstFit extends Memory {
 	 */
 	@Override
 	public void printLayout() {
-		for(int i = 0; i < this.cells.length; i++) {
+		String resOccupied = "";
+		String resFree = "";
+		boolean nextIsFree; //om nästa cell är fri, dvs. skilt från -1
 
-			System.out.println("");
+		for(int i = 0; i < this.cells.length; i++) {
+			//
+			if(this.cells[i] != -1) { //om cellen är upptagen
+				if(förra cellen också var upptagen OCH nästa cell är fri) {
+					resOccupied += ;
+				} else {
+					//
+				}
+
+			} else { //om cellen är fri (dvs. -1)
+
+			}
+
+			System.out.println("Upptaget" + "\n");
+			//+ skriv ut upptagna platser
+
+			System.out.println("Upptaget" + "\n");
+			//skriv ut lediga platser
 
 		}
 		// TODO Implement this!
