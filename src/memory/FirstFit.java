@@ -12,7 +12,7 @@ import java.util.LinkedList;
  * @since 1.0
  */
 public class FirstFit extends Memory {
-	private int totalMemoryCells; //totalt antal celler i minnet (size ir originalfil)
+	private int totalMemoryCells; //totalt antal celler i minnet (size ir originalfil) = this.cells.length (?)
 	private int segmentLength; //storlek på segmentet av lediga blockplatser (ska använas för att lagra det bästa alternativet hitills)
 	private int freeList; //freelist blir en int som pekar på första lediga plats
 	private LinkedList<Pointer> occupiedList;
@@ -48,6 +48,9 @@ public class FirstFit extends Memory {
 				//return block
 			}
 		}
+
+		//uppdatera freeList! (ska peka på den första lediga cellen)
+
 		return pointer;
 	}
 
@@ -68,6 +71,9 @@ public class FirstFit extends Memory {
 		//segment = p -1;
 		//segment.length = p[-1];
 		//insert segment into the freeList;
+
+		//uppdatera freeList! (ska peka på den första lediga cellen)
+
 	}
 	
 	/**
