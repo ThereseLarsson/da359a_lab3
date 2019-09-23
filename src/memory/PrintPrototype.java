@@ -13,7 +13,7 @@ public class PrintPrototype {
 
     public void fillList() {
         for(int i = 0; i < nbrs.length; i++) {
-            if(i == 0 || i == 1 || i == 9 || i == 10) {
+            if(i == 5 || i == 6 || i == 10 || i == 11) {
                 nbrs[i] = -1;
             } else {
                 nbrs[i] = rand.nextInt(10) + 1;
@@ -32,15 +32,29 @@ public class PrintPrototype {
         String resFree = "";
 
         for(int i = 0; i < nbrs.length; i++) {
-            if(nbrs[i] == -1 && i == 0 || nbrs[i] == -1 && nbrs[i - 1] != -1) { // if current free AND is the first element in the list || if current free AND previous not free
+            if(nbrs[i] == -1 && i == 0 || nbrs[i] == -1 && nbrs[i - 1] != -1) { //if current free AND is the first element in the list || if current free AND previous not free
                 resFree += i + " - ";
             } else if(nbrs[i] == -1 && i == nbrs.length - 1 || nbrs[i] == -1 && nbrs[i + 1] != -1) { //if current free AND is the last element in the list || if current free AND next not free
-                resFree += i + "\n";
+                if(i == nbrs.length - 1) { //if last element
+                    resFree += i;
+                } else {
+                    resFree += i + "\n";
+                }
+            }
+
+            if(nbrs[i] != -1 && i == 0 || nbrs[i] != -1 && nbrs[i - 1] == -1) { //if current occupied AND is the first element in the list || if current occupied AND previous not occupied
+                resOccupied += i + " - ";
+            } else if(nbrs[i] != -1 && i == nbrs.length - 1 || nbrs[i] != -1 && nbrs[i + 1] == -1) { //if current occupied AND is the last element in the list || if current occupied AND next not occupied
+                if(i == nbrs.length - 1) { //if last element
+                    resOccupied += i;
+                } else {
+                    resOccupied += i + "\n";
+                }
             }
         }
 
-        System.out.println("Ledigt" + "\n" + resFree);
-        //System.out.println("Upptaget" + "\n" + resOccupied);
+        System.out.println("Free" + "\n" + resFree + "\n");
+        System.out.println("Allocated" + "\n" + resOccupied);
     }
 
     public static void main(String[] args) {
