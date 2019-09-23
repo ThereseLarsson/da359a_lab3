@@ -5,16 +5,17 @@ import java.util.LinkedList;
 /**
  * This memory model allocates memory cells based on the first-fit method.
  * deluppgift 1
+ *
+ * Väljer att jobba "direkt" i minnet iställer för att använda Pointer.
  * 
  * @author "Johan Holmberg, Malmö university"
  * @since 1.0
  */
 public class FirstFit extends Memory {
-	private int totalMemoryCells; //totalt antal celler i minnet
+	private int totalMemoryCells; //totalt antal celler i minnet (size ir originalfil)
 	private int segmentLength; //storlek på segmentet av lediga blockplatser (ska använas för att lagra det bästa alternativet hitills)
-	private LinkedList<Pointer> freeList;
+	private int freeList; //freelist blir en int som pekar på första lediga plats
 	private LinkedList<Pointer> occupiedList;
-	//freelist blir int som pekar på första lediga plats
 
 	/**
 	 * Initializes an instance of a first fit-based memory.
@@ -23,8 +24,8 @@ public class FirstFit extends Memory {
 	 */
 	public FirstFit(int totalMemoryCells) {
 		super(totalMemoryCells);
-		freeList = new LinkedList<Pointer>();
-		occupiedList = new LinkedList<Pointer>();
+		freeList = 0;
+		occupiedList = new LinkedList<>();
 		// TODO Implement this!
 	}
 
@@ -36,9 +37,8 @@ public class FirstFit extends Memory {
 	 */
 	@Override
 	public Pointer alloc(int sizeToAllocate) {
-		Pointer pointer = null;
 
-		for(int i = 0; i < freeList.size(); i++) { //search freeList
+		for(int i = freeList; i < this.cells.length; i++) { //search list after free space
 			pointer = freeList.get(i); //keep track of the object in the list of the current iteration
 			segmentsLength = pointer.read(); //?? vill ta reda på segmentets längd
 			if(segmentsLength > sizeToAllocate) {
