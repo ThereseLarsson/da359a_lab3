@@ -12,14 +12,13 @@ import java.util.LinkedList;
  * @since 1.0
  */
 public class FirstFit extends Memory {
-	private int totalMemoryCells; //totalt antal celler i minnet (size ir originalfil) = this.cells.length (?)
-	private int segmentLength; //storlek på segmentet av lediga blockplatser (ska använas för att lagra det bästa alternativet hitills)
+	private int segmentLength; //storlek på segmentet av lediga blockplatser (ska användas för att lagra det bästa alternativet hittills)
 	private int firstFree; //freelist blir en int som pekar på första lediga plats
 
 	/**
 	 * Initializes an instance of a first fit-based memory.
 	 *
-	 * @param totalMemoryCells The number of cells.
+	 * @param totalMemoryCells The (total) number of cells.
 	 */
 	public FirstFit(int totalMemoryCells) {
 		super(totalMemoryCells);
