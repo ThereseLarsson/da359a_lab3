@@ -7,13 +7,13 @@ public class PrintPrototype {
     private Random rand;
 
     public PrintPrototype() {
-        nbrs = new int[12];
+        nbrs = new int[1000];
         rand = new Random();
     }
 
     public void fillList() {
         for(int i = 0; i < nbrs.length; i++) {
-            if(i == 5 || i == 6 || i == 10 || i == 11) {
+            if(i >= 590 && i <= 619 || i >= 950 && i <= 999) { //lediga celler
                 nbrs[i] = -1;
             } else {
                 nbrs[i] = rand.nextInt(10) + 1;
@@ -53,8 +53,8 @@ public class PrintPrototype {
             }
         }
 
-        System.out.println("Free" + "\n" + resFree + "\n");
-        System.out.println("Allocated" + "\n" + resOccupied);
+        System.out.println("Allocated / Upptaget" + "\n" + resOccupied);
+        System.out.println("Free / Ledigt" + "\n" + resFree + "\n");
     }
 
     public static void main(String[] args) {
