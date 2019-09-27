@@ -35,9 +35,14 @@ public class FirstFit extends Memory {
 	@Override
 	public Pointer alloc(int sizeToAllocate) { //använd pointer.address (får en int)
 		int nbrOfFreeSpacesInRow = 0; //keeps track of the longest segment of non-occupied blocks that occurs in this.cells in a row
+        int startIndex;
 
 		for(int i = firstFree; i < this.cells.length; i++) { //searches list (this.cells) after free space, starts with the first free space (firstFree)
-			nbrOfFreeSpacesInRow++; //öka med 1 för varje iteration
+			if(this.cells[i] == -1) {
+                nbrOfFreeSpacesInRow++; //öka med 1 för varje iteration
+            } else {
+                nbrOfFreeSpacesInRow = 0; //nollställ
+            }
 
 			if(nbrOfFreeSpacesInRow == sizeToAllocate) {
 				//uppdatera firstFree
@@ -62,6 +67,8 @@ public class FirstFit extends Memory {
 	 */
 	@Override
 	public void release(Pointer p) {
+	    int address = p.pointsAt(); //rätt?? returns the address that the pointer p is pointing at
+
 		//använd pointer.address för att få addressen för det som ska deallokeras
 		//uppdatera freeList! (ska peka på den första lediga cellen)
 	}
