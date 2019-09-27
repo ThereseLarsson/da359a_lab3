@@ -101,7 +101,7 @@ public class FirstFit extends Memory {
 			}
 		}
 
-		System.out.println("Free" + "\n" + resFree + "\n");
 		System.out.println("Allocated" + "\n" + resOccupied);
+		System.out.println("Free" + "\n" + resFree + "\n");
 	}
 }

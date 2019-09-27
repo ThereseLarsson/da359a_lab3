@@ -60,6 +60,8 @@ public class PrintPrototype {
     public static void main(String[] args) {
         PrintPrototype p = new PrintPrototype();
         p.fillList();
+        p.printList();
+        System.out.println("\n");
         p.printListWithInterval();
     }
 }
