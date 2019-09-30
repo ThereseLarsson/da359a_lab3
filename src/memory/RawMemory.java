@@ -4,7 +4,7 @@ package memory;
  * Simulates a memory space, made out of a number of memory cells. Each cell
  * holds an int value.
  * DO NOT CHANGE
- * NOT USE DIRECTLY
+ * NOT USED DIRECTLY
  * 
  * @author "Johan Holmberg, Malmö university"
  * @since 1.0

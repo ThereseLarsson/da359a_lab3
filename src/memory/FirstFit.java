@@ -13,7 +13,8 @@ import java.util.LinkedList;
  */
 public class FirstFit extends Memory {
 	private int segmentLength; //storlek på segmentet av lediga blockplatser (ska användas för att lagra det bästa alternativet hittills)
-	private int firstFree; //freelist blir en int som pekar på första lediga plats
+	private int firstFreeIndex; //freelist blir en int som pekar på första lediga plats
+	Pointer freeList;
 
 	/**
 	 * Initializes an instance of a first fit-based memory.
@@ -22,7 +23,7 @@ public class FirstFit extends Memory {
 	 */
 	public FirstFit(int totalMemoryCells) {
 		super(totalMemoryCells);
-		firstFree = 0;
+		firstFreeIndex = 0;
 		// TODO Implement this!
 	}
 
@@ -34,19 +35,18 @@ public class FirstFit extends Memory {
 	 */
 	@Override
 	public Pointer alloc(int sizeToAllocate) { //använd pointer.address (får en int)
-		int nbrOfFreeSpacesInRow = 0; //keeps track of the longest segment of non-occupied blocks that occurs in this.cells in a row
-        int startIndex;
+		Pointer pointer = new Pointer(firstFreeIndex, this); //POINTER SKA BÖRJA MED ATT PEKA PÅ NOLL
+		int next = this.cells[pointer.pointsAt() + 1];
+		int size; //number of free cells in a row (for this pointer (?))
 
-		for(int i = firstFree; i < this.cells.length; i++) { //searches list (this.cells) after free space, starts with the first free space (firstFree)
-			if(this.cells[i] == -1) {
-                nbrOfFreeSpacesInRow++; //öka med 1 för varje iteration
-            } else {
-                nbrOfFreeSpacesInRow = 0; //nollställ
-            }
+		for(int i = firstFreeIndex; i < this.cells.length; next++)  { //searches list (this.cells) after free space, starts with the first free space (firstFree)
 
-			if(nbrOfFreeSpacesInRow == sizeToAllocate) {
-				//uppdatera firstFree
+			size = this.cells[pointer.pointsAt()];
 
+			if(size >= sizeToAllocate) {
+				//uppdatera firstFreeIndex
+				pointer.pointAt(address här); //addressen (= första indexet) där sekvensen av de lediga cellerna (i rad) börjar
+				return pointer;
 			}
 		}
 
@@ -55,9 +55,8 @@ public class FirstFit extends Memory {
 		//för det behöver vi ta reda på den plats där segmentet passar in
 		//returnera begynnelse-adressen för det segmentet (+ uppdatera firstFree)
 		//pointer.address (för vilket syfte??)
-		//ska man sätta point.address = firstFree?
 
-		return null;
+		return null; //allokeringen misslyckades
 	}
 
 	/**
@@ -70,7 +69,7 @@ public class FirstFit extends Memory {
 	    int address = p.pointsAt(); //rätt?? returns the address that the pointer p is pointing at
 
 		//använd pointer.address för att få addressen för det som ska deallokeras
-		//uppdatera freeList! (ska peka på den första lediga cellen)
+		//uppdatera free! (ska peka på den första lediga cellen)
 	}
 	
 	/**
