@@ -39,6 +39,7 @@ public class FirstFit extends Memory {
 		int next = this.cells[pointer.pointsAt() + 1];
 		int size; //number of free cells in a row (for this pointer (?))
 
+		//GÖR OM TILL WHILE-LOOP
 		for(int i = firstFreeIndex; i < this.cells.length; next++)  { //searches list (this.cells) after free space, starts with the first free space (firstFree)
 
 			size = this.cells[pointer.pointsAt()];
