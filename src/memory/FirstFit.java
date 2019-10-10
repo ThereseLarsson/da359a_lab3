@@ -79,6 +79,9 @@ public class FirstFit extends Memory {
 		}
 
 		//uppdatera free! (firstFreeIndex? freeList?) (ska peka på den första lediga cellen) - hur?
+		if(om firstFree > beginningAddress) {
+			//peka om firstFree, men hur?
+		}
 	}
 	
 	/**
