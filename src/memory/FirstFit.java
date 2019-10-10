@@ -6,7 +6,7 @@ import java.util.LinkedList;
  * This memory model allocates memory cells based on the first-fit method.
  * deluppgift 1
  *
- * Väljer att jobba "direkt" i minnet istället för att använda Pointer.
+ * Väljer att jobba "direkt" i minnet.
  * 
  * @author "Johan Holmberg, Malmö university"
  * @since 1.0
@@ -14,16 +14,17 @@ import java.util.LinkedList;
 public class FirstFit extends Memory {
 	private int segmentLength; //storlek på segmentet av lediga blockplatser (ska användas för att lagra det bästa alternativet hittills)
 	private int firstFreeIndex; //freelist blir en int som pekar på första lediga plats
-	Pointer freeList;
+	private Pointer freeList;
 
 	/**
 	 * Initializes an instance of a first fit-based memory.
 	 *
-	 * @param totalMemoryCells The (total) number of cells.
+	 * @param totalNbrMemoryCells The (total) number of cells.
 	 */
-	public FirstFit(int totalMemoryCells) {
-		super(totalMemoryCells);
+	public FirstFit(int totalNbrMemoryCells) {
+		super(totalNbrMemoryCells);
 		firstFreeIndex = 0;
+		segmentLength = 0;
 		// TODO Implement this!
 	}
 
@@ -36,11 +37,13 @@ public class FirstFit extends Memory {
 	@Override
 	public Pointer alloc(int sizeToAllocate) { //använd pointer.address (får en int)
 		Pointer pointer = new Pointer(firstFreeIndex, this); //POINTER SKA BÖRJA MED ATT PEKA PÅ NOLL
-		int next = this.cells[pointer.pointsAt() + 1];
-		int size; //number of free cells in a row (for this pointer (?))
 
-		//GÖR OM TILL WHILE-LOOP
-		for(int i = firstFreeIndex; i < this.cells.length; next++)  { //searches list (this.cells) after free space, starts with the first free space (firstFree)
+		int next = this.cells[pointer.pointsAt() + 1]; //what?
+		int size; //number of free cells in a row (for this pointer (?))
+		//freeList = ??;
+
+
+		while(freeList > -1)  { //searches list (this.cells) after free space, starts with the first free space (firstFree)
 
 			size = this.cells[pointer.pointsAt()];
 
@@ -63,14 +66,24 @@ public class FirstFit extends Memory {
 	/**
 	 * Releases a number of data cells
 	 * 
-	 * @param p The pointer to release.
+	 * @param pointer The pointer to release.
 	 */
 	@Override
-	public void release(Pointer p) {
-	    int address = p.pointsAt(); //rätt?? returns the address that the pointer p is pointing at
+	public void release(Pointer pointer) {
+	    int address = pointer.pointsAt(); //rätt?? returns the (begynnelse)address that the pointer p is pointing at
 
-		//använd pointer.address för att få addressen för det som ska deallokeras
-		//uppdatera free! (ska peka på den första lediga cellen)
+		//pseudokod
+		while(så länge som this.cells[address] är skilt från -1 ) {
+			sätt this.cells[address] nuvarande plats till -1;
+			adress++;
+		}
+
+		//uppdatera free! (firstFreeIndex? freeList?) (ska peka på den första lediga cellen) - hur?
+
+		while(this.cells[address] != -1) {
+			this.cells[address] = -1;
+			address++;
+		}
 	}
 	
 	/**
