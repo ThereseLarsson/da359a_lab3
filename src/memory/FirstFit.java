@@ -37,7 +37,7 @@ public class FirstFit extends Memory {
 		int current = freeList;
 		int next = this.cells[pointer.pointsAt() + 1]; //får adressen till nästa "hop" lediga celler
 
-		while(current > -1)  { //searches list (this.cells) after free space, starts with the first free space
+		while(current > -1)  { //searches list (this.cells) after free space, starts with the first free space. Om indexet = -1 så har vi nått this.cells slut
 
 			size = this.cells[pointer.pointsAt()]; //antalet celler i rad som är lediga
 
