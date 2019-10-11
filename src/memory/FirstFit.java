@@ -12,7 +12,6 @@ import java.util.LinkedList;
  * @since 1.0
  */
 public class FirstFit extends Memory {
-	private int segmentLength; //storlek på segmentet av lediga blockplatser (ska användas för att lagra det bästa alternativet hittills)
 	private int firstFreeIndex; //freelist blir en int som pekar på första lediga plats
 	private Pointer freeList;
 
@@ -24,7 +23,6 @@ public class FirstFit extends Memory {
 	public FirstFit(int totalNbrMemoryCells) {
 		super(totalNbrMemoryCells);
 		firstFreeIndex = 0;
-		segmentLength = 0;
 		// TODO Implement this!
 	}
 
@@ -37,20 +35,23 @@ public class FirstFit extends Memory {
 	@Override
 	public Pointer alloc(int sizeToAllocate) { //använd pointer.address (får en int)
 		Pointer pointer = new Pointer(firstFreeIndex, this); //POINTER SKA BÖRJA MED ATT PEKA PÅ NOLL
+		int size; //antalet celler i rad som är lediga
+		int current = firstFreeIndex;
+		int next = this.cells[pointer.pointsAt() + 1]; //får adressen till nästa "hop" lediga celler
 
-		int next = this.cells[pointer.pointsAt() + 1]; //what?
-		int size; //number of free cells in a row (for this pointer (?))
-		//freeList = ??;
+		while(next > -1)  { //searches list (this.cells) after free space, starts with the first free space
 
-
-		while(freeList > -1)  { //searches list (this.cells) after free space, starts with the first free space (firstFree)
-
-			size = this.cells[pointer.pointsAt()];
+			size = this.cells[pointer.pointsAt()]; //antalet celler i rad som är lediga
 
 			if(size >= sizeToAllocate) {
-				//uppdatera firstFreeIndex
-				pointer.pointAt(address här); //addressen (= första indexet) där sekvensen av de lediga cellerna (i rad) börjar
+				//uppdatera firstFreeIndex - hur???
+				pointer.pointAt(current); //adressen (= första indexet) där sekvensen av de lediga cellerna (i rad) börjar
 				return pointer;
+
+			} else {
+				current = next;
+				next = this.cells[current + 1]; //får adressen till nästa "hop" lediga celler
+				//uppdatera firstFreeIndex - hur???
 			}
 		}
 
