@@ -51,7 +51,6 @@ public class FirstFit extends Memory {
 					//om current = freeList --> peka om freeList till: current + sizeToAllocate
 
 				}
-
 				pointer.pointAt(current); //adressen (= första indexet) där sekvensen av de lediga cellerna (i rad) börjar
 				return pointer;
 
