@@ -58,7 +58,6 @@ public class FirstFit extends Memory {
 			} else {
 				current = next; //vill ha kvar den nuvarande cellen vi är på
 				next = this.cells[current + 1]; //får adressen till nästa "hop" lediga celler
-				//uppdatera firstFreeIndex - hur???
 			}
 		}
 
