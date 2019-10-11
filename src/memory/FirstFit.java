@@ -12,8 +12,7 @@ import java.util.LinkedList;
  * @since 1.0
  */
 public class FirstFit extends Memory {
-	private int firstFreeIndex; //freelist blir en int som pekar på första lediga plats
-	private Pointer freeList;
+	private int  freeList;
 
 	/**
 	 * Initializes an instance of a first fit-based memory.
@@ -22,8 +21,7 @@ public class FirstFit extends Memory {
 	 */
 	public FirstFit(int totalNbrMemoryCells) {
 		super(totalNbrMemoryCells);
-		firstFreeIndex = 0;
-		// TODO Implement this!
+		freeList = 0;
 	}
 
 	/**
@@ -34,22 +32,26 @@ public class FirstFit extends Memory {
 	 */
 	@Override
 	public Pointer alloc(int sizeToAllocate) { //använd pointer.address (får en int)
-		Pointer pointer = new Pointer(firstFreeIndex, this); //POINTER SKA BÖRJA MED ATT PEKA PÅ NOLL
+		Pointer pointer = new Pointer(freeList, this); //POINTER SKA BÖRJA MED ATT PEKA PÅ NOLL
 		int size; //antalet celler i rad som är lediga
-		int current = firstFreeIndex;
+		int current = freeList;
 		int next = this.cells[pointer.pointsAt() + 1]; //får adressen till nästa "hop" lediga celler
 
-		while(next > -1)  { //searches list (this.cells) after free space, starts with the first free space
+		while(current > -1)  { //searches list (this.cells) after free space, starts with the first free space
 
 			size = this.cells[pointer.pointsAt()]; //antalet celler i rad som är lediga
 
 			if(size >= sizeToAllocate) {
-				//uppdatera firstFreeIndex - hur???
+				if(size == sizeToAllocate) {
+					//uppdatera freeList - hur?
+				} else if(size > sizeToAllocate) { //betyder att det blir en lucka med lediga celler, peka om freeList till första lediga cell i luckan om det inte finns ledig plats innan den allokerade platsen
+					//uppdatera freeList - hur?
+				}
 				pointer.pointAt(current); //adressen (= första indexet) där sekvensen av de lediga cellerna (i rad) börjar
 				return pointer;
 
 			} else {
-				current = next;
+				current = next; //vill ha kvar den nuvarande cellen vi är på
 				next = this.cells[current + 1]; //får adressen till nästa "hop" lediga celler
 				//uppdatera firstFreeIndex - hur???
 			}
