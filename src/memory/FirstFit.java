@@ -37,15 +37,14 @@ public class FirstFit extends Memory {
 		int current = freeList; //nuvarande cell-adress
 		int next = this.cells[pointer.pointsAt() + 1]; //får adressen till nästa "hop" lediga celler
 
-		while(current > -1)  { //searches list (this.cells) after free space, starts with the first free space. Om indexet = -1 så har vi nått this.cells slut
+		while(next > -1)  { //searches list (this.cells) after free space, starts with the first free space. Om indexet = -1 så har vi nått this.cells slut
 
 			size = this.cells[pointer.pointsAt()]; //antalet celler i rad som är lediga
-			//uppdatera pointer?
 
 			if(size >= sizeToAllocate) {
 				if(size == sizeToAllocate) { //betyder att det inte blir någon lucka i den lediga "hopen" av lediga minnesceller
 					//uppdatera freeList - hur?
-					//om current = freeList --> peka om freeList till nästa lediga "hops" första address, blir det freeList = next; ?
+					//om current = freeList --> peka om freeList till nästa lediga "hop":s första address, blir det freeList = next; ?
 
 				} else if(size > sizeToAllocate) { //betyder att det blir en lucka med lediga celler, peka om freeList till första lediga cell i luckan om det inte finns ledig plats innan den allokerade platsen
 					//uppdatera freeList - hur?
@@ -67,7 +66,7 @@ public class FirstFit extends Memory {
 		//returnera begynnelse-adressen för det segmentet (+ uppdatera firstFree)
 		//pointer.address (för vilket syfte??)
 
-		return pointer; //allokeringen misslyckades, vad returnerar vi då?
+		return null; //allokeringen misslyckades, vad returnerar vi då?
 	}
 
 	/**
