@@ -34,12 +34,13 @@ public class FirstFit extends Memory {
 	public Pointer alloc(int sizeToAllocate) { //använd pointer.address (får en int)
 		Pointer pointer = new Pointer(freeList, this); //POINTER SKA BÖRJA MED ATT PEKA PÅ NOLL
 		int size; //antalet celler i rad som är lediga
-		int current = freeList;
+		int current = freeList; //nuvarande cell-adress
 		int next = this.cells[pointer.pointsAt() + 1]; //får adressen till nästa "hop" lediga celler
 
 		while(current > -1)  { //searches list (this.cells) after free space, starts with the first free space. Om indexet = -1 så har vi nått this.cells slut
 
 			size = this.cells[pointer.pointsAt()]; //antalet celler i rad som är lediga
+			//uppdatera pointer?
 
 			if(size >= sizeToAllocate) {
 				if(size == sizeToAllocate) { //betyder att det inte blir någon lucka i den lediga "hopen" av lediga minnesceller
