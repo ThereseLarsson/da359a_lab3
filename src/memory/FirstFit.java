@@ -71,18 +71,18 @@ public class FirstFit extends Memory {
 	 */
 	@Override
 	public void release(Pointer pointer) {
-	    int address = pointer.pointsAt(); //rätt?? returns the (begynnelse)address that the pointer p is pointing at
-		int beginningAddress = address; //vill behålla begynnelseaddressen (kan behövas när vi ska uppdatera firstFree)
+	    //int address = pointer.pointsAt(); //rätt?? returns the (begynnelse)address that the pointer p is pointing at
+		//int beginningAddress = address; //vill behålla begynnelseaddressen (kan behövas när vi ska uppdatera firstFree)
 
-		while(this.cells[address] != -1) { //så länge som this.cells[address] är skilt från -1, om vi får this.cells[address] == -1 så har vi nått slutet av det segments som ska deallokeras (?)
-			this.cells[address] = -1; //sätt this.cells[address] nuvarande plats till -1;
-			address++; //sätt address = -1 så vi hoppar till nästa plats i this.cells för att kolla om den är upptagen eller tom (dvs. -1)
-		}
+		//while(this.cells[address] != -1) { //så länge som this.cells[address] är skilt från -1, om vi får this.cells[address] == -1 så har vi nått slutet av det segments som ska deallokeras (?)
+			//this.cells[address] = -1; //sätt this.cells[address] nuvarande plats till -1;
+			//address++; //sätt address = -1 så vi hoppar till nästa plats i this.cells för att kolla om den är upptagen eller tom (dvs. -1)
+		//}
 
 		//uppdatera free! (firstFreeIndex? freeList?) (ska peka på den första lediga cellen) - hur?
-		if(om firstFree > beginningAddress) {
+		//if(om firstFree > beginningAddress) {
 			//peka om firstFree, men hur?
-		}
+		//}
 	}
 	
 	/**
