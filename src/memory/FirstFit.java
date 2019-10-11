@@ -28,7 +28,7 @@ public class FirstFit extends Memory {
 	 * Allocates a number of memory cells.
 	 *
 	 * @param sizeToAllocate the number of cells to allocate.
-	 * @return The address of the first cell.
+	 * @return The address of the first cell (to be allocated).
 	 */
 	@Override
 	public Pointer alloc(int sizeToAllocate) { //använd pointer.address (får en int)
