@@ -44,7 +44,7 @@ public class FirstFit extends Memory {
 			if(size >= sizeToAllocate) {
 				if(size == sizeToAllocate) { //betyder att det inte blir någon lucka i den lediga "hopen" av lediga minnesceller
 					//uppdatera freeList - hur?
-					//om current = freeList --> peka om freeList till nästa lediga "hops" första address
+					//om current = freeList --> peka om freeList till nästa lediga "hops" första address, blir det freeList = next; ?
 
 				} else if(size > sizeToAllocate) { //betyder att det blir en lucka med lediga celler, peka om freeList till första lediga cell i luckan om det inte finns ledig plats innan den allokerade platsen
 					//uppdatera freeList - hur?
