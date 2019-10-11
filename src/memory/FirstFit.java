@@ -26,6 +26,7 @@ public class FirstFit extends Memory {
 
 	/**
 	 * Allocates a number of memory cells.
+	 * i den här deluppgiften ska vi "bara" peka om freeList
 	 *
 	 * @param sizeToAllocate the number of cells to allocate.
 	 * @return The address of the first cell (to be allocated).
@@ -43,11 +44,11 @@ public class FirstFit extends Memory {
 
 			if(size >= sizeToAllocate) {
 				if(size == sizeToAllocate) { //betyder att det inte blir någon lucka i den lediga "hopen" av lediga minnesceller
-					//uppdatera freeList - hur?
+					//UPPDATERA FREELIST
 					//om current = freeList --> peka om freeList till nästa lediga "hop":s första address, blir det freeList = next; ?
 
 				} else if(size > sizeToAllocate) { //betyder att det blir en lucka med lediga celler, peka om freeList till första lediga cell i luckan om det inte finns ledig plats innan den allokerade platsen
-					//uppdatera freeList - hur?
+					//UPPDATERA FREELIST
 					//om current = freeList --> peka om freeList till: current + sizeToAllocate
 
 				}
@@ -59,12 +60,6 @@ public class FirstFit extends Memory {
 				next = this.cells[current + 1]; //får adressen till nästa "hop" lediga celler
 			}
 		}
-
-		//-------------------------------------
-		//i den här deluppgiften ska vi "bara" peka om firstFree
-		//för det behöver vi ta reda på den plats där segmentet passar in
-		//returnera begynnelse-adressen för det segmentet (+ uppdatera firstFree)
-		//pointer.address (för vilket syfte??)
 
 		return null; //allokeringen misslyckades, vad returnerar vi då?
 	}
