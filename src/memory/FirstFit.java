@@ -66,7 +66,7 @@ public class FirstFit extends Memory {
 		//returnera begynnelse-adressen för det segmentet (+ uppdatera firstFree)
 		//pointer.address (för vilket syfte??)
 
-		return pointer; //allokeringen misslyckades | return new Pointer(begynnelseadress för blocket som ska allokeras, this);
+		return pointer; //allokeringen misslyckades, vad returnerar vi då?
 	}
 
 	/**
