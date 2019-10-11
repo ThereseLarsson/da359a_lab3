@@ -1,6 +1,5 @@
 package memory;
 
-import java.util.LinkedList;
 
 /**
  * This memory model allocates memory cells based on the first-fit method.
