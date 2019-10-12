@@ -25,7 +25,7 @@ public class FirstFit extends Memory {
 
 	/**
 	 * Allocates a number of memory cells.
-	 * i den här deluppgiften ska vi "bara" peka om freeList
+	 * i den här deluppgiften ska vi "bara" peka om freeList.
 	 *
 	 * @param sizeToAllocate the number of cells to allocate.
 	 * @return The address of the first cell (to be allocated).
