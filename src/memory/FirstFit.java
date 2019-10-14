@@ -37,26 +37,34 @@ public class FirstFit extends Memory {
 		Pointer pointer = new Pointer(freeList, this); //POINTER SKA BÖRJA MED ATT PEKA PÅ NOLL
 		int size; //antalet celler i rad som är lediga
 		int current = freeList; //nuvarande cell-adress
-		int next = this.cells[pointer.pointsAt() + 1]; //får adressen till nästa "hop" lediga celler
-        //System.out.println(next);
+		int next = this.cells[freeList +1]; //får adressen till nästa "hop" lediga celler
+        //System.out.println("next är: " + next);
+        //System.out.println("current är: " + current);
         //System.exit(0);
 
+        size = this.cells[pointer.pointsAt()]; //antalet celler i rad som är lediga
+
 		do {
-			size = this.cells[pointer.pointsAt()]; //antalet celler i rad som är lediga
+			//size = this.cells[pointer.pointsAt()]; //antalet celler i rad som är lediga
 
 			if(size >= sizeToAllocate) {
 				if(size == sizeToAllocate) { //betyder att det inte blir någon lucka i den lediga "hopen" av lediga minnesceller
 					//UPPDATERAR FREELIST: om current == freeList --> peka om freeList till nästa lediga "hop":s första address, blir det freeList = next; ?
 					if(current == freeList) {
 						freeList = next; //rätt såhär??
-					}
+                    }
 
 				} else if(size > sizeToAllocate) { //betyder att det blir en lucka med lediga celler, peka om freeList till första lediga cell i luckan om det inte finns ledig plats innan den allokerade platsen
 					//UPPDATERAR FREELIST: om current == freeList --> peka om freeList till: current + sizeToAllocate
 					if(current == freeList) {
 						freeList = current + sizeToAllocate;
-					}
+                    }
 				}
+
+				//måste allokera
+				size = this.cells[freeList];
+                next = this.cells[freeList + 1];
+
 				pointer.pointAt(current); //adressen (= första indexet) där sekvensen av de lediga cellerna (i rad) börjar
 				return pointer;
 
@@ -65,7 +73,8 @@ public class FirstFit extends Memory {
 				next = this.cells[current + 1]; //får adressen till nästa "hop" lediga celler
 			}
 
-			System.out.println("next är: " + next);
+			//System.out.println("next är: " + next);
+			//System.exit(0);
 
 		} while(next > -1); //searches list (this.cells) after free space, starts with the first free space. Om indexet = -1 så har vi nått this.cells slut
 
