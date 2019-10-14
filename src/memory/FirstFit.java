@@ -21,6 +21,8 @@ public class FirstFit extends Memory {
 	public FirstFit(int totalNbrMemoryCells) {
 		super(totalNbrMemoryCells);
 		freeList = 0;
+		this.cells[0] = totalNbrMemoryCells;
+		this.cells[1] = -1;
 	}
 
 	/**
@@ -36,6 +38,8 @@ public class FirstFit extends Memory {
 		int size; //antalet celler i rad som är lediga
 		int current = freeList; //nuvarande cell-adress
 		int next = this.cells[pointer.pointsAt() + 1]; //får adressen till nästa "hop" lediga celler
+        //System.out.println(next);
+        //System.exit(0);
 
 		do {
 			size = this.cells[pointer.pointsAt()]; //antalet celler i rad som är lediga
@@ -60,6 +64,8 @@ public class FirstFit extends Memory {
 				current = next; //vill ha kvar den nuvarande cellen vi är på
 				next = this.cells[current + 1]; //får adressen till nästa "hop" lediga celler
 			}
+
+			//System.out.println(next);
 
 		} while(next > -1); //searches list (this.cells) after free space, starts with the first free space. Om indexet = -1 så har vi nått this.cells slut
 
