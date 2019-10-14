@@ -32,6 +32,59 @@ public class SimpleBatch {
 	public void run(Memory m) {
 		Pointer p1, p2, p3, p4, p5, p6;
 
+		System.out.println("Hej");
+		p1 = m.alloc(20);
+		System.out.println("alloc 1 klar");
+
+		p1.write(range(1, 20));
+		System.out.println("write 1 klar");
+
+		p2 = m.alloc(5);
+		System.out.println("alloc 2 klar");
+
+		p2.write(range(38, 42));
+		System.out.println("write 2 klar");
+
+		p3 = m.alloc(30);
+		System.out.println("alloc 3 klar");
+
+		p3.write(range(100, 129));
+		System.out.println("write 3 klar");
+
+		p4 = m.alloc(15);
+		System.out.println("alloc 4 klar");
+
+		p4.write(range(101, 115));
+		System.out.println("write 4 klar");
+
+		//m.release(p3);
+		//m.release(p1);
+
+		p5 = m.alloc(10);
+		System.out.println("alloc 5 klar");
+
+		p5.write(range(70, 79));
+		System.out.println("write 5 klar");
+
+		p6 = m.alloc(15);
+		System.out.println("alloc 6 klar");
+
+		p6.write(range(1, 15));
+		System.out.println("write 6 klar");
+		
+		//m.printLayout();
+
+		//Upptaget - FirstFit
+		//0-589
+		//620-949
+
+		//Ledigt - FirstFit
+		//590-619
+		//950-999
+	}
+	public void runOriginal(Memory m) {
+		Pointer p1, p2, p3, p4, p5, p6;
+
 		System.out.println("run anropades");
 		p1 = m.alloc(20);
 		System.out.println("alloc skedde!");
@@ -49,7 +102,7 @@ public class SimpleBatch {
 		p5.write(range(70, 79));
 		p6 = m.alloc(15);
 		p6.write(range(1, 15));
-		
+
 		m.printLayout();
 
 		//Upptaget - FirstFit

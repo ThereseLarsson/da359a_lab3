@@ -65,7 +65,7 @@ public class FirstFit extends Memory {
 				next = this.cells[current + 1]; //får adressen till nästa "hop" lediga celler
 			}
 
-			//System.out.println(next);
+			System.out.println("next är: " + next);
 
 		} while(next > -1); //searches list (this.cells) after free space, starts with the first free space. Om indexet = -1 så har vi nått this.cells slut
 
