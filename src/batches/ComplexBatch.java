@@ -74,7 +74,7 @@ public class ComplexBatch {
 		m.release(ps[12]);
 		ps[16] = m.alloc(170);
 		ps[16].write(range(10001, 10170));
-//		m.compact();
+//		m.compact(); //ska inte göra den här deluppgiften
 		ps[17] = m.alloc(30);
 		ps[17].write(range(40, 65));
 		ps[18] = m.alloc(40);

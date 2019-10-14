@@ -56,7 +56,8 @@ public class SimpleBatch {
 		//Ledigt - FirstFit
 		//590-619
 		//950-999
-		
+
+		//ska inte göra den här deluppgiften
 //		m.compact();
 //		System.out.println("After compact()");
 //		m.printLayout();
