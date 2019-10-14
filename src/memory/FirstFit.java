@@ -42,13 +42,16 @@ public class FirstFit extends Memory {
 
 			if(size >= sizeToAllocate) {
 				if(size == sizeToAllocate) { //betyder att det inte blir någon lucka i den lediga "hopen" av lediga minnesceller
-					//UPPDATERA FREELIST
-					//om current = freeList --> peka om freeList till nästa lediga "hop":s första address, blir det freeList = next; ?
+					//UPPDATERAR FREELIST: om current == freeList --> peka om freeList till nästa lediga "hop":s första address, blir det freeList = next; ?
+					if(current == freeList) {
+						freeList = next; //rätt såhär??
+					}
 
 				} else if(size > sizeToAllocate) { //betyder att det blir en lucka med lediga celler, peka om freeList till första lediga cell i luckan om det inte finns ledig plats innan den allokerade platsen
-					//UPPDATERA FREELIST
-					//om current = freeList --> peka om freeList till: current + sizeToAllocate
-
+					//UPPDATERAR FREELIST: om current == freeList --> peka om freeList till: current + sizeToAllocate
+					if(current == freeList) {
+						freeList = current + sizeToAllocate;
+					}
 				}
 				pointer.pointAt(current); //adressen (= första indexet) där sekvensen av de lediga cellerna (i rad) börjar
 				return pointer;
