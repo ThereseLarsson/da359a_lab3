@@ -37,7 +37,7 @@ public class FirstFit extends Memory {
 	 */
 	@Override
 	public Pointer alloc(int sizeToAllocate) { //använd pointer.address (får en int)
-		size++;
+		size++; //eller var det sizeToAllocate som ska ++?
 		int newCurrent;
 		Pointer pointer = new Pointer(freeList, this); //POINTER SKA BÖRJA MED ATT PEKA PÅ NOLL
 		current = freeList; //nuvarande cell-adress
