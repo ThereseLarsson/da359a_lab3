@@ -46,7 +46,6 @@ public class FirstFit extends Memory {
 		System.out.println("\n LETAR PLATS... freeList är: " + freeList);
 		System.out.println("LETAR PLATS... next är: " + next);
         System.out.println("LETAR PLATS... current är: " + current);
-        //System.exit(0);
 
         //size = this.cells[pointer.pointsAt()]; //antalet celler i rad som är lediga
 
@@ -54,6 +53,7 @@ public class FirstFit extends Memory {
 			size = this.cells[pointer.pointsAt()]; //antalet celler i rad som är lediga
 			next = this.cells[current + 1]; //VAD SKA next VARA EFTER FÖRSTA ALLOKERINGEN???? --> -1
 
+			//här pekar vi om freeList (dvs pekaren till den första lediga cellen i minnet (dvs. this.cells))
 			if(size >= sizeToAllocate) {
 				if(size == sizeToAllocate) { //betyder att det inte blir någon lucka i den lediga "hopen" av lediga minnesceller
 					//UPPDATERAR FREELIST: om current == freeList --> peka om freeList till nästa lediga "hop":s första adress, blir det freeList = next; ?
@@ -108,6 +108,8 @@ public class FirstFit extends Memory {
 		//om addressen som deallokeringen börjar på är mindre än freeList så vill vi peka om freeList till begynnelseadressen (detta eftersom freeList alltid ska peka på första lediga cellen i minnet (this.cells))
 		if(freeList > address) { //om freeList > begynnelseadressen
 			freeList = address;
+			//peka om current?
+			//peka om next?
 		}
 
 		while(this.cells[address] != -1) { //så länge som this.cells[address] är skilt från -1 (då -1 innebär att platsen är ledig), om vi får this.cells[address] == -1 så har vi nått slutet av det segments som ska deallokeras (?)
