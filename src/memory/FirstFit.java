@@ -92,7 +92,7 @@ public class FirstFit extends Memory {
 
 		} while(next > -1); //searches list (this.cells) after free space, starts with the first free space. Om indexet = -1 så har vi nått this.cells slut
 
-		return null; //allokeringen misslyckades, vad returnerar vi då? - null
+		return null; //kommer vi hit så har allokeringen misslyckats, vad returnerar vi då? - svar: null
 	}
 
 	/**
