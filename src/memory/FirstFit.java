@@ -1,6 +1,5 @@
 package memory;
 
-
 /**
  * This memory model allocates memory cells based on the first-fit method.
  * deluppgift 1
@@ -26,7 +25,7 @@ public class FirstFit extends Memory {
 		freeList = 0;
 		this.cells[0] = totalNbrMemoryCells;
 		this.cells[1] = -1;
-		//System.out.println(this.cells[300]);
+		//System.out.println(this.cells[627]);
 	}
 
 	/**
@@ -38,9 +37,11 @@ public class FirstFit extends Memory {
 	 */
 	@Override
 	public Pointer alloc(int sizeToAllocate) { //använd pointer.address (får en int)
+		size++;
+		int newCurrent;
 		Pointer pointer = new Pointer(freeList, this); //POINTER SKA BÖRJA MED ATT PEKA PÅ NOLL
 		current = freeList; //nuvarande cell-adress
-		next = this.cells[current + 1]; //får adressen till nästa "hop" lediga celler - BLIR 0
+		//next = this.cells[current + 1]; //får adressen till nästa "hop" lediga celler - BLIR 0
 
 		System.out.println("\n LETAR PLATS... freeList är: " + freeList);
 		System.out.println("LETAR PLATS... next är: " + next);
@@ -68,8 +69,14 @@ public class FirstFit extends Memory {
                     }
 				}
 
-				//måste allokera
+				//det är här som allokeringen sker
 				size = this.cells[freeList];
+				newCurrent = current + sizeToAllocate;
+				this.cells[newCurrent] = this.cells[current] + size;
+				this.cells[newCurrent + 1] = this.cells[current + 1];
+				this.cells[current + 1] = this.cells[newCurrent + 1];
+				this.cells[current] = sizeToAllocate;
+
 				//next = this.cells[current + 1]; //VAD SKA next VARA EFTER FÖRSTA ALLOKERINGEN????
 				System.out.println("next är: " + next);
                 System.out.println("ALLOKERING DONE");
