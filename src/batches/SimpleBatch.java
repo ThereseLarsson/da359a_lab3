@@ -56,22 +56,24 @@ public class SimpleBatch {
 		p4.write(range(101, 115));
 		System.out.println("write 4 klar");
 
-		//m.release(p3);
-		//m.release(p1);
+		System.exit(0); //SKA BORT NÄR release() ÄR FÄRDIGIMPLEMENTERAD
 
-		//p5 = m.alloc(10);
-		//System.out.println("alloc 5 klar");
+		m.release(p3);
+		m.release(p1);
 
-		//p5.write(range(70, 79));
-		//System.out.println("write 5 klar");
+		p5 = m.alloc(10);
+		System.out.println("alloc 5 klar");
 
-		//p6 = m.alloc(15);
-		//System.out.println("alloc 6 klar");
+		p5.write(range(70, 79));
+		System.out.println("write 5 klar");
 
-		//p6.write(range(1, 15));
-		//System.out.println("write 6 klar");
+		p6 = m.alloc(15);
+		System.out.println("alloc 6 klar");
+
+		p6.write(range(1, 15));
+		System.out.println("write 6 klar");
 		
-		//m.printLayout();
+		m.printLayout();
 
 		//Upptaget - FirstFit
 		//0-589

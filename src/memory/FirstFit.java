@@ -26,6 +26,7 @@ public class FirstFit extends Memory {
 		freeList = 0;
 		this.cells[0] = totalNbrMemoryCells;
 		this.cells[1] = -1;
+		//System.out.println(this.cells[300]);
 	}
 
 	/**
@@ -39,7 +40,7 @@ public class FirstFit extends Memory {
 	public Pointer alloc(int sizeToAllocate) { //använd pointer.address (får en int)
 		Pointer pointer = new Pointer(freeList, this); //POINTER SKA BÖRJA MED ATT PEKA PÅ NOLL
 		current = freeList; //nuvarande cell-adress
-		next = this.cells[current + 1]; //får adressen till nästa "hop" lediga celler
+		next = this.cells[current + 1]; //får adressen till nästa "hop" lediga celler - BLIR 0
 
 		System.out.println("\n LETAR PLATS... freeList är: " + freeList);
 		System.out.println("LETAR PLATS... next är: " + next);
@@ -50,15 +51,13 @@ public class FirstFit extends Memory {
 
 		do {
 			size = this.cells[pointer.pointsAt()]; //antalet celler i rad som är lediga
+			next = this.cells[current + 1]; //VAD SKA next VARA EFTER FÖRSTA ALLOKERINGEN???? --> -1
 
 			if(size >= sizeToAllocate) {
-
-				next = this.cells[current + 1]; //VAD SKA next VARA EFTER FÖRSTA ALLOKERINGEN???? --> -1
-
 				if(size == sizeToAllocate) { //betyder att det inte blir någon lucka i den lediga "hopen" av lediga minnesceller
 					//UPPDATERAR FREELIST: om current == freeList --> peka om freeList till nästa lediga "hop":s första adress, blir det freeList = next; ?
 					if(current == freeList) {
-						freeList = next; //rätt såhär??
+						freeList = next;
                     }
 
 				} else if(size > sizeToAllocate) { //betyder att det blir en lucka med lediga celler, peka om freeList till första lediga cell i luckan om det inte finns ledig plats innan den allokerade platsen
