@@ -103,7 +103,8 @@ public class FirstFit extends Memory {
 	@Override
 	public void release(Pointer pointer) {
 	    int beginningAddress = pointer.pointsAt(); //returnerar (begynnelse)adressen som pekaren (pointer som fås i metodhuvudet) pekar på
-        int firstEmpty = freeList;
+        int rCurrent;
+        int rNewCurrent;
 
 		/*
 		om freeList kommer EFTER adressen för det som ska deallokeras så vill vi peka om freeList till begynnelseadressen
@@ -111,9 +112,15 @@ public class FirstFit extends Memory {
 		(dvs. om freeList är STÖRRE än beginningAddress)
 		 */
 		if(freeList > beginningAddress) {
-			//peka om freeList
-			//peka om current?
-			//peka om next?
+			freeList = beginningAddress; //pekar om freeList till begynnelseAdressen för det som ska deallokeras
+
+			//peka om current
+			//this.cells[rNewCurrent | begynnelseadressen?] = ... längden på gamla freeList + deallokeringsblockets längd
+			//this.cells[rNewCurrent + 1] = this.cells[rCurrent + 1];
+			//this.cells[rCurrent] = ... ska inte längre peka på något, men hur?
+			//this.cells[rCurrent + 1] = ... ska inte längre peka på något, men hur?
+
+			//peka om next
 
         //om freeList kommer INNAN adressen för det som ska deallokeras
 		} else {
