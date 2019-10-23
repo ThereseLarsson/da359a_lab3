@@ -124,7 +124,10 @@ public class FirstFit extends Memory {
 			//peka om next - behöver detta göras??
 			//next = this.cells[rNewCurrent + 1];
 
-        //om freeList kommer INNAN adressen för det som ska deallokeras
+        /*
+        om freeList kommer INNAN adressen för det som ska deallokeras
+        då behöver freeList INTE pekas om, dvs. freeList ska inte ändra värde i detta fall
+         */
 		} else {
 
         }
