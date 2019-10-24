@@ -11,9 +11,9 @@ package memory;
  */
 public class FirstFit extends Memory {
 	private int  freeList;
-	private int size; //antalet celler i rad som är lediga
-	private int current; //addressen där vi är nu just nu
-	private int next; //addressen till nästa lediga plats
+	//private int size; //antalet celler i rad som är lediga
+	//private int current; //addressen där vi är nu just nu
+	//private int next; //addressen till nästa lediga plats
 
 	/**
 	 * Initializes an instance of a first fit-based memory.
@@ -37,14 +37,16 @@ public class FirstFit extends Memory {
 	 */
 	@Override
 	public Pointer alloc(int sizeToAllocate) { //använd pointer.address (får en int)
+		int size = 0; //kolla på vad det är!!
 		size++; //eller var det sizeToAllocate som ska ++?
+		int next;
 		int newCurrent;
 		Pointer pointer = new Pointer(freeList, this); //POINTER SKA BÖRJA MED ATT PEKA PÅ NOLL
-		current = freeList; //nuvarande cell-adress
+		int current = freeList; //nuvarande cell-adress
 		//next = this.cells[current + 1]; //får adressen till nästa "hop" lediga celler - BLIR 0
 
 		System.out.println("\n LETAR PLATS... freeList är: " + freeList);
-		System.out.println("LETAR PLATS... next är: " + next);
+		//System.out.println("LETAR PLATS... next är: " + next);
         System.out.println("LETAR PLATS... current är: " + current);
 
         //size = this.cells[pointer.pointsAt()]; //antalet celler i rad som är lediga
@@ -112,23 +114,31 @@ public class FirstFit extends Memory {
 		(detta eftersom freeList alltid ska peka på första lediga cellen i minnet (this.cells))
 		(dvs. om freeList är STÖRRE än beginningAddress)
 		 */
-		if(freeList > beginningAddress) {
+		if(rCurrent > beginningAddress) {
+			if(beginningAddress + 1 == rCurrent) { //om deallokeringen sker hela vägen fram till ett block av lediga celler
+				//peka om current i minnet och pekare till nästa block lediga celler i minnet
+				this.cells[rNewCurrent] = this.cells[rCurrent] + releaseLength; //längden på gamla freeList + deallokeringsblockets längd
+				this.cells[rNewCurrent + 1] = this.cells[rCurrent + 1]; //pekare till nästa
+
+			} else { //om deallokeringen INTE sker hela vägen fram till ett block av lediga celler
+				//this.cells[rNewCurrent] behöver inte uppdateras i det här fallet! dock behöver denna uppdateras i fallet där freeList kommer INNAN begynnelseadressen för deallokeringen
+				this.cells[rNewCurrent + 1] = this.cells[rCurrent];
+			}
+
 			freeList = beginningAddress; //pekar om freeList till begynnelseAdressen för det som ska deallokeras
 
-			//peka om current i minnet och pekare till nästa block lediga celler i minnet
-			//this.cells[rNewCurrent] = this.cells[rCurrent] + releaseLength; //längden på gamla freeList + deallokeringsblockets längd
-			//this.cells[rNewCurrent + 1] = this.cells[rCurrent + 1]; //pekare till nästa
-			//this.cells[rCurrent] = ... ska inte längre peka på något, men hur?
-			//this.cells[rCurrent + 1] = ... ska inte längre peka på något, men hur?
-
-			//peka om next - behöver detta göras??
-			//next = this.cells[rNewCurrent + 1];
 
         /*
         om freeList kommer INNAN adressen för det som ska deallokeras
         då behöver freeList INTE pekas om, dvs. freeList ska inte ändra värde i detta fall
          */
-		} else {
+		} else { //if (freeList < beginningAddress)
+			if(true) { //om deallokeringen sker hela vägen fram till ett block av lediga celler
+
+
+			} else { //om deallokeringen INTE sker hela vägen fram till ett block av lediga celler
+
+			}
 
         }
 	}
@@ -143,32 +153,16 @@ public class FirstFit extends Memory {
 	 */
 	@Override
 	public void printLayout() {
-		String resOccupied = "";
+		String resAllocated = "";
 		String resFree = "";
+		int pCurrent = freeList;
+		//int pNext = this.cells[current + 1];
 
-		for(int i = 0; i < this.cells.length; i++) {
-			if(this.cells[i] == -1 && i == 0 || this.cells[i] == -1 && this.cells[i - 1] != -1) { //if current free AND is the first element in the list || if current free AND previous not free
-				resFree += i + " - ";
-			} else if(this.cells[i] == -1 && i == this.cells.length - 1 || this.cells[i] == -1 && this.cells[i + 1] != -1) { //if current free AND is the last element in the list || if current free AND next not free
-				if(i == this.cells.length - 1) { //if last element
-					resFree += i;
-				} else {
-					resFree += i + "\n";
-				}
-			}
+		//while(pNext > -1) {
 
-			if(this.cells[i] != -1 && i == 0 || this.cells[i] != -1 && this.cells[i - 1] == -1) { //if current occupied AND is the first element in the list || if current occupied AND previous not occupied
-				resOccupied += i + " - ";
-			} else if(this.cells[i] != -1 && i == this.cells.length - 1 || this.cells[i] != -1 && this.cells[i + 1] == -1) { //if current occupied AND is the last element in the list || if current occupied AND next not occupied
-				if(i == this.cells.length - 1) { //if last element
-					resOccupied += i;
-				} else {
-					resOccupied += i + "\n";
-				}
-			}
-		}
+		//}
 
-		System.out.println("Allocated" + "\n" + resOccupied);
+		System.out.println("Allocated" + "\n" + resAllocated);
 		System.out.println("Free" + "\n" + resFree + "\n");
 	}
 }
