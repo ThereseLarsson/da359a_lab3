@@ -117,11 +117,13 @@ public class FirstFit extends Memory {
 		 */
 		if(rCurrent > beginningAddress) {
 			if(beginningAddress + 1 == rCurrent) { //om deallokeringen sker hela vägen fram till ett block av lediga celler
+
 				//peka om current i minnet och pekare till nästa block lediga celler i minnet
 				this.cells[rNewCurrent] = this.cells[rCurrent] + releaseLength; //längden på gamla freeList + deallokeringsblockets längd
 				this.cells[rNewCurrent + 1] = this.cells[rCurrent + 1]; //pekare till nästa
 
 			} else { //om deallokeringen INTE sker hela vägen fram till ett block av lediga celler
+
 				//this.cells[rNewCurrent] behöver inte uppdateras i det här fallet! dock behöver denna uppdateras i fallet där freeList kommer INNAN begynnelseadressen för deallokeringen
 				this.cells[rNewCurrent + 1] = this.cells[rCurrent];
 			}
@@ -157,11 +159,11 @@ public class FirstFit extends Memory {
 		String resAllocated = "";
 		String resFree = "";
 		int pCurrent = freeList;
-		//int pNext = this.cells[current + 1];
+		int pNext = this.cells[pCurrent + 1];
 
-		//while(pNext > -1) {
+		while(pNext > -1) {
 
-		//}
+		}
 
 		System.out.println("Allocated" + "\n" + resAllocated);
 		System.out.println("Free" + "\n" + resFree + "\n");
