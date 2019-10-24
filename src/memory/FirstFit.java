@@ -46,9 +46,9 @@ public class FirstFit extends Memory {
 		int current = freeList; //nuvarande cell-adress
 		//next = this.cells[current + 1]; //får adressen till nästa "hop" lediga celler - BLIR 0
 
-		System.out.println("\n LETAR PLATS... freeList är: " + freeList);
+		//System.out.println("\n LETAR PLATS... freeList är: " + freeList);
 		//System.out.println("LETAR PLATS... next är: " + next);
-        System.out.println("LETAR PLATS... current är: " + current);
+        //System.out.println("LETAR PLATS... current är: " + current);
 
         //size = this.cells[pointer.pointsAt()]; //antalet celler i rad som är lediga
 
@@ -81,7 +81,7 @@ public class FirstFit extends Memory {
 				this.cells[current] = sizeToAllocate;
 
 				//next = this.cells[current + 1]; //VAD SKA next VARA EFTER FÖRSTA ALLOKERINGEN????
-				System.out.println("next är: " + next);
+				//System.out.println("next är: " + next);
                 System.out.println("ALLOKERING DONE");
 
 				pointer.pointAt(current); //adressen (= första indexet) där sekvensen av de lediga cellerna (i rad) börjar
