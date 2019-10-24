@@ -115,7 +115,7 @@ public class FirstFit extends Memory {
 		if(freeList > beginningAddress) {
 			freeList = beginningAddress; //pekar om freeList till begynnelseAdressen för det som ska deallokeras
 
-			//peka om current och next i minnet
+			//peka om current i minnet och pekare till nästa block lediga celler i minnet
 			//this.cells[rNewCurrent] = this.cells[rCurrent] + releaseLength; //längden på gamla freeList + deallokeringsblockets längd
 			//this.cells[rNewCurrent + 1] = this.cells[rCurrent + 1]; //pekare till nästa
 			//this.cells[rCurrent] = ... ska inte längre peka på något, men hur?
