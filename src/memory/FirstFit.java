@@ -160,8 +160,12 @@ public class FirstFit extends Memory {
 		String resFree = "";
 		int pCurrent = freeList;
 		int pNext = this.cells[pCurrent + 1];
+		int freeCells;
 
 		while(pNext > -1) {
+		    freeCells = this.cells[pCurrent];
+		    //plussa resFree med freeCells
+            //gå vidare till nästa next i minnet
 
 		}
 
