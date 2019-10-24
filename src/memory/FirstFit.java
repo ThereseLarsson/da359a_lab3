@@ -11,7 +11,7 @@ package memory;
  */
 public class FirstFit extends Memory {
 	private int  freeList;
-	//private int size; //antalet celler i rad som är lediga
+	private int size; //antalet celler i rad som är lediga
 	//private int current; //addressen där vi är nu just nu
 	//private int next; //addressen till nästa lediga plats
 
@@ -37,9 +37,10 @@ public class FirstFit extends Memory {
 	 */
 	@Override
 	public Pointer alloc(int sizeToAllocate) { //använd pointer.address (får en int)
-		int size = 0; //kolla på vad det är!!
-		size++; //eller var det sizeToAllocate som ska ++?
-		int next;
+		//size++; //eller var det sizeToAllocate som ska ++?
+
+        int size;
+        int next;
 		int newCurrent;
 		Pointer pointer = new Pointer(freeList, this); //POINTER SKA BÖRJA MED ATT PEKA PÅ NOLL
 		int current = freeList; //nuvarande cell-adress
