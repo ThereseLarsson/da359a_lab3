@@ -156,20 +156,22 @@ public class FirstFit extends Memory {
 	 */
 	@Override
 	public void printLayout() {
-		String resAllocated = "";
-		String resFree = "";
+		String stringAllocated = "";
+		String stringFree = "";
 		int pCurrent = freeList;
 		int pNext = this.cells[pCurrent + 1];
-		int freeCells;
+		int nbrFreeCells = 0;
+		int nbrAllocatedCells = 0;
 
 		while(pNext > -1) {
-		    freeCells = this.cells[pCurrent];
-		    //plussa resFree med freeCells
-            //gå vidare till nästa next i minnet
+
+			nbrFreeCells = this.cells[pCurrent];
+
+			pCurrent++; //gå vidare till nästa lediga block av lediga celler i minnet
 
 		}
 
-		System.out.println("Allocated" + "\n" + resAllocated);
-		System.out.println("Free" + "\n" + resFree + "\n");
+		System.out.println("Allocated" + "\n" + stringAllocated);
+		System.out.println("Free" + "\n" + stringFree + "\n");
 	}
 }
