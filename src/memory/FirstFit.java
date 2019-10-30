@@ -135,7 +135,22 @@ public class FirstFit extends Memory {
         om freeList kommer INNAN adressen för det som ska deallokeras
         då behöver freeList INTE pekas om, dvs. freeList ska inte ändra värde i detta fall
          */
-		} else { //if (freeList < beginningAddress)
+		} else if(rCurrent < beginningAddress) { //if (freeList/rCurrent < beginningAddress)
+			boolean beginningAddressReached = false;
+			int rNext = rCurrent + 1;
+
+			/*
+			här vill vi fortsätta att stega igenom minnet (this.cells), med freeList som startpunkt, tills att
+			vi har hittat de två fria blocken celler som ligger mellan beginningAddress (dvs. det som ska deallokeras)
+			 */
+			while(beginningAddressReached == false) {
+				if(rCurrent < beginningAddress && rNext > beginningAddress) {
+					beginningAddressReached = true;
+				}
+				rCurrent = rNext;
+				rNext = this.cells[rCurrent + 1];
+			}
+
 			if(true) { //om deallokeringen sker hela vägen fram till ett block av lediga celler
 
 
