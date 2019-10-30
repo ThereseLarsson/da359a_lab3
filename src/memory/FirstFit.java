@@ -151,12 +151,26 @@ public class FirstFit extends Memory {
 				rNext = this.cells[rCurrent + 1];
 			}
 
-			if(true) { //om deallokeringen sker hela vägen fram till ett block av lediga celler
+			if(true) { // Scenario 2.1 + 2.2 - det finns ett ledigt block celler precis intill det som ska deallokeras
+
+				if(true) { //Scenario 2.1
+
+				} else { //Scenario 2.2
+
+				}
 
 
-			} else { //om deallokeringen INTE sker hela vägen fram till ett block av lediga celler
+			} else { // Scenario 2.3 + 2.4 - det finns INTE ett ledigt block celler precis intill det som ska deallokeras
 
+				if(true) { //Scenario 2.3
+
+				} else { //Scenario 2.4S
+
+				}
 			}
+
+			//om deallokeringen sker hela vägen fram till ett block av lediga celler
+			//om deallokeringen INTE sker hela vägen fram till ett block av lediga celler
 
         }
 	}
