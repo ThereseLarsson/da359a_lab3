@@ -155,27 +155,24 @@ public class FirstFit extends Memory {
 			 * if-sats som hanterar om det finns/inte finns ledigt block celler PRECIS INNAN det som ska deallokeras
 			 */
 			if((rCurrent + this.cells[rCurrent]) == beginningAddress) { // det finns ett ledigt block celler PRECIS INNAN det som ska deallokeras
-				/*
-				uppdatera längd på ledigt block  deallokering: längden på ledigt block precis innan + längden på det som ska deallokeras
-				--> this.cells[rCurrent] = this.cells[rCurrent] + this.cells[beginningAddress];
-				 */
+				//uppdatera längd på ledigt block  deallokering: längden på ledigt block precis innan + längden på det som ska deallokeras
+				this.cells[rCurrent] = this.cells[rCurrent] + this.cells[beginningAddress];
 
 			} else { // det finns INTE ett ledigt block celler PRECIS INNAN det som ska deallokeras
-				//peka this.cells[beginningAddress + 1] = det som m pekade på innan
-				//peka om till this.cells[beginningAddress]
-				//sätt storlek på this.cells[beginningAddress] - längden på blocket innan + längden på det som ska deallokeras
+				this.cells[beginningAddress + 1] = this.cells[rCurrent + 1]; //peka this.cells[beginningAddress + 1] = det som m pekade på innan
+				this.cells[rCurrent + 1] = this.cells[beginningAddress]; //peka om m till this.cells[beginningAddress]
 			}
 
 			/**
 			 * if-sats som hanterar om det finns/inte finns ledigt block celler PRECIS EFTER det som ska deallokeras
 			 */
 			if(beginningAddress + this.cells[beginningAddress] == rNext) { // det finns ett ledigt block celler PRECIS EFTER det som ska deallokeras
-				/*
-				uppdatera längd på det block som är ledigt (beginningAddress + längden på det lediga cellblock precis efter)
-				--> this.cells[beginningAddress] = this.cells[beginningAddress] + this.cells[rNext];
-				 */
+				//uppdatera längd på det block som är ledigt (beginningAddress + längden på det lediga cellblock precis efter)
+				this.cells[beginningAddress] = this.cells[beginningAddress] + this.cells[rNext];
 
 			} else { // det finns INTE ett ledigt block celler PRECIS EFTER det som ska deallokeras
+				//this.cells...
+				//this.cells...
 
 			}
         }
