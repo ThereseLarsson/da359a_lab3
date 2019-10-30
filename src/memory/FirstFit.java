@@ -100,7 +100,7 @@ public class FirstFit extends Memory {
 
 	/**
 	 * Releases a number of data cells
-	 * 
+	 *
 	 * @param pointer The pointer to release.
 	 */
 	@Override
@@ -151,36 +151,39 @@ public class FirstFit extends Memory {
 				rNext = this.cells[rCurrent + 1];
 			}
 
-			if(true) { // Scenario 2.1 + 2.2 - det finns ett ledigt block celler precis INNAN det som ska deallokeras
+			/**
+			 * if-sats som hanterar om det finns/inte finns ledigt block celler PRECIS INNAN det som ska deallokeras
+			 */
+			if((rCurrent + this.cells[rCurrent]) == beginningAddress) { // det finns ett ledigt block celler PRECIS INNAN det som ska deallokeras
+				/*
+				uppdatera längd på ledigt block  deallokering: längden på ledigt block precis innan + längden på det som ska deallokeras
+				--> this.cells[rCurrent] = this.cells[rCurrent] + this.cells[beginningAddress];
+				 */
 
-				if(true) { //Scenario 2.1 - det finns ett ledigt block celler direkt EFTER det som ska deallokeras
-
-
-				} else { //Scenario 2.2 - det finns INTE ett ledigt block celler direkt EFTER det som ska deallokeras
-
-
-				}
-
-			} else { // Scenario 2.3 + 2.4 - det finns INTE ett ledigt block celler precis INNAN det som ska deallokeras
-
-				if(true) { //Scenario 2.3 - det finns ett ledigt block celler direkt EFTER det som ska deallokeras
-
-
-				} else { //Scenario 2.4 - det finns INTE ett ledigt block celler direkt EFTER det som ska deallokeras
-
-
-				}
+			} else { // det finns INTE ett ledigt block celler PRECIS INNAN det som ska deallokeras
+				//peka this.cells[beginningAddress + 1] = det som m pekade på innan
+				//peka om till this.cells[beginningAddress]
+				//sätt storlek på this.cells[beginningAddress] - längden på blocket innan + längden på det som ska deallokeras
 			}
 
-			//om deallokeringen sker hela vägen fram till ett block av lediga celler
-			//om deallokeringen INTE sker hela vägen fram till ett block av lediga celler
+			/**
+			 * if-sats som hanterar om det finns/inte finns ledigt block celler PRECIS EFTER det som ska deallokeras
+			 */
+			if(beginningAddress + this.cells[beginningAddress] == rNext) { // det finns ett ledigt block celler PRECIS EFTER det som ska deallokeras
+				/*
+				uppdatera längd på det block som är ledigt (beginningAddress + längden på det lediga cellblock precis efter)
+				--> this.cells[beginningAddress] = this.cells[beginningAddress] + this.cells[rNext];
+				 */
 
+			} else { // det finns INTE ett ledigt block celler PRECIS EFTER det som ska deallokeras
+
+			}
         }
 	}
-	
+
 	/**
 	 * Prints a simple model of the memory. Example:
-	 * 
+	 *
 	 * |    0 -  110 | Allocated
 	 * |  111 -  150 | Free
 	 * |  151 -  999 | Allocated
