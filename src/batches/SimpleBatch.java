@@ -56,13 +56,13 @@ public class SimpleBatch {
 		p4.write(range(101, 115));
 		System.out.println("write 4 klar");
 
-		//System.exit(0); // SKA BORT NÄR release() ÄR FÄRDIGIMPLEMENTERAD
-
 		m.release(p3);
 		System.out.println("release 1 klar");
 
 		m.release(p1);
 		System.out.println("release 2 klar");
+
+		m.printLayout();
 
 		System.exit(0); // SKA BORT SENARE
 

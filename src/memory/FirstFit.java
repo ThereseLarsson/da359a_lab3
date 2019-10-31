@@ -225,7 +225,7 @@ public class FirstFit extends Memory {
             }
 		}
 
-		System.out.println("Allocated" + "\n" + stringAllocated);
+		System.out.println("\n" + "Allocated" + "\n" + stringAllocated + "\n");
 		System.out.println("Free" + "\n" + stringFree + "\n");
 	}
 }
