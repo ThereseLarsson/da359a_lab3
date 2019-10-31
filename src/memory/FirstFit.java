@@ -130,6 +130,7 @@ public class FirstFit extends Memory {
 
 			freeList = beginningAddress; //pekar om freeList till begynnelseAdressen för det som ska deallokeras
 
+		//------------------------------------------------------------------------------------------------------------
 
         /*
         om freeList kommer INNAN adressen för det som ska deallokeras
@@ -143,7 +144,7 @@ public class FirstFit extends Memory {
 			här vill vi fortsätta att stega igenom minnet (this.cells), med freeList som startpunkt, tills att
 			vi har hittat de två fria blocken celler som ligger mellan beginningAddress (dvs. det som ska deallokeras)
 			 */
-			while(beginningAddressReached == false) {
+			while(!beginningAddressReached) {
 				if(rCurrent < beginningAddress && rNext > beginningAddress) {
 					beginningAddressReached = true;
 				}
@@ -198,7 +199,9 @@ public class FirstFit extends Memory {
 
 			nbrFreeCells = this.cells[pCurrent];
 
-			pCurrent++; //gå vidare till nästa lediga block av lediga celler i minnet
+			//gå vidare till nästa lediga block av lediga celler i minnet
+			pCurrent = pNext;
+			pNext = this.cells[pCurrent + 1];
 
 		}
 
