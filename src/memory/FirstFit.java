@@ -192,8 +192,6 @@ public class FirstFit extends Memory {
 		String stringFree = "";
 		int pCurrent = freeList;
 		int pNext = this.cells[pCurrent + 1];
-		int nbrFreeCells = 0;
-		int nbrAllocatedCells = 0;
 
 		/*
 		om det första cellblocket är allokerat så vill vi skriva ut det
@@ -221,7 +219,7 @@ public class FirstFit extends Memory {
 			pCurrent = pNext;
 			pNext = this.cells[pCurrent + 1];
 
-			//om vi nått fram till det sista lediga cellblocket och detta
+			//om vi nått fram till det sista lediga cellblocket och det finns ett allokerat block därefter, så måste vi skriva ut detta
 			if(pNext == -1 && ((pCurrent + this.cells[pCurrent]) - 1) != this.cells.length) {
                 stringAllocated += "\n" + pCurrent + this.cells[pCurrent] + " - " + this.cells.length;
             }
