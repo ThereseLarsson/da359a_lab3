@@ -152,8 +152,8 @@ public class FirstFit extends Memory {
 				rNext = this.cells[rCurrent + 1];
 			}
 
-			/**
-			 * if-sats som hanterar om det finns/inte finns ledigt block celler PRECIS INNAN det som ska deallokeras
+			/*
+			 if-sats som hanterar om det finns/inte finns ledigt block celler PRECIS INNAN det som ska deallokeras
 			 */
 			if((rCurrent + this.cells[rCurrent]) == beginningAddress) { // det finns ett ledigt block celler PRECIS INNAN det som ska deallokeras
 				//uppdatera längd på ledigt block  deallokering: längden på ledigt block precis innan + längden på det som ska deallokeras
@@ -164,8 +164,8 @@ public class FirstFit extends Memory {
 				this.cells[rCurrent + 1] = this.cells[beginningAddress]; //peka om m till this.cells[beginningAddress]
 			}
 
-			/**
-			 * if-sats som hanterar om det finns/inte finns ledigt block celler PRECIS EFTER det som ska deallokeras
+			/*
+			 if-sats som hanterar om det finns/inte finns ledigt block celler PRECIS EFTER det som ska deallokeras
 			 */
 			if(beginningAddress + this.cells[beginningAddress] == rNext) { // det finns ett ledigt block celler PRECIS EFTER det som ska deallokeras
 				//uppdatera längd på det block som är ledigt: beginningAddress längd + längden på det lediga cellblocket precis efter
