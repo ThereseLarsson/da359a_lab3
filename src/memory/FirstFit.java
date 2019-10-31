@@ -188,15 +188,11 @@ public class FirstFit extends Memory {
 	 */
 	@Override
 	public void printLayout() {
-		String stringAllocated = "";
-		String stringFree = "";
+		String stringAllocated = "", stringFree = "";
 		int pCurrent = freeList;
 		int pNext = this.cells[pCurrent + 1];
 
-		/*
-		om det första cellblocket är allokerat så vill vi skriva ut det
-		 */
-		if(pCurrent != 0) {
+		if(pCurrent != 0) { //om det första cellblocket är allokerat så vill vi skriva ut det
             stringAllocated += "0 - " + (pCurrent - 1);
         }
 
@@ -225,7 +221,7 @@ public class FirstFit extends Memory {
             }
 		}
 
-		System.out.println("\n" + "Allocated" + "\n" + stringAllocated + "\n");
+		System.out.println("Allocated" + "\n" + stringAllocated + "\n");
 		System.out.println("Free" + "\n" + stringFree + "\n");
 	}
 }
