@@ -56,10 +56,15 @@ public class SimpleBatch {
 		p4.write(range(101, 115));
 		System.out.println("write 4 klar");
 
-		System.exit(0); //SKA BORT NÄR release() ÄR FÄRDIGIMPLEMENTERAD
+		System.exit(0); // SKA BORT NÄR release() ÄR FÄRDIGIMPLEMENTERAD
 
 		m.release(p3);
+		System.out.println("release 1 klar");
+
 		m.release(p1);
+		System.out.println("release 2 klar");
+
+		System.exit(0); // SKA BORT SENARE
 
 		p5 = m.alloc(10);
 		System.out.println("alloc 5 klar");
@@ -72,16 +77,23 @@ public class SimpleBatch {
 
 		p6.write(range(1, 15));
 		System.out.println("write 6 klar");
+
+		System.exit(0); // SKA BORT NÄR printLayout() ÄR FÄRDIGIMPLEMENTERAD
 		
 		m.printLayout();
 
-		//Upptaget - FirstFit
-		//0-589
-		//620-949
+		/**
+		 * FACIT - FirstFit
+		 *
+		 * Upptaget
+		 * 0-589
+		 * 620-949
+		 *
+		 * Ledigt
+		 * 590-619
+		 * 950-999
+		 */
 
-		//Ledigt - FirstFit
-		//590-619
-		//950-999
 	}
 	public void runOriginal(Memory m) {
 		Pointer p1, p2, p3, p4, p5, p6;

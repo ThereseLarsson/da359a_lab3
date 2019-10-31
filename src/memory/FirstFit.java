@@ -167,15 +167,14 @@ public class FirstFit extends Memory {
 			 * if-sats som hanterar om det finns/inte finns ledigt block celler PRECIS EFTER det som ska deallokeras
 			 */
 			if(beginningAddress + this.cells[beginningAddress] == rNext) { // det finns ett ledigt block celler PRECIS EFTER det som ska deallokeras
-				//uppdatera längd på det block som är ledigt (beginningAddress + längden på det lediga cellblock precis efter)
+				//uppdatera längd på det block som är ledigt: beginningAddress längd + längden på det lediga cellblocket precis efter
 				this.cells[beginningAddress] = this.cells[beginningAddress] + this.cells[rNext];
 
 			} else { // det finns INTE ett ledigt block celler PRECIS EFTER det som ska deallokeras
-				//this.cells...
-				//this.cells...
+				this.cells[beginningAddress + 1] = this.cells[rNext]; //peka beginningAddress + 1 till nästkommande ledigt block av celler
 
 			}
-        }
+		}
 	}
 
 	/**
