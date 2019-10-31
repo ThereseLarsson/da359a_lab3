@@ -64,9 +64,9 @@ public class SimpleBatch {
 		m.release(p1);
 		System.out.println("release 2 klar");
 
-		//System.exit(0); // SKA BORT SENARE
+		System.exit(0); // SKA BORT SENARE
 
-		p5 = m.alloc(10);
+		p5 = m.alloc(10); //fastnar i oändlig loop
 		System.out.println("alloc 5 klar");
 
 		p5.write(range(70, 79));

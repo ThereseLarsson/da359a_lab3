@@ -195,14 +195,36 @@ public class FirstFit extends Memory {
 		int nbrFreeCells = 0;
 		int nbrAllocatedCells = 0;
 
+		/*
+		om det första cellblocket är allokerat så vill vi skriva ut det
+		 */
+		if(pCurrent != 0) {
+            stringAllocated += "0 - " + (pCurrent - 1);
+        }
+
+		//stega igenom minnet (dvs. this.cells)
 		while(pNext > -1) {
 
-			nbrFreeCells = this.cells[pCurrent];
+		    /*
+		    skriver ut det lediga block vi befinner oss på just nu (dvs. pCurrent)
+		     */
+		    stringFree += "\n" + pCurrent + " - " + ((pCurrent + this.cells[pCurrent]) - 1);
+
+		    /*
+		    skriver ut det allokerade blocket som finns mellan pCurrent och pNext
+		    this.cells[pCurrent] + pCurrent = var (dvs. vilken address) som det allokerade blocket STARTAR
+		    pNext - 1 = var (dvs. vilken address) som det allokerade blocket SLUTAR
+		     */
+            stringAllocated += "\n" + (pCurrent + this.cells[pCurrent]) + " - " + (pNext - 1);
 
 			//gå vidare till nästa lediga block av lediga celler i minnet
 			pCurrent = pNext;
 			pNext = this.cells[pCurrent + 1];
 
+			//om vi nått fram till det sista lediga cellblocket och detta
+			if(pNext == -1 && ((pCurrent + this.cells[pCurrent]) - 1) != this.cells.length) {
+                stringAllocated += "\n" + pCurrent + this.cells[pCurrent] + " - " + this.cells.length;
+            }
 		}
 
 		System.out.println("Allocated" + "\n" + stringAllocated);
