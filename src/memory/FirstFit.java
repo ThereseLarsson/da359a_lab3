@@ -11,9 +11,6 @@ package memory;
  */
 public class FirstFit extends Memory {
 	private int  freeList;
-	private int size; //antalet celler i rad som är lediga
-	//private int current; //addressen där vi är nu just nu
-	//private int next; //addressen till nästa lediga plats
 
 	/**
 	 * Initializes an instance of a first fit-based memory.
@@ -25,77 +22,71 @@ public class FirstFit extends Memory {
 		freeList = 0;
 		this.cells[0] = totalNbrMemoryCells;
 		this.cells[1] = -1;
-		//System.out.println(this.cells[627]);
+		this.setOffset(1);
 	}
 
 	/**
 	 * Allocates a number of memory cells.
-	 * i den här deluppgiften ska vi "bara" peka om freeList.
 	 *
 	 * @param sizeToAllocate the number of cells to allocate.
 	 * @return The address of the first cell (to be allocated).
 	 */
 	@Override
 	public Pointer alloc(int sizeToAllocate) { //använd pointer.address (får en int)
-		//size++; //eller var det sizeToAllocate som ska ++?
-
-        int size;
+		int currentCellSize;
         int next;
-		int newCurrent;
-		Pointer pointer = new Pointer(freeList, this); //POINTER SKA BÖRJA MED ATT PEKA PÅ NOLL
-		int current = freeList; //nuvarande cell-adress
-		//next = this.cells[current + 1]; //får adressen till nästa "hop" lediga celler - BLIR 0
-
-		//System.out.println("\n LETAR PLATS... freeList är: " + freeList);
-		//System.out.println("LETAR PLATS... next är: " + next);
-        //System.out.println("LETAR PLATS... current är: " + current);
-
+		int newCurrentCellAddress;
+		Pointer pointer = null; //POINTER SKA BÖRJA MED ATT PEKA PÅ NOLL
+		int currentCellAddress = freeList; //nuvarande cell-adress
+		int previous = 0;
+		sizeToAllocate++; //size++; //eller var det sizeToAllocate som ska ++?
         //size = this.cells[pointer.pointsAt()]; //antalet celler i rad som är lediga
 
 		do {
-			size = this.cells[pointer.pointsAt()]; //antalet celler i rad som är lediga
-			next = this.cells[current + 1]; //VAD SKA next VARA EFTER FÖRSTA ALLOKERINGEN???? --> -1
+			currentCellSize = this.cells[currentCellAddress]; //antalet celler i rad som är lediga
+			next = this.cells[currentCellAddress + 1]; //får adressen till nästa "hop" lediga celler
 
 			//här pekar vi om freeList (dvs pekaren till den första lediga cellen i minnet (dvs. this.cells))
-			if(size >= sizeToAllocate) {
-				if(size == sizeToAllocate) { //betyder att det inte blir någon lucka i den lediga "hopen" av lediga minnesceller
+			if(currentCellSize >= sizeToAllocate) {
+				if(currentCellSize == sizeToAllocate) { //betyder att det inte blir någon lucka i den lediga "hopen" av lediga minnesceller
 					//UPPDATERAR FREELIST: om current == freeList --> peka om freeList till nästa lediga "hop":s första adress, blir det freeList = next; ?
-					if(current == freeList) {
+					if(currentCellAddress == freeList) {
 						freeList = next;
-                    }
+                    } else {
+						this.cells[previous + 1] = next;
+					}
 
-				} else if(size > sizeToAllocate) { //betyder att det blir en lucka med lediga celler, peka om freeList till första lediga cell i luckan om det inte finns ledig plats innan den allokerade platsen
+				} else if(currentCellSize > sizeToAllocate) { //betyder att det blir en lucka med lediga celler, peka om freeList till första lediga cell i luckan om det inte finns ledig plats innan den allokerade platsen
 					//UPPDATERAR FREELIST: om current == freeList --> peka om freeList till: current + sizeToAllocate
-					if(current == freeList) {
-						freeList = current + sizeToAllocate;
+					if(currentCellAddress == freeList) {
+						freeList = currentCellAddress + sizeToAllocate;
 						System.out.println("PLATS HITTAD! freeList är nu: " + freeList);
                     }
 				}
 
 				//det är här som allokeringen sker
-				size = this.cells[freeList];
-				newCurrent = current + sizeToAllocate;
-				this.cells[newCurrent] = this.cells[current] + size;
-				this.cells[newCurrent + 1] = this.cells[current + 1];
-				this.cells[current + 1] = this.cells[newCurrent + 1];
-				this.cells[current] = sizeToAllocate;
+				//3e nov - borde inte det här endast ske för när det blir en lucka i minnet vid allokeringen??
+				// + ändras, se anteckningar för Scenario 1.2
+				newCurrentCellAddress = currentCellAddress + sizeToAllocate;
+				this.cells[newCurrentCellAddress] = currentCellSize - sizeToAllocate;
+				this.cells[newCurrentCellAddress + 1] = this.cells[currentCellAddress + 1];
+				this.cells[currentCellAddress] = sizeToAllocate;
 
-				//next = this.cells[current + 1]; //VAD SKA next VARA EFTER FÖRSTA ALLOKERINGEN????
-				//System.out.println("next är: " + next);
-                System.out.println("ALLOKERING DONE");
+				System.out.println("ALLOKERING DONE");
 
-				pointer.pointAt(current); //adressen (= första indexet) där sekvensen av de lediga cellerna (i rad) börjar
-				return pointer;
+                //System.out.println(this);
+				return new Pointer(currentCellAddress, this);
 
-				//om inget lämplig plats hittas att allokera på för denna iteration
+				//om ingen lämplig plats hittas att allokera på för denna iteration
 			} else {
-				current = next; //vill ha kvar den nuvarande cellen vi är på
-				next = this.cells[current + 1]; //får adressen till nästa "hop" lediga celler
+				previous = currentCellAddress;
+				currentCellAddress = next; //vill ha kvar den nuvarande cellen vi är på
+				next = this.cells[currentCellAddress + 1]; //får adressen till nästa "hop" lediga celler
 			}
 
-		} while(next > -1); //searches list (this.cells) after free space, starts with the first free space. Om indexet = -1 så har vi nått this.cells slut
+		} while(next > -1); //searches list (this.cells) for free space, starts with the first free space. Om indexet = -1 så har vi nått this.cells slut
 
-		return null; //kommer vi hit så har allokeringen misslyckats, vad returnerar vi då? - svar: null
+		return null; //kommer vi hit så har allokeringen misslyckats, då ska null returneras
 	}
 
 	/**
@@ -115,20 +106,22 @@ public class FirstFit extends Memory {
 		(detta eftersom freeList alltid ska peka på första lediga cellen i minnet (this.cells))
 		(dvs. om freeList är STÖRRE än beginningAddress)
 		 */
-		if(rCurrent > beginningAddress) {
-			if(beginningAddress + 1 == rCurrent) { //om deallokeringen sker hela vägen fram till ett block av lediga celler
+		if(freeList > beginningAddress) {
+			if(beginningAddress + 1 == freeList) { //om deallokeringen sker hela vägen fram till ett block av lediga celler
 
 				//peka om current i minnet och pekare till nästa block lediga celler i minnet
-				this.cells[rNewCurrent] = this.cells[rCurrent] + releaseLength; //längden på gamla freeList + deallokeringsblockets längd
-				this.cells[rNewCurrent + 1] = this.cells[rCurrent + 1]; //pekare till nästa
+				this.cells[beginningAddress] = this.cells[freeList] + releaseLength; //längden på gamla freeList + deallokeringsblockets längd
+				this.cells[beginningAddress + 1] = this.cells[freeList + 1]; //pekare till nästa
 
 			} else { //om deallokeringen INTE sker hela vägen fram till ett block av lediga celler
 
 				//this.cells[rNewCurrent] behöver inte uppdateras i det här fallet! dock behöver denna uppdateras i fallet där freeList kommer INNAN begynnelseadressen för deallokeringen
-				this.cells[rNewCurrent + 1] = this.cells[rCurrent];
+				this.cells[beginningAddress + 1] = freeList;
 			}
 
 			freeList = beginningAddress; //pekar om freeList till begynnelseAdressen för det som ska deallokeras
+
+			System.out.println("RELEASE - "   + "freeList är nu: " + freeList);
 
 		//------------------------------------------------------------------------------------------------------------
 
@@ -136,16 +129,16 @@ public class FirstFit extends Memory {
         om freeList kommer INNAN adressen för det som ska deallokeras
         då behöver freeList INTE pekas om, dvs. freeList ska inte ändra värde i detta fall
          */
-		} else if(rCurrent < beginningAddress) { //if (freeList/rCurrent < beginningAddress)
+		} else if(freeList < beginningAddress) { //if (freeList/rCurrent < beginningAddress)
 			boolean beginningAddressReached = false;
-			int rNext = rCurrent + 1;
+			int rNext = this.cells[freeList + 1];
 
 			/*
 			här vill vi fortsätta att stega igenom minnet (this.cells), med freeList som startpunkt, tills att
 			vi har hittat de två fria blocken celler som ligger mellan beginningAddress (dvs. det som ska deallokeras)
 			 */
 			while(!beginningAddressReached) {
-				if(rCurrent < beginningAddress && rNext > beginningAddress) {
+				if(rCurrent < beginningAddress && beginningAddress < rNext) {
 					beginningAddressReached = true;
 				}
 				rCurrent = rNext;
@@ -170,10 +163,10 @@ public class FirstFit extends Memory {
 			if(beginningAddress + this.cells[beginningAddress] == rNext) { // det finns ett ledigt block celler PRECIS EFTER det som ska deallokeras
 				//uppdatera längd på det block som är ledigt: beginningAddress längd + längden på det lediga cellblocket precis efter
 				this.cells[beginningAddress] = this.cells[beginningAddress] + this.cells[rNext];
+				this.cells[beginningAddress + 1] = this.cells[rNext + 1];
 
 			} else { // det finns INTE ett ledigt block celler PRECIS EFTER det som ska deallokeras
-				this.cells[beginningAddress + 1] = this.cells[rNext]; //peka beginningAddress + 1 till nästkommande ledigt block av celler
-
+				this.cells[beginningAddress + 1] = rNext; //peka beginningAddress + 1 till nästkommande ledigt block av celler
 			}
 		}
 	}
@@ -190,14 +183,18 @@ public class FirstFit extends Memory {
 	public void printLayout() {
 		String stringAllocated = "", stringFree = "";
 		int pCurrent = freeList;
-		int pNext = this.cells[pCurrent + 1];
+		int pNext = this.cells[freeList + 1];
+
+		System.out.println("... printing ...");
 
 		if(pCurrent != 0) { //om det första cellblocket är allokerat så vill vi skriva ut det
             stringAllocated += "0 - " + (pCurrent - 1);
         }
 
+		System.out.println("printLayout() - freelist är " + freeList);
+		System.out.println(this);
 		//stega igenom minnet (dvs. this.cells)
-		while(pNext > -1) {
+		while(false && pNext > -1) {
 
 		    /*
 		    skriver ut det lediga block vi befinner oss på just nu (dvs. pCurrent)
@@ -214,6 +211,8 @@ public class FirstFit extends Memory {
 			//gå vidare till nästa lediga block av lediga celler i minnet
 			pCurrent = pNext;
 			pNext = this.cells[pCurrent + 1];
+
+			System.out.println("NEXT ÄR: " + pNext);
 
 			//om vi nått fram till det sista lediga cellblocket och det finns ett allokerat block därefter, så måste vi skriva ut detta
 			if(pNext == -1 && ((pCurrent + this.cells[pCurrent]) - 1) != this.cells.length) {

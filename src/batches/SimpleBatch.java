@@ -24,7 +24,7 @@ public class SimpleBatch {
 
 	public void run() {
 		System.out.println("First fit");
-		run(new FirstFit(1100)); // Swap this for  your own implementation
+		run(new FirstFit(110)); // Swap this for  your own implementation
 		//System.out.println("\nBest fit");
 		//run(new BestFit(1100)); // Swap this for  your own implementation
 	}
@@ -33,66 +33,59 @@ public class SimpleBatch {
 		Pointer p1, p2, p3, p4, p5, p6;
 
 		p1 = m.alloc(20);
-		System.out.println("alloc 1 klar");
+		System.out.println("alloc p1 klar");
 
 		p1.write(range(1, 20));
-		System.out.println("write 1 klar");
+		System.out.println("write p1 klar");
+
+		m.printLayout();
+		System.exit(0);
 
 		p2 = m.alloc(5);
-		System.out.println("alloc 2 klar");
+		System.out.println("alloc p2 klar");
 
 		p2.write(range(38, 42));
-		System.out.println("write 2 klar");
+		System.out.println("write p2 klar");
 
 		p3 = m.alloc(30);
-		System.out.println("alloc 3 klar");
+		System.out.println("alloc p3 klar");
 
 		p3.write(range(100, 129));
-		System.out.println("write 3 klar");
+		System.out.println("write p3 klar");
 
 		p4 = m.alloc(15);
-		System.out.println("alloc 4 klar");
+		System.out.println("alloc p4 klar");
 
 		p4.write(range(101, 115));
-		System.out.println("write 4 klar");
+		System.out.println("write p4 klar");
 
 		m.release(p3);
-		System.out.println("release 1 klar");
+		System.out.println("release p3 klar");
 
 		m.release(p1);
-		System.out.println("release 2 klar");
+		System.out.println("release p1 klar");
 
-		m.printLayout();
+		//m.printLayout(); //fastnar i oändlig loop
 
-		System.exit(0); // SKA BORT SENARE
+		//System.exit(0); // SKA BORT SENARE
 
 		p5 = m.alloc(10); //fastnar i oändlig loop
-		System.out.println("alloc 5 klar");
+		System.out.println("alloc p5 klar");
+
+		System.out.println(p5);
 
 		p5.write(range(70, 79));
-		System.out.println("write 5 klar");
+		System.out.println("write p5 klar");
 
 		p6 = m.alloc(15);
-		System.out.println("alloc 6 klar");
+		System.out.println("alloc p6 klar");
 
 		p6.write(range(1, 15));
-		System.out.println("write 6 klar");
+		System.out.println("write p6 klar");
 
-		System.exit(0); // SKA BORT NÄR printLayout() ÄR FÄRDIGIMPLEMENTERAD
+		//System.exit(0); // SKA BORT NÄR printLayout() ÄR FÄRDIGIMPLEMENTERAD
 		
 		m.printLayout();
-
-		/**
-		 * FACIT - FirstFit
-		 *
-		 * Upptaget
-		 * 0-589
-		 * 620-949
-		 *
-		 * Ledigt
-		 * 590-619
-		 * 950-999
-		 */
 
 	}
 	public void runOriginal(Memory m) {
