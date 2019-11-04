@@ -35,8 +35,8 @@ public class FirstFit extends Memory {
 	public Pointer alloc(int sizeToAllocate) { //använd pointer.address (får en int)
 		int currentCellSize;
         int next;
-		int newCurrentCellAddress;
-		Pointer pointer = null; //POINTER SKA BÖRJA MED ATT PEKA PÅ NOLL
+		//int newCurrentCellAddress;
+		//Pointer pointer = null; //POINTER SKA BÖRJA MED ATT PEKA PÅ NOLL
 		int currentCellAddress = freeList; //nuvarande cell-adress
 		int previous = 0;
 		sizeToAllocate++; //size++; //eller var det sizeToAllocate som ska ++?
@@ -48,29 +48,45 @@ public class FirstFit extends Memory {
 
 			//här pekar vi om freeList (dvs pekaren till den första lediga cellen i minnet (dvs. this.cells))
 			if(currentCellSize >= sizeToAllocate) {
-				if(currentCellSize == sizeToAllocate) { //betyder att det inte blir någon lucka i den lediga "hopen" av lediga minnesceller
-					//UPPDATERAR FREELIST: om current == freeList --> peka om freeList till nästa lediga "hop":s första adress, blir det freeList = next; ?
+
+				/*
+				SCENARIO 1  - INGEN LUCKA i den lediga "hopen" av lediga minnesceller
+				 */
+				if(currentCellSize == sizeToAllocate) { //betyder att det inte blir någon lucka i
+					// Scenario 1.1
 					if(currentCellAddress == freeList) {
 						freeList = next;
+
+					// Scenario 1.1
                     } else {
 						this.cells[previous + 1] = next;
 					}
 
-				} else if(currentCellSize > sizeToAllocate) { //betyder att det blir en lucka med lediga celler, peka om freeList till första lediga cell i luckan om det inte finns ledig plats innan den allokerade platsen
-					//UPPDATERAR FREELIST: om current == freeList --> peka om freeList till: current + sizeToAllocate
+				/*
+				SCENARIO 2 - lUCKA
+				 */
+				} else if(currentCellSize > sizeToAllocate) {
+					// Scenario 2.1 - om allokeringen sker på den första lediga "hopen" i minnet (dvs. freeList)
 					if(currentCellAddress == freeList) {
 						freeList = currentCellAddress + sizeToAllocate;
-						System.out.println("PLATS HITTAD! freeList är nu: " + freeList);
-                    }
+
+					// Scenario 2.2
+					} else {
+						this.cells[previous + 1] = currentCellAddress + sizeToAllocate;
+					}
+					//gemensamm kod för Scenario 2.1 och 2.2
+					this.cells[currentCellAddress + sizeToAllocate] = this.cells[currentCellAddress] - sizeToAllocate;
+					this.cells[currentCellAddress + sizeToAllocate + 1] = next;
+					this.cells[currentCellAddress] = sizeToAllocate;
 				}
 
 				//det är här som allokeringen sker
 				//3e nov - borde inte det här endast ske för när det blir en lucka i minnet vid allokeringen??
 				// + ändras, se anteckningar för Scenario 1.2
-				newCurrentCellAddress = currentCellAddress + sizeToAllocate;
-				this.cells[newCurrentCellAddress] = currentCellSize - sizeToAllocate;
-				this.cells[newCurrentCellAddress + 1] = this.cells[currentCellAddress + 1];
-				this.cells[currentCellAddress] = sizeToAllocate;
+				//newCurrentCellAddress = currentCellAddress + sizeToAllocate;
+				//this.cells[newCurrentCellAddress] = currentCellSize - sizeToAllocate;
+				//this.cells[newCurrentCellAddress + 1] = this.cells[currentCellAddress + 1];
+				//this.cells[currentCellAddress] = sizeToAllocate;
 
 				System.out.println("ALLOKERING DONE");
 

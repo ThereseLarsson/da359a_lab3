@@ -26,7 +26,7 @@ public class SimpleBatch {
 		System.out.println("First fit");
 		run(new FirstFit(110)); // Swap this for  your own implementation
 		//System.out.println("\nBest fit");
-		//run(new BestFit(1100)); // Swap this for  your own implementation
+		//run(new BestFit(110)); // Swap this for your own implementation
 	}
 
 	public void run(Memory m) {
@@ -37,9 +37,6 @@ public class SimpleBatch {
 
 		p1.write(range(1, 20));
 		System.out.println("write p1 klar");
-
-		m.printLayout();
-		System.exit(0);
 
 		p2 = m.alloc(5);
 		System.out.println("alloc p2 klar");
@@ -65,14 +62,9 @@ public class SimpleBatch {
 		m.release(p1);
 		System.out.println("release p1 klar");
 
-		//m.printLayout(); //fastnar i oändlig loop
-
-		//System.exit(0); // SKA BORT SENARE
-
-		p5 = m.alloc(10); //fastnar i oändlig loop
+		p5 = m.alloc(10);
 		System.out.println("alloc p5 klar");
-
-		System.out.println(p5);
+		//System.out.println(p5);
 
 		p5.write(range(70, 79));
 		System.out.println("write p5 klar");
@@ -82,8 +74,6 @@ public class SimpleBatch {
 
 		p6.write(range(1, 15));
 		System.out.println("write p6 klar");
-
-		//System.exit(0); // SKA BORT NÄR printLayout() ÄR FÄRDIGIMPLEMENTERAD
 		
 		m.printLayout();
 
@@ -111,13 +101,14 @@ public class SimpleBatch {
 
 		m.printLayout();
 
-		//Upptaget - FirstFit
-		//0-589
-		//620-949
+		/*
+		Upptaget - FirstFit
 
-		//Ledigt - FirstFit
-		//590-619
-		//950-999
+		 */
+
+		/*
+		Ledigt - FirstFit
+		 */
 
 		//ska inte göra den här deluppgiften
 //		m.compact();
