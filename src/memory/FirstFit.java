@@ -203,9 +203,8 @@ public class FirstFit extends Memory {
 		int pNext = this.cells[freeList + 1];
 		int startAddress, endAddress;
 
-		//System.out.println("printLayout() - freelist är " + freeList);
 		//System.out.println(this);
-		System.out.println("... printing ..." + "\n");
+		//System.out.println("... printing ..." + "\n");
 
 		//om det första cellblocket i minnet (dvs. address 0 - x) är allokerat så vill vi skriva ut det
 		if(pCurrentCellAddress != 0) {
@@ -218,7 +217,6 @@ public class FirstFit extends Memory {
 			UTSKRIFTER
 			------------------------------------------------------------------------------------------
 			 */
-
 		    // FRITT - skriver ut det lediga block vi befinner oss på JUST NU (dvs. pCurrentCellAddress)
 			endAddress = (pCurrentCellAddress + this.cells[pCurrentCellAddress]) - 1;
 		    stringFree += "\n" + pCurrentCellAddress + " - " + endAddress;
@@ -233,6 +231,7 @@ public class FirstFit extends Memory {
             stringAllocated += "\n" + startAddress + " - " + endAddress;
 
             /*
+            NÄSTA LEDIGA "HOP" AV CELLER
             går vidare till nästa lediga block av lediga celler i minnet
             ---------------------------------------------------------------------
              */
@@ -240,7 +239,7 @@ public class FirstFit extends Memory {
 			pNext = this.cells[pCurrentCellAddress + 1];
 
 			/*
-			Specialfall - om vi har kommit till slutet av listan och det bara finns
+			SPECIALFALL - om vi har kommit till slutet av listan och det bara finns
 			1 ledigt block kvar (i det här fallet kommer next att bli -1 och därmed bryts loppen)
 			---------------------------------------------------------------------
 			 */
@@ -252,6 +251,7 @@ public class FirstFit extends Memory {
             }
 		}
 
+		System.out.println();
 		System.out.println(stringAllocated);
 		System.out.println();
 		System.out.println(stringFree);
