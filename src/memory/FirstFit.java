@@ -114,7 +114,7 @@ public class FirstFit extends Memory {
 	public void release(Pointer pointer) {
 	    int beginningAddress = pointer.pointsAt(); //returnerar (begynnelse)adressen som pekaren (pointer som fås i metodhuvudet) pekar på
         int rCurrent = freeList;
-        int rNewCurrent = beginningAddress;
+        //int rNewCurrent = beginningAddress;
         int releaseLength = this.cells[beginningAddress]; //längden på det "block" som ska deallokeras
 
 		/*
@@ -198,45 +198,50 @@ public class FirstFit extends Memory {
 	@Override
 	public void printLayout() {
 		String stringAllocated = "", stringFree = "";
-		int pCurrent = freeList;
+		int pCurrentCellAddress = freeList;
 		int pNext = this.cells[freeList + 1];
+		int startAddress, endAddress;
 
-		System.out.println("... printing ...");
+		//System.out.println("printLayout() - freelist är " + freeList);
+		//System.out.println(this);
+		System.out.println("... printing ..." + "\n");
 
-		if(pCurrent != 0) { //om det första cellblocket är allokerat så vill vi skriva ut det
-            stringAllocated += "0 - " + (pCurrent - 1);
+		//om det första cellblocket i minnet (dvs. address 0 - x) är allokerat så vill vi skriva ut det
+		if(pCurrentCellAddress != 0) {
+            stringAllocated += "0 - " + (pCurrentCellAddress - 1);
         }
 
-		System.out.println("printLayout() - freelist är " + freeList);
-		System.out.println(this);
 		//stega igenom minnet (dvs. this.cells)
-		while(false && pNext > -1) {
+		while(pNext > -1) {
 
 		    /*
-		    skriver ut det lediga block vi befinner oss på just nu (dvs. pCurrent)
+		    skriver ut det lediga block vi befinner oss på just nu (dvs. pCurrentCellAddress)
 		     */
-		    stringFree += "\n" + pCurrent + " - " + ((pCurrent + this.cells[pCurrent]) - 1);
+			endAddress = (pCurrentCellAddress + this.cells[pCurrentCellAddress]) - 1;
+		    stringFree += "\n" + pCurrentCellAddress + " - " + endAddress;
 
 		    /*
 		    skriver ut det allokerade blocket som finns mellan pCurrent och pNext
 		    this.cells[pCurrent] + pCurrent = var (dvs. vilken address) som det allokerade blocket STARTAR
 		    pNext - 1 = var (dvs. vilken address) som det allokerade blocket SLUTAR
 		     */
-            stringAllocated += "\n" + (pCurrent + this.cells[pCurrent]) + " - " + (pNext - 1);
+		    startAddress = pCurrentCellAddress + this.cells[pCurrentCellAddress];
+		    endAddress = pNext - 1;
+            stringAllocated += "\n" + startAddress + " - " + endAddress;
 
 			//gå vidare till nästa lediga block av lediga celler i minnet
-			pCurrent = pNext;
-			pNext = this.cells[pCurrent + 1];
+			pCurrentCellAddress = pNext;
+			pNext = this.cells[pCurrentCellAddress + 1];
 
-			System.out.println("NEXT ÄR: " + pNext);
-
+			int x = (pCurrentCellAddress + this.cells[pCurrentCellAddress]) - 1;
 			//om vi nått fram till det sista lediga cellblocket och det finns ett allokerat block därefter, så måste vi skriva ut detta
-			if(pNext == -1 && ((pCurrent + this.cells[pCurrent]) - 1) != this.cells.length) {
-                stringAllocated += "\n" + pCurrent + this.cells[pCurrent] + " - " + this.cells.length;
+			if(pNext == -1 && x != this.cells.length) {
+				startAddress = pCurrentCellAddress + this.cells[pCurrentCellAddress];
+                stringAllocated += "\n" + startAddress + " - " + this.cells.length;
             }
 		}
 
 		System.out.println("Allocated" + "\n" + stringAllocated + "\n");
-		System.out.println("Free" + "\n" + stringFree + "\n");
+		System.out.println("Free" + stringFree + "\n");
 	}
 }

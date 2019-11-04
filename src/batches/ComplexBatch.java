@@ -99,5 +99,17 @@ public class ComplexBatch {
 		m.release(ps[19]);
 		
 		m.printLayout();
+
+		/*
+		Upptaget - FirstFit
+		0-589
+		620-949
+		 */
+
+		/*
+		Ledigt - FirstFit
+		590-619
+		950-999
+		 */
 	}
 }

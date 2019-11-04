@@ -101,14 +101,7 @@ public class SimpleBatch {
 
 		m.printLayout();
 
-		/*
-		Upptaget - FirstFit
-
-		 */
-
-		/*
-		Ledigt - FirstFit
-		 */
+		// finns inget facit
 
 		//ska inte göra den här deluppgiften
 //		m.compact();
