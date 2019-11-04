@@ -213,15 +213,17 @@ public class FirstFit extends Memory {
 
 		//stega igenom minnet (dvs. this.cells)
 		while(pNext > -1) {
+			/*
+			UTSKRIFTER
+			------------------------------------------------------------------------------------------
+			 */
 
-		    /*
-		    skriver ut det lediga block vi befinner oss på just nu (dvs. pCurrentCellAddress)
-		     */
+		    // FRITT - skriver ut det lediga block vi befinner oss på JUST NU (dvs. pCurrentCellAddress)
 			endAddress = (pCurrentCellAddress + this.cells[pCurrentCellAddress]) - 1;
 		    stringFree += "\n" + pCurrentCellAddress + " - " + endAddress;
 
 		    /*
-		    skriver ut det allokerade blocket som finns mellan pCurrent och pNext
+		    ALLOKERAT - skriver ut det allokerade blocket som finns mellan pCurrent och pNext
 		    this.cells[pCurrent] + pCurrent = var (dvs. vilken address) som det allokerade blocket STARTAR
 		    pNext - 1 = var (dvs. vilken address) som det allokerade blocket SLUTAR
 		     */
@@ -229,10 +231,18 @@ public class FirstFit extends Memory {
 		    endAddress = pNext - 1;
             stringAllocated += "\n" + startAddress + " - " + endAddress;
 
-			//gå vidare till nästa lediga block av lediga celler i minnet
+            /*
+            går vidare till nästa lediga block av lediga celler i minnet
+            ---------------------------------------------------------------------
+             */
 			pCurrentCellAddress = pNext;
 			pNext = this.cells[pCurrentCellAddress + 1];
 
+			/*
+			Specialfall - om vi har kommit till slutet av listan och det bara finns
+			1 ledigt block kvar (i det här fallet kommer next att bli -1 och därmed bryts loppen)
+			---------------------------------------------------------------------
+			 */
 			int x = (pCurrentCellAddress + this.cells[pCurrentCellAddress]) - 1;
 			//om vi nått fram till det sista lediga cellblocket och det finns ett allokerat block därefter, så måste vi skriva ut detta
 			if(pNext == -1 && x != this.cells.length) {
