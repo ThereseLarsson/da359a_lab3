@@ -245,9 +245,9 @@ public class FirstFit extends Memory {
 			 */
 			int x = (pCurrentCellAddress + this.cells[pCurrentCellAddress]) - 1;
 			//om vi nått fram till det sista lediga cellblocket och det finns ett allokerat block därefter, så måste vi skriva ut detta
-			if(pNext == -1 && x != this.cells.length) {
+			if(pNext == -1 && x != (this.cells.length - 1)) {
 				startAddress = pCurrentCellAddress + this.cells[pCurrentCellAddress];
-                stringAllocated += "\n" + startAddress + " - " + this.cells.length;
+                stringAllocated += "\n" + startAddress + " - " + (this.cells.length - 1);
             }
 		}
 
