@@ -204,7 +204,6 @@ public class FirstFit extends Memory {
 		int startAddress, endAddress;
 
 		//System.out.println(this);
-		//System.out.println("... printing ..." + "\n");
 
 		//om det första cellblocket i minnet (dvs. address 0 - x) är allokerat så vill vi skriva ut det
 		if(pCurrentCellAddress != 0) {
@@ -239,16 +238,21 @@ public class FirstFit extends Memory {
 			pNext = this.cells[pCurrentCellAddress + 1];
 
 			/*
-			SPECIALFALL - om vi har kommit till slutet av listan och det bara finns
-			1 ledigt block kvar (i det här fallet kommer next att bli -1 och därmed bryts loppen)
+			SPECIALFALL - om vi har kommit till slutet av listan (dvs. next == -1)
 			---------------------------------------------------------------------
 			 */
-			int x = (pCurrentCellAddress + this.cells[pCurrentCellAddress]) - 1;
 			//om vi nått fram till det sista lediga cellblocket och det finns ett allokerat block därefter, så måste vi skriva ut detta
-			if(pNext == -1 && x != (this.cells.length - 1)) {
-				startAddress = pCurrentCellAddress + this.cells[pCurrentCellAddress];
-                stringAllocated += "\n" + startAddress + " - " + (this.cells.length - 1);
-            }
+			if(pNext == -1) {
+				//sista cellblocket är allokerat
+				if(pNext == -1 && ((pCurrentCellAddress + this.cells[pCurrentCellAddress]) - 1) != (this.cells.length - 1)) {
+					startAddress = pCurrentCellAddress + this.cells[pCurrentCellAddress];
+					stringAllocated += "\n" + startAddress + " - " + (this.cells.length - 1);
+
+				//sista cellblocket är ledigt
+				} else {
+					stringFree += "\n" + pCurrentCellAddress + " - " + (this.cells.length - 1);
+				}
+			}
 		}
 
 		System.out.println();
