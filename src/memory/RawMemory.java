@@ -24,7 +24,7 @@ class RawMemory {
 		}
 		cells = new int[size];
 	}
-	
+
 	/**
 	 * Writes a piece of data to the memory. If you are using an offset,
 	 * you need to take this into consideration when writing data. That

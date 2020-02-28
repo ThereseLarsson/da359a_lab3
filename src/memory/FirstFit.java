@@ -10,7 +10,7 @@ package memory;
  * @since 1.0
  */
 public class FirstFit extends Memory {
-	private int  freeList;
+	static public int  freeList;
 
 	/**
 	 * Initializes an instance of a first fit-based memory.
@@ -28,19 +28,28 @@ public class FirstFit extends Memory {
 	/**
 	 * Allocates a number of memory cells.
 	 *
-	 * @param sizeToAllocate the number of cells to allocate.
+	 * @param size the number of cells to allocate.
 	 * @return The address of the first cell (to be allocated).
 	 */
 	@Override
-	public Pointer alloc(int sizeToAllocate) { //använd pointer.address (får en int)
-		int currentCellSize;
-        int next;
+	public Pointer alloc(int size) { //använd pointer.address (får en int)
+		int currentCellSize = 0;
+        int next = 0;
 		//int newCurrentCellAddress;
 		//Pointer pointer = null; //POINTER SKA BÖRJA MED ATT PEKA PÅ NOLL
 		int currentCellAddress = freeList; //nuvarande cell-adress
-		int previous = 0;
-		sizeToAllocate++; //size++; //eller var det sizeToAllocate som ska ++?
+		int previous = -1;
+		int sizeToAllocate = size + this.offset; //size++; //eller var det sizeToAllocate som ska ++?
         //size = this.cells[pointer.pointsAt()]; //antalet celler i rad som är lediga
+		int fan = 0, attans = 0;
+
+		if (freeList == 0) {
+			System.out.println("Checking w freelist...");
+			fan = freeList;
+			attans = fan + 1;
+			System.out.println(this.cells[freeList]);
+			System.out.println(this.cells[freeList + 1]);
+		}
 
 		do {
 			currentCellSize = this.cells[currentCellAddress]; //antalet celler i rad som är lediga
@@ -48,29 +57,21 @@ public class FirstFit extends Memory {
 
 			//här pekar vi om freeList (dvs pekaren till den första lediga cellen i minnet (dvs. this.cells))
 			if(currentCellSize >= sizeToAllocate) {
-
-				/*
-				SCENARIO 1  - INGEN LUCKA i den lediga "hopen" av lediga minnesceller
-				 */
-				if(currentCellSize == sizeToAllocate) { //betyder att det inte blir någon lucka i
-					// Scenario 1.1
-					if(currentCellAddress == freeList) {
-						freeList = next;
-
-					// Scenario 1.1
-                    } else {
-						this.cells[previous + 1] = next;
-					}
-
 				/*
 				SCENARIO 2 - lUCKA
 				 */
-				} else if(currentCellSize > sizeToAllocate) {
+				if(currentCellSize > sizeToAllocate + 1) {
 					// Scenario 2.1 - om allokeringen sker på den första lediga "hopen" i minnet (dvs. freeList)
 					if(currentCellAddress == freeList) {
 						freeList = currentCellAddress + sizeToAllocate;
+						if (freeList == 98) {
+							System.out.println("Fel i alloc, scenario 2.1");
+							//System.out.println(this);
+							//System.out.println("Fel i alloc, scenario 2.1");
+							//System.exit(0);
+						}
 
-					// Scenario 2.2
+						// Scenario 2.2
 					} else {
 						this.cells[previous + 1] = currentCellAddress + sizeToAllocate;
 					}
@@ -78,6 +79,43 @@ public class FirstFit extends Memory {
 					this.cells[currentCellAddress + sizeToAllocate] = this.cells[currentCellAddress] - sizeToAllocate;
 					this.cells[currentCellAddress + sizeToAllocate + 1] = next;
 					this.cells[currentCellAddress] = sizeToAllocate;
+				}
+
+				/*
+				SCENARIO 1  - INGEN LUCKA i den lediga "hopen" av lediga minnesceller
+				 */
+				else if(currentCellSize == sizeToAllocate) { //betyder att det inte blir någon lucka i
+					// Scenario 1.1
+					if(currentCellAddress == freeList) {
+						freeList = next;
+						if (freeList == 98) {
+							System.out.println("Fel i alloc, scenario 1.1");
+							//System.out.println(this);
+							//System.out.println("Fel i alloc, scenario 1.1");
+							System.exit(0);
+						}
+
+					// Scenario 1.1
+                    } else if (previous >= 0){
+						this.cells[previous + 1] = next;
+					}
+
+					//om det blir en lucka som är 1 cell stor
+				} else if(currentCellSize == sizeToAllocate + 1) {
+
+					if(currentCellAddress == freeList) {
+						freeList = next;
+						if (freeList == 98) {
+							System.out.println("Fel i alloc, scenario 1.1");
+							//System.out.println(this);
+							//System.out.println("Fel i alloc, scenario 1.1");
+							System.exit(0);
+						}
+
+					} else if (previous >= 0){
+						this.cells[previous + 1] = next;
+					}
+					this.cells[currentCellAddress] = sizeToAllocate + 1;
 				}
 
 				//det är här som allokeringen sker
@@ -102,6 +140,7 @@ public class FirstFit extends Memory {
 
 		} while(next > -1); //searches list (this.cells) for free space, starts with the first free space. Om indexet = -1 så har vi nått this.cells slut
 
+		//printMemory();
 		return null; //kommer vi hit så har allokeringen misslyckats, då ska null returneras
 	}
 
@@ -112,10 +151,16 @@ public class FirstFit extends Memory {
 	 */
 	@Override
 	public void release(Pointer pointer) {
+		release(pointer, false);
+	}
+
+	public void release(Pointer pointer, boolean debug) {
 	    int beginningAddress = pointer.pointsAt(); //returnerar (begynnelse)adressen som pekaren (pointer som fås i metodhuvudet) pekar på
         int rCurrent = freeList;
         //int rNewCurrent = beginningAddress;
         int releaseLength = this.cells[beginningAddress]; //längden på det "block" som ska deallokeras
+
+		int fan = 0, attans = 0;
 
 		/*
 		om freeList kommer EFTER adressen för det som ska deallokeras så vill vi peka om freeList till begynnelseadressen
@@ -123,19 +168,32 @@ public class FirstFit extends Memory {
 		(dvs. om freeList är STÖRRE än beginningAddress)
 		 */
 		if(freeList > beginningAddress) {
-			if(beginningAddress + 1 == freeList) { //om deallokeringen sker hela vägen fram till ett block av lediga celler
+			if(beginningAddress + releaseLength == freeList) { //om deallokeringen sker hela vägen fram till ett block av lediga celler
 
 				//peka om current i minnet och pekare till nästa block lediga celler i minnet
 				this.cells[beginningAddress] = this.cells[freeList] + releaseLength; //längden på gamla freeList + deallokeringsblockets längd
 				this.cells[beginningAddress + 1] = this.cells[freeList + 1]; //pekare till nästa
 
 			} else { //om deallokeringen INTE sker hela vägen fram till ett block av lediga celler
+				if (beginningAddress == 0) {
+					System.out.println("Checking...");
+					fan = freeList;
+					attans = fan + 1;
+					System.out.println(this.cells[freeList]);
+					System.out.println(this.cells[freeList + 1]);
+				}
 
 				//this.cells[rNewCurrent] behöver inte uppdateras i det här fallet! dock behöver denna uppdateras i fallet där freeList kommer INNAN begynnelseadressen för deallokeringen
 				this.cells[beginningAddress + 1] = freeList;
 			}
 
 			freeList = beginningAddress; //pekar om freeList till begynnelseAdressen för det som ska deallokeras
+			if (freeList == 98) {
+				System.out.println("Fel i release, freelist > beginningAddress");
+				//System.out.println(this);
+				//System.out.println("Fel i release, freelist > beginningAddress");
+				System.exit(0);
+			}
 
 			System.out.println("RELEASE - "   + "freeList är nu: " + freeList);
 
@@ -149,17 +207,49 @@ public class FirstFit extends Memory {
 			boolean beginningAddressReached = false;
 			int rNext = this.cells[freeList + 1];
 
+			System.out.println("RNEXT" + rNext);
+
 			/*
 			här vill vi fortsätta att stega igenom minnet (this.cells), med freeList som startpunkt, tills att
 			vi har hittat de två fria blocken celler som ligger mellan beginningAddress (dvs. det som ska deallokeras)
 			 */
+			fan = rCurrent;
+			attans = rNext;
 			while(!beginningAddressReached) {
+				if (debug) {
+					System.out.println("rCurrent: " + rCurrent + ", beginningAddress: " + beginningAddress + ", rNext: " + rNext);
+				}
+				if (debug && rNext < rCurrent) {
+					System.out.println(this);
+					//System.exit(0);
+				}
 				if(rCurrent < beginningAddress && beginningAddress < rNext) {
 					beginningAddressReached = true;
+					fan = rCurrent;
+					attans = rNext;
+					rCurrent = rNext;
+					rNext = this.cells[rCurrent + 1];
+
+				} else if(rCurrent < beginningAddress && rNext == -1) {
+					beginningAddressReached = true;
+
+				} else {
+					System.out.println("ERRORRR");
+					System.out.println("förra current: " + fan + ", förra next: " + attans);
+					System.out.println("rCurrent: " + rCurrent + ", beginningAddress: " + beginningAddress + ", rNext: " + rNext);
+					System.out.println("rNext + 1: " + this.cells[rNext]);
+					System.out.println("Hela minnet: ");
+					for(int i = 0; i < this.cells.length; i++) {
+						System.out.println(this.cells[i]);
+					}
+
+					System.exit(0);
 				}
-				rCurrent = rNext;
-				rNext = this.cells[rCurrent + 1];
+				//rCurrent = rNext;
+				//rNext = this.cells[rCurrent + 1];
 			}
+
+			System.out.println("current: " + rCurrent + ", " + "this.cells[current]: " + this.cells[rCurrent] + ", " + "beginningAddress: " + beginningAddress);
 
 			/*
 			 if-sats som hanterar om det finns/inte finns ledigt block celler PRECIS INNAN det som ska deallokeras
@@ -167,10 +257,14 @@ public class FirstFit extends Memory {
 			if((rCurrent + this.cells[rCurrent]) == beginningAddress) { // det finns ett ledigt block celler PRECIS INNAN det som ska deallokeras
 				//uppdatera längd på ledigt block  deallokering: längden på ledigt block precis innan + längden på det som ska deallokeras
 				this.cells[rCurrent] = this.cells[rCurrent] + this.cells[beginningAddress];
+				System.out.println(" Slog samman: current + this.cells");
+
 
 			} else { // det finns INTE ett ledigt block celler PRECIS INNAN det som ska deallokeras
 				this.cells[beginningAddress + 1] = this.cells[rCurrent + 1]; //peka this.cells[beginningAddress + 1] = det som m pekade på innan
 				this.cells[rCurrent + 1] = this.cells[beginningAddress]; //peka om m till this.cells[beginningAddress]
+				System.out.println(" Slog INTE samman något");
+				//System.out.println("current: " + rCurrent + ", " + "this.cells[current]: " + this.cells[rCurrent] + ", " + "beginningAddress: " + beginningAddress);
 			}
 
 			/*
@@ -180,10 +274,18 @@ public class FirstFit extends Memory {
 				//uppdatera längd på det block som är ledigt: beginningAddress längd + längden på det lediga cellblocket precis efter
 				this.cells[beginningAddress] = this.cells[beginningAddress] + this.cells[rNext];
 				this.cells[beginningAddress + 1] = this.cells[rNext + 1];
+				System.out.println(" Slog samman: current + next");
+				//System.out.println("beginningAddress: " + beginningAddress + ", " + "this.cells[beginningAddress]: " + this.cells[beginningAddress] + ", " + "next: " + rNext);
 
 			} else { // det finns INTE ett ledigt block celler PRECIS EFTER det som ska deallokeras
 				this.cells[beginningAddress + 1] = rNext; //peka beginningAddress + 1 till nästkommande ledigt block av celler
+				System.out.println(" Slog INTE samman något...");
 			}
+		}
+		if (beginningAddress == 0) {
+			System.out.println("Checking...");
+			System.out.println(this.cells[fan]);
+			System.out.println(this.cells[attans]);
 		}
 	}
 
@@ -259,5 +361,12 @@ public class FirstFit extends Memory {
 		System.out.println(stringAllocated);
 		System.out.println();
 		System.out.println(stringFree);
+	}
+
+	public void printMemory() {
+		System.out.println("HELA MINNET:");
+		for(int i = 0; i < this.cells.length; i++) {
+			System.out.println("i=" + i + ", " + this.cells[i]);
+		}
 	}
 }

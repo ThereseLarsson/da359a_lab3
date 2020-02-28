@@ -6,6 +6,7 @@ import memory.Memory;
 import memory.Pointer;
 
 public class ComplexBatch {
+	private FirstFit ff;
 
 	public static void main(String[] args) {
 		ComplexBatch batch = new ComplexBatch();
@@ -24,56 +25,128 @@ public class ComplexBatch {
 
 	public void run() {
 		System.out.println("First fit");
-		run(new FirstFit(1100)); // Swap this for  your own implementation
-		System.out.println("\nBest fit");
-		run(new BestFit(1100)); // Swap this for  your own implementation
+		ff = new FirstFit(1100);
+		run(ff); // Swap this for  your own implementation
+
+		//run(new FirstFit(1100)); // Swap this for  your own implementation
+		//System.out.println("\nBest fit");
+		//run(new BestFit(1100)); // Swap this for  your own implementation
 	}
 
 	public void run(Memory m) {
 		Pointer[] ps = new Pointer[20];
-		
-		ps[0] = m.alloc(100);
-		ps[0].write(range(1, 100));
+		int[] zeros = {0};
+
+		ps[0] = m.alloc(100); //efter: freeList = 101
+		//ps[0].write(range(1, 100));
+		ps[0].write(zeros);
+		//executeCheckPoint(true, 0);
+
 		ps[1] = m.alloc(200);
-		ps[1].write(range(1001, 1200));
+		//ps[1].write(range(1001, 1200));
+		ps[1].write(zeros);
+		//executeCheckPoint(true, 1);
+
 		ps[2] = m.alloc(500);
-		ps[2].write(range(101, 600));
+		//ps[2].write(range(101, 600));
+		ps[2].write(zeros);
+		//executeCheckPoint(true, 2);
+
 		ps[3] = m.alloc(200);
-		ps[3].write(range(1, 200));
+		//ps[3].write(range(1, 200));
+		ps[3].write(zeros);
+		//executeCheckPoint(true, 3);
+
+		//----------- correct so far --------------------------
+
 		m.release(ps[2]);
+		//executeCheckPoint(false, 2);
+
 		ps[4] = m.alloc(50);
-		ps[4].write(range(51, 100));
+		//ps[4].write(range(51, 100));
+		ps[4].write(zeros);
+		//executeCheckPoint(true, 4);
+
 		ps[5] = m.alloc(5);
-		ps[5].write(range(42, 46));
+		//ps[5].write(range(42, 46));
+		ps[5].write(zeros);
+		//executeCheckPoint(true, 5);
+
 		ps[6] = m.alloc(90);
-		ps[6].write(range(5000, 5089));
+		//ps[6].write(range(5000, 5089));
+		ps[6].write(zeros);
+		//executeCheckPoint(true, 6);
+
 		m.release(ps[0]);
+		//executeCheckPoint(false, 0);
+
 		ps[7] = m.alloc(60);
-		ps[7].write(range(10, 69));
+		//ps[7].write(range(10, 69));
+		ps[7].write(zeros);
+		//executeCheckPoint(true, 7);
+
 		m.release(ps[4]);
+		//executeCheckPoint(false, 4);
+
 		ps[8] = m.alloc(45);
-		ps[8].write(range(1, 45));
+		//ps[8].write(range(1, 45));
+		ps[8].write(zeros);
+		//executeCheckPoint(true, 8);
+
 		m.release(ps[5]);
+		//executeCheckPoint(false, 5);
+
 		ps[9] = m.alloc(10);
-		ps[9].write(range(16, 25));
+		//ps[9].write(range(16, 25));
+		ps[9].write(zeros);
+		//executeCheckPoint(true, 9);
+
 		m.release(ps[6]);
+		//executeCheckPoint(false, 6);
+
 		ps[10] = m.alloc(40);
-		ps[10].write(range(301, 340));
+		//ps[10].write(range(301, 340));
+		ps[10].write(zeros);
+		//executeCheckPoint(true, 10);
+
 		ps[11] = m.alloc(200);
-		ps[11].write(range(1, 200));
+		//ps[11].write(range(1, 200));
+		ps[11].write(zeros);
+		//executeCheckPoint(true, 11);
+
 		ps[12] = m.alloc(35);
-		ps[12].write(range(501, 535));
+		//ps[12].write(range(501, 535));
+		ps[12].write(zeros);
+		//executeCheckPoint(true, 12);
+
 		ps[13] = m.alloc(25);
-		ps[13].write(range(1, 25));
+		//ps[13].write(range(1, 25));
+		ps[13].write(zeros);
+		//executeCheckPoint(true, 13);
+
 		ps[14] = m.alloc(60);
-		ps[14].write(range(1, 60));
+		//ps[14].write(range(1, 60));
+		ps[14].write(zeros);
+		//executeCheckPoint(true, 14);
+
 		ps[15] = m.alloc(60);
-		ps[15].write(range(1, 60));
-		m.release(ps[3]);
+		//ps[15].write(range(1, 60));
+		ps[15].write(zeros);
+		//executeCheckPoint(true, 15);
+
+//		System.out.println(m);
+
+		((FirstFit) m).release(ps[3], true); //fastnar i oändlig loop här
+		System.out.println("release p3 klar");
 		m.release(ps[13]);
+		System.out.println("release p13 klar");
 		m.release(ps[12]);
+		System.out.println("release p12 klar");
 		ps[16] = m.alloc(170);
 		ps[16].write(range(10001, 10170));
+
+		System.exit(0);
+
 //		m.compact(); //ska inte göra den här deluppgiften
 		ps[17] = m.alloc(30);
 		ps[17].write(range(40, 65));
@@ -81,7 +154,7 @@ public class ComplexBatch {
 		ps[18].write(range(1, 40));
 		ps[19] = m.alloc(5);
 		ps[19].write(range(11, 15));
-		
+		System.out.println("write p19 klar");
 		m.printLayout();
 		
 		// After these last releases, the memory table should be empty
@@ -111,5 +184,23 @@ public class ComplexBatch {
 		590-619
 		950-999
 		 */
+	}
+
+	public void executeCheckPoint(boolean isAlloc, int pointerNbr) {
+		System.out.println();
+
+		//om alloc
+		if(isAlloc) {
+			System.out.println("------------------ efter alloc_p" + pointerNbr + " ------------------------------");
+
+		//om release
+		} else {
+			System.out.println("------------------ efter release_p" + pointerNbr + " ------------------------------");
+		}
+
+		System.out.println("freeList = " + FirstFit.freeList);
+		ff.printMemory();
+		System.out.println();
+		System.exit(0);
 	}
 }

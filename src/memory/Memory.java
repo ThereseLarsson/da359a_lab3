@@ -18,7 +18,7 @@ public abstract class Memory extends RawMemory {
 	public Memory(int size) {
 		super(size);
 	}
-	
+
 	/**
 	 * Allocates a number of memory cells. 
 	 * 
