@@ -57,8 +57,6 @@ public class ComplexBatch {
 		ps[3].write(zeros);
 		//executeCheckPoint(true, 3);
 
-		//----------- correct so far --------------------------
-
 		m.release(ps[2]);
 		//executeCheckPoint(false, 2);
 
@@ -79,6 +77,8 @@ public class ComplexBatch {
 
 		m.release(ps[0]);
 		//executeCheckPoint(false, 0);
+
+		//----------- CORRECT SO FAR ---------------
 
 		ps[7] = m.alloc(60);
 		//ps[7].write(range(10, 69));
@@ -134,8 +134,6 @@ public class ComplexBatch {
 		ps[15].write(zeros);
 		//executeCheckPoint(true, 15);
 
-//		System.out.println(m);
-
 		((FirstFit) m).release(ps[3], true); //fastnar i oändlig loop här
 		System.out.println("release p3 klar");
 		m.release(ps[13]);
@@ -145,6 +143,7 @@ public class ComplexBatch {
 		ps[16] = m.alloc(170);
 		ps[16].write(range(10001, 10170));
 
+		m.printLayout();
 		System.exit(0);
 
 //		m.compact(); //ska inte göra den här deluppgiften
