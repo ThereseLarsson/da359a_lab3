@@ -168,6 +168,8 @@ public class FirstFit extends Memory {
 		(dvs. om freeList är STÖRRE än beginningAddress)
 		 */
 		if(freeList > beginningAddress) {
+			System.out.println("RELEASE - freeList kom EFTER adressen för det som ska deallokeras vid detta anrop");
+
 			if(beginningAddress + releaseLength == freeList) { //om deallokeringen sker hela vägen fram till ett block av lediga celler
 
 				//peka om current i minnet och pekare till nästa block lediga celler i minnet
@@ -195,7 +197,7 @@ public class FirstFit extends Memory {
 				System.exit(0);
 			}
 
-			System.out.println("RELEASE - "   + "freeList är nu: " + freeList);
+			//System.out.println("RELEASE - "   + "freeList är nu: " + freeList);
 
 		//------------------------------------------------------------------------------------------------------------
 
@@ -204,52 +206,49 @@ public class FirstFit extends Memory {
         då behöver freeList INTE pekas om, dvs. freeList ska inte ändra värde i detta fall
          */
 		} else if(freeList < beginningAddress) { //if (freeList/rCurrent < beginningAddress)
+			System.out.println("RELEASE - freeList kom INNAN adressen för det som ska deallokeras vid detta anrop");
+
 			boolean beginningAddressReached = false;
+			rCurrent = freeList; //NY
 			int rNext = this.cells[freeList + 1];
 
-			System.out.println("RNEXT" + rNext);
+			//System.out.println("RNEXT" + rNext);
 
 			/*
 			här vill vi fortsätta att stega igenom minnet (this.cells), med freeList som startpunkt, tills att
 			vi har hittat de två fria blocken celler som ligger mellan beginningAddress (dvs. det som ska deallokeras)
 			 */
-			fan = rCurrent;
-			attans = rNext;
 			while(!beginningAddressReached) {
-				if (debug) {
-					System.out.println("rCurrent: " + rCurrent + ", beginningAddress: " + beginningAddress + ", rNext: " + rNext);
-				}
-				if (debug && rNext < rCurrent) {
-					System.out.println(this);
-					//System.exit(0);
-				}
-				if(rCurrent < beginningAddress && beginningAddress < rNext) {
+
+				System.out.println();
+				System.out.println("---------------- CHECK 1 ----------------");
+				System.out.println("freeList: " + freeList);
+				System.out.println("rCurrent (ledig adress INNAN beginningAddress): " + rCurrent);
+				System.out.println("rNext (ledig adress EFTER beginningAddress): " + rNext);
+				System.out.println("--------------------------------");
+				System.out.println();
+
+				if(rCurrent < beginningAddress && rNext > beginningAddress) {
 					beginningAddressReached = true;
-					fan = rCurrent;
-					attans = rNext;
-					rCurrent = rNext;
-					rNext = this.cells[rCurrent + 1];
+					//rCurrent = rNext; //ska väl inte göras här?
+					//rNext = this.cells[rCurrent + 1]; //ska väl inte göras här?
 
 				} else if(rCurrent < beginningAddress && rNext == -1) {
 					beginningAddressReached = true;
 
-				} else {
-					System.out.println("ERRORRR");
-					System.out.println("förra current: " + fan + ", förra next: " + attans);
-					System.out.println("rCurrent: " + rCurrent + ", beginningAddress: " + beginningAddress + ", rNext: " + rNext);
-					System.out.println("rNext + 1: " + this.cells[rNext]);
-					System.out.println("Hela minnet: ");
-					for(int i = 0; i < this.cells.length; i++) {
-						System.out.println(this.cells[i]);
-					}
-
-					System.exit(0);
+				} else { //dvs. har inte hittat beginningAddress än
+					rCurrent = rNext;
+					rNext = this.cells[rCurrent + 1];
 				}
-				//rCurrent = rNext;
-				//rNext = this.cells[rCurrent + 1];
 			}
 
-			System.out.println("current: " + rCurrent + ", " + "this.cells[current]: " + this.cells[rCurrent] + ", " + "beginningAddress: " + beginningAddress);
+			System.out.println();
+			System.out.println("---------------- CHECK 2 ----------------");
+			System.out.println("rCurrent (ledig adress INNAN beginningAddress): " + rCurrent);
+			System.out.println("beginningAddress: " + beginningAddress);
+			System.out.println("rNext (ledig adress EFTER beginningAddress): " + rNext);
+			System.out.println("--------------------------------");
+			System.out.println();
 
 			/*
 			 if-sats som hanterar om det finns/inte finns ledigt block celler PRECIS INNAN det som ska deallokeras
@@ -281,11 +280,6 @@ public class FirstFit extends Memory {
 				this.cells[beginningAddress + 1] = rNext; //peka beginningAddress + 1 till nästkommande ledigt block av celler
 				System.out.println(" Slog INTE samman något...");
 			}
-		}
-		if (beginningAddress == 0) {
-			System.out.println("Checking...");
-			System.out.println(this.cells[fan]);
-			System.out.println(this.cells[attans]);
 		}
 	}
 
