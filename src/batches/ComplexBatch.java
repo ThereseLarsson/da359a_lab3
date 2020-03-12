@@ -83,15 +83,15 @@ public class ComplexBatch {
 		ps[7].write(zeros);
 		//executeCheckPoint(true, 7);
 
-		m.release(ps[4]); //BLIR FEL HÄR!
+		m.release(ps[4]);
 		//executeCheckPoint(false, 4);
-
-		//----------- CORRECT SO FAR ---------------
 
 		ps[8] = m.alloc(45);
 		//ps[8].write(range(1, 45));
 		ps[8].write(zeros);
 		//executeCheckPoint(true, 8);
+
+		//----------- CORRECT SO FAR ---------------
 
 		m.release(ps[5]);
 		//executeCheckPoint(false, 5);
