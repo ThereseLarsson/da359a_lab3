@@ -261,7 +261,7 @@ public class FirstFit extends Memory {
 
 			} else { // det finns INTE ett ledigt block celler PRECIS INNAN det som ska deallokeras
 				this.cells[beginningAddress + 1] = this.cells[rCurrent + 1]; //peka this.cells[beginningAddress + 1] = det som m pekade på innan
-				this.cells[rCurrent + 1] = this.cells[beginningAddress]; //peka om m till this.cells[beginningAddress]
+				this.cells[rCurrent + 1] = beginningAddress; //peka om m till beginningAddress
 				System.out.println(" Slog INTE samman något");
 				//System.out.println("current: " + rCurrent + ", " + "this.cells[current]: " + this.cells[rCurrent] + ", " + "beginningAddress: " + beginningAddress);
 			}
