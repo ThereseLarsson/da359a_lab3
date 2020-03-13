@@ -91,10 +91,10 @@ public class ComplexBatch {
 		ps[8].write(zeros);
 		//executeCheckPoint(true, 8);
 
-		//----------- CORRECT SO FAR ---------------
-
-		m.release(ps[5]);
+		m.release(ps[5]); //+ litet mindfuck (lite svårlästa värden i minnet som inte behöver ändras)
 		//executeCheckPoint(false, 5);
+
+		//----------- CORRECT SO FAR ---------------
 
 		ps[9] = m.alloc(10);
 		//ps[9].write(range(16, 25));
