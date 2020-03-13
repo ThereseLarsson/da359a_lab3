@@ -101,8 +101,8 @@ public class ComplexBatch {
 
 		//----------- CORRECT SO FAR ---------------
 
-		m.release(ps[6]);
-		//executeCheckPoint(false, 6);
+		m.release(ps[6]); //blir väldigt fel här!
+		executeCheckPoint(false, 6);
 
 		ps[10] = m.alloc(40);
 		//ps[10].write(range(301, 340));
