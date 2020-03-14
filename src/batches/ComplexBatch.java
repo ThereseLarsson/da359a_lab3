@@ -99,20 +99,20 @@ public class ComplexBatch {
 		ps[9].write(zeros);
 		//executeCheckPoint(true, 9);
 
-		//----------- CORRECT SO FAR ---------------
-
-		m.release(ps[6]); //blir väldigt fel här!
-		executeCheckPoint(false, 6);
+		m.release(ps[6]);
+		//executeCheckPoint(false, 6);
 
 		ps[10] = m.alloc(40);
 		//ps[10].write(range(301, 340));
 		ps[10].write(zeros);
 		//executeCheckPoint(true, 10);
 
+		//----------- CORRECT SO FAR ---------------
+
 		ps[11] = m.alloc(200);
 		//ps[11].write(range(1, 200));
 		ps[11].write(zeros);
-		//executeCheckPoint(true, 11);
+		executeCheckPoint(true, 11);
 
 		ps[12] = m.alloc(35);
 		//ps[12].write(range(501, 535));
