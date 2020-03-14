@@ -134,14 +134,21 @@ public class ComplexBatch {
 		ps[15].write(zeros);
 		//executeCheckPoint(true, 15);
 
-		((FirstFit) m).release(ps[3], true); //fastnar i oändlig loop här
-		System.out.println("release p3 klar");
+		//((FirstFit) m).release(ps[3], true); //fastnar i oändlig loop här
+
+		m.release(ps[3]);
+		//executeCheckPoint(false, 3);
+
 		m.release(ps[13]);
-		System.out.println("release p13 klar");
+		//executeCheckPoint(false, 13);
+
 		m.release(ps[12]);
-		System.out.println("release p12 klar");
+		//executeCheckPoint(false, 12);
+
 		ps[16] = m.alloc(170);
-		ps[16].write(range(10001, 10170));
+		//ps[16].write(range(10001, 10170));
+		ps[16].write(zeros);
+		//executeCheckPoint(true, 16);
 
 		m.printLayout();
 		System.exit(0);
@@ -153,7 +160,7 @@ public class ComplexBatch {
 		ps[18].write(range(1, 40));
 		ps[19] = m.alloc(5);
 		ps[19].write(range(11, 15));
-		System.out.println("write p19 klar");
+
 		m.printLayout();
 		
 		// After these last releases, the memory table should be empty
