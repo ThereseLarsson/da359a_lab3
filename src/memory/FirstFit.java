@@ -138,6 +138,7 @@ public class FirstFit extends Memory {
 				next = this.cells[currentCellAddress + 1]; //får adressen till nästa "hop" lediga celler
 			}
 
+			//kan byta ut om while(currentCellAddress > -1) ??
 		} while(next > -1); //searches list (this.cells) for free space, starts with the first free space. Om indexet = -1 så har vi nått this.cells slut
 
 		//printMemory();
