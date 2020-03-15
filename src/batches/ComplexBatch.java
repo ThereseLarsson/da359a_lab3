@@ -198,6 +198,11 @@ public class ComplexBatch {
 		 */
 	}
 
+    /**
+     * used as checkpoint to print the contents of the memory, if its a allocation or release and then stops the execution
+     * @param isAlloc, true if allocation, false if release
+     * @param pointerNbr, which pointer the execution refers to
+     */
 	public void executeCheckPoint(boolean isAlloc, int pointerNbr) {
 		System.out.println();
 
