@@ -8,15 +8,19 @@ package memory;
  * @since 1.0
  */
 public class BestFit extends Memory {
+	static public int freeList;
 
 	/**
 	 * Initializes an instance of a best fit-based memory.
 	 * 
-	 * @param size The number of cells.
+	 * @param totalNbrMemoryCells The number of cells.
 	 */
-	public BestFit(int size) {
-		super(size);
-		// TODO Implement this!
+	public BestFit(int totalNbrMemoryCells) {
+		super(totalNbrMemoryCells);
+		freeList = 0;
+		this.cells[0] = totalNbrMemoryCells;
+		this.cells[1] = -1;
+		this.setOffset(1);
 	}
 
 	/**
@@ -27,8 +31,17 @@ public class BestFit extends Memory {
 	 */
 	@Override
 	public Pointer alloc(int size) {
-		// TODO Implement this!
-		return null;
+		int bestStartAddressSoFar = -1;
+		int currentCellSize = 0;
+		int currentCellAddress = freeList;
+		int previous = -1;
+		int next = 0;
+
+		do {
+
+		} while(next > -1);
+
+		return null; //kommer vi hit så har allokeringen misslyckats, då ska null returneras
 	}
 	
 	/**

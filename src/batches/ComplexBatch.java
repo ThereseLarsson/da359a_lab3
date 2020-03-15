@@ -145,9 +145,20 @@ public class ComplexBatch {
 
 		//----------- CORRECT SO FAR ---------------
 
-		ps[16] = m.alloc(170);
+		ps[16] = m.alloc(60);
+
+		if(ps[16] == null) {
+			System.out.println("ps[16] null");
+		} else if(m == null) {
+			System.out.println("m null");
+		} else if(zeros == null) {
+			System.out.println("zeros null");
+		}
+		System.exit(0);
+
+		//ps[16] = m.alloc(170);
 		//ps[16].write(range(10001, 10170));
-		ps[16].write(zeros);
+		//ps[16].write(zeros);
 		//executeCheckPoint(true, 16);
 
 //		m.compact(); //ska inte göra den här deluppgiften
