@@ -28,17 +28,17 @@ public class FirstFit extends Memory {
 	/**
 	 * Allocates a number of memory cells.
 	 *
+	 * this.cells[currentCellAddress] = antalet celler i rad som är lediga
+	 *
 	 * @param size the number of cells to allocate.
 	 * @return The address of the first cell (to be allocated).
 	 */
 	@Override
 	public Pointer alloc(int size) { //använd pointer.address (får en int)
-		int currentCellSize = 0;
         int next = 0;
 		int currentCellAddress = freeList; //nuvarande cell-adress
 		int previous = -1;
 		int sizeToAllocate = size + this.offset; //size++; //eller var det sizeToAllocate som ska ++?
-        //size = this.cells[pointer.pointsAt()]; //antalet celler i rad som är lediga
 
 		if (freeList == 0) {
 			System.out.println("Checking w freelist...");
@@ -47,16 +47,15 @@ public class FirstFit extends Memory {
 		}
 
 		do {
-			currentCellSize = this.cells[currentCellAddress]; //antalet celler i rad som är lediga
 			next = this.cells[currentCellAddress + 1]; //får adressen till nästa "hop" lediga celler
 
 			//här pekar vi om freeList (dvs pekaren till den första lediga cellen i minnet (dvs. this.cells))
 
-			if(currentCellSize >= sizeToAllocate) {
+			if(this.cells[currentCellAddress] >= sizeToAllocate) {
 				/*
 				SCENARIO 2 - lUCKA
 				 */
-				if(currentCellSize > sizeToAllocate + 1) {
+				if(this.cells[currentCellAddress] > sizeToAllocate + 1) {
 					// Scenario 2.1 - om allokeringen sker på den första lediga "hopen" i minnet (dvs. freeList)
 					if(currentCellAddress == freeList) {
 						freeList = currentCellAddress + sizeToAllocate;
@@ -80,7 +79,7 @@ public class FirstFit extends Memory {
 				/*
 				SCENARIO 1  - INGEN LUCKA i den lediga "hopen" av lediga minnesceller
 				 */
-				else if(currentCellSize == sizeToAllocate) { //betyder att det inte blir någon lucka i
+				else if(this.cells[currentCellAddress] == sizeToAllocate) { //betyder att det inte blir någon lucka i
 					// Scenario 1.1
 					if(currentCellAddress == freeList) {
 						freeList = next;
@@ -97,7 +96,7 @@ public class FirstFit extends Memory {
 					}
 
 					//om det blir en lucka som är 1 cell stor
-				} else if(currentCellSize == sizeToAllocate + 1) {
+				} else if(this.cells[currentCellAddress] == sizeToAllocate + 1) {
 
 					if(currentCellAddress == freeList) {
 						freeList = next;
