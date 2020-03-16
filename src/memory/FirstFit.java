@@ -40,12 +40,6 @@ public class FirstFit extends Memory {
 	    int next = 0; //nästkommande cell-adress (för ledigt "hop")
 		int sizeToAllocate = size + this.offset; //storlek på det som ska allokeras
 
-		if (freeList == 0) {
-			System.out.println("Checking w freelist...");
-			System.out.println(this.cells[freeList]);
-			System.out.println(this.cells[freeList + 1]);
-		}
-
 		do {
 			next = this.cells[currentCellAddress + 1]; //får adressen till nästa "hop" lediga celler
 
