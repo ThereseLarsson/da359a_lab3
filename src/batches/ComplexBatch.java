@@ -143,6 +143,9 @@ public class ComplexBatch {
 		m.release(ps[12]);
 		//executeCheckPoint(false, 12);
 
+		m.printLayout();
+		System.exit(0);
+
 		//----------- CORRECT SO FAR ---------------
 
 		ps[16] = m.alloc(170);

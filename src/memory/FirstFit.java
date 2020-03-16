@@ -35,18 +35,13 @@ public class FirstFit extends Memory {
 	public Pointer alloc(int size) { //använd pointer.address (får en int)
 		int currentCellSize = 0;
         int next = 0;
-		//int newCurrentCellAddress;
-		//Pointer pointer = null; //POINTER SKA BÖRJA MED ATT PEKA PÅ NOLL
 		int currentCellAddress = freeList; //nuvarande cell-adress
 		int previous = -1;
 		int sizeToAllocate = size + this.offset; //size++; //eller var det sizeToAllocate som ska ++?
         //size = this.cells[pointer.pointsAt()]; //antalet celler i rad som är lediga
-		int fan = 0, attans = 0;
 
 		if (freeList == 0) {
 			System.out.println("Checking w freelist...");
-			fan = freeList;
-			attans = fan + 1;
 			System.out.println(this.cells[freeList]);
 			System.out.println(this.cells[freeList + 1]);
 		}
@@ -56,6 +51,7 @@ public class FirstFit extends Memory {
 			next = this.cells[currentCellAddress + 1]; //får adressen till nästa "hop" lediga celler
 
 			//här pekar vi om freeList (dvs pekaren till den första lediga cellen i minnet (dvs. this.cells))
+
 			if(currentCellSize >= sizeToAllocate) {
 				/*
 				SCENARIO 2 - lUCKA
@@ -118,17 +114,6 @@ public class FirstFit extends Memory {
 					this.cells[currentCellAddress] = sizeToAllocate + 1;
 				}
 
-				//det är här som allokeringen sker
-				//3e nov - borde inte det här endast ske för när det blir en lucka i minnet vid allokeringen??
-				// + ändras, se anteckningar för Scenario 1.2
-				//newCurrentCellAddress = currentCellAddress + sizeToAllocate;
-				//this.cells[newCurrentCellAddress] = currentCellSize - sizeToAllocate;
-				//this.cells[newCurrentCellAddress + 1] = this.cells[currentCellAddress + 1];
-				//this.cells[currentCellAddress] = sizeToAllocate;
-
-				System.out.println("ALLOKERING DONE");
-
-                //System.out.println(this);
 				return new Pointer(currentCellAddress, this);
 
 				//om ingen lämplig plats hittas att allokera på för denna iteration
@@ -141,7 +126,6 @@ public class FirstFit extends Memory {
 			//kan byta ut om while(currentCellAddress > -1) ??
 		} while(next > -1); //searches list (this.cells) for free space, starts with the first free space. Om indexet = -1 så har vi nått this.cells slut
 
-		//printMemory();
 		return null; //kommer vi hit så har allokeringen misslyckats, då ska null returneras
 	}
 
