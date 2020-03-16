@@ -34,11 +34,11 @@ public class FirstFit extends Memory {
 	 * @return The address of the first cell (to be allocated).
 	 */
 	@Override
-	public Pointer alloc(int size) { //använd pointer.address (får en int)
-        int next = 0;
-		int currentCellAddress = freeList; //nuvarande cell-adress
-		int previous = -1;
-		int sizeToAllocate = size + this.offset; //size++; //eller var det sizeToAllocate som ska ++?
+	public Pointer alloc(int size) {
+        int previous = -1; //föregående cell-adress (för ledigt "hop")
+	    int currentCellAddress = freeList; //nuvarande cell-adress (för ledigt "hop")
+	    int next = 0; //nästkommande cell-adress (för ledigt "hop")
+		int sizeToAllocate = size + this.offset; //storlek på det som ska allokeras
 
 		if (freeList == 0) {
 			System.out.println("Checking w freelist...");
