@@ -146,12 +146,12 @@ public class ComplexBatch {
 		//m.printLayout();
 		//System.exit(0);
 
-		//----------- CORRECT SO FAR ---------------
-
 		ps[16] = m.alloc(170);
 		//ps[16].write(range(10001, 10170));
 		ps[16].write(zeros);
-		executeCheckPoint(true, 16);
+		//executeCheckPoint(true, 16);
+
+		//----------- CORRECT SO FAR ---------------
 
 //		m.compact(); //ska inte göra den här deluppgiften
 
