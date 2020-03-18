@@ -95,11 +95,17 @@ public class FirstFit extends Memory {
 			} else {
 				previous = currentCellAddress;
 				currentCellAddress = next; //vill ha kvar den nuvarande cellen vi är på
-				next = this.cells[currentCellAddress + 1]; //får adressen till nästa "hop" lediga celler
+
+                if(currentCellAddress == -1) {
+                    next = -500; //bara nått nonsens-värde
+                    System.out.println("NONENS");
+                } else {
+                    next = this.cells[currentCellAddress + 1]; //får adressen till nästa "hop" lediga celler
+                }
 			}
 
 			//kan byta ut om while(currentCellAddress > -1) ??
-		} while(next > -1); //searches list (this.cells) for free space, starts with the first free space. Om indexet = -1 så har vi nått this.cells slut
+		} while(currentCellAddress > -1); //searches list (this.cells) for free space, starts with the first free space. Om indexet = -1 så har vi nått this.cells slut
 
 		return null; //kommer vi hit så har allokeringen misslyckats, då ska null returneras
 	}
