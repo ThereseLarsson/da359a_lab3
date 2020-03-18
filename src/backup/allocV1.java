@@ -1,5 +1,9 @@
 package backup;
 
+/*
+funkar nästan helt som den ska.
+kan inte allokera om det sker på den sisrta lediga platsen i minnet.
+ */
 public class allocV1 {
 
     /*public Pointer alloc(int size) { //använd pointer.address (får en int)
