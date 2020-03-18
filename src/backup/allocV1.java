@@ -2,7 +2,7 @@ package backup;
 
 /*
 funkar nästan helt som den ska.
-kan inte allokera om det sker på den sisrta lediga platsen i minnet.
+kan inte allokera om det sker på den sista lediga platsen i minnet.
  */
 public class allocV1 {
 
