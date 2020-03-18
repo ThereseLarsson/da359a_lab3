@@ -196,15 +196,13 @@ public class ComplexBatch {
 		m.release(ps[15]);
 		//executeCheckPoint(false, 15);
 
-		//----------- CORRECT SO FAR ---------------
-
 		m.release(ps[16]);
 		//executeCheckPoint(false, 16);
 
-		//----------------------------
+		//----------- CORRECT SO FAR ---------------
 
 		m.release(ps[17]);
-		//executeCheckPoint(false, 17);
+		executeCheckPoint(false, 17);
 
 		m.release(ps[18]);
 		//executeCheckPoint(false, 18);
