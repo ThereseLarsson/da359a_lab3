@@ -175,17 +175,40 @@ public class ComplexBatch {
 		
 		// After these last releases, the memory table should be empty
 		m.release(ps[1]);
+		executeCheckPoint(false, 1);
+
 		m.release(ps[7]);
+		//executeCheckPoint(false, 7);
+
 		m.release(ps[8]);
+		//executeCheckPoint(false, 8);
+
 		m.release(ps[9]);
+		//executeCheckPoint(false, 9);
+
 		m.release(ps[10]);
+		//executeCheckPoint(false, 10);
+
 		m.release(ps[11]);
+		//executeCheckPoint(false, 11);
+
 		m.release(ps[14]);
+		//executeCheckPoint(false, 14);
+
 		m.release(ps[15]);
+		//executeCheckPoint(false, 15);
+
 		m.release(ps[16]);
+		//executeCheckPoint(false, 16);
+
 		m.release(ps[17]);
+		//executeCheckPoint(false, 17);
+
 		m.release(ps[18]);
+		//executeCheckPoint(false, 18);
+
 		m.release(ps[19]);
+		//executeCheckPoint(false, 19);
 		
 		m.printLayout();
 
