@@ -151,8 +151,6 @@ public class ComplexBatch {
 		ps[16].write(zeros);
 		//executeCheckPoint(true, 16);
 
-		//----------- CORRECT SO FAR ---------------
-
 //		m.compact(); //ska inte göra den här deluppgiften
 
 		ps[17] = m.alloc(30);
@@ -160,10 +158,12 @@ public class ComplexBatch {
 		ps[17].write(zeros);
 		//executeCheckPoint(true, 17);
 
+		//----------- CORRECT SO FAR ---------------
+
 		ps[18] = m.alloc(40);
 		//ps[18].write(range(1, 40));
 		ps[18].write(zeros);
-		//executeCheckPoint(true, 18);
+		executeCheckPoint(true, 18);
 
 		ps[19] = m.alloc(5);
 		//ps[19].write(range(11, 15));
