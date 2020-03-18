@@ -170,12 +170,12 @@ public class ComplexBatch {
 
 		//m.printLayout();
 		//System.exit(0);
-
-        //----------- CORRECT SO FAR ---------------
 		
 		// After these last releases, the memory table should be empty
 		m.release(ps[1]);
-		executeCheckPoint(false, 1);
+		//executeCheckPoint(false, 1);
+
+		//----------- CORRECT SO FAR ---------------
 
 		m.release(ps[7]);
 		//executeCheckPoint(false, 7);
