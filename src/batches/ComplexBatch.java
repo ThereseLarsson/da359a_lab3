@@ -163,14 +163,15 @@ public class ComplexBatch {
 		ps[18].write(zeros);
 		//executeCheckPoint(true, 18);
 
-		//----------- CORRECT SO FAR ---------------
-
 		ps[19] = m.alloc(5);
 		//ps[19].write(range(11, 15));
 		ps[19].write(zeros);
 		//executeCheckPoint(true, 19);
 
+        //----------- CORRECT SO FAR ---------------
+
 		m.printLayout();
+		System.exit(0);
 		
 		// After these last releases, the memory table should be empty
 		m.release(ps[1]);
