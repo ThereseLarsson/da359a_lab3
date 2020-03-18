@@ -175,13 +175,13 @@ public class ComplexBatch {
 		m.release(ps[1]);
 		//executeCheckPoint(false, 1);
 
-		//----------- CORRECT SO FAR ---------------
-
 		m.release(ps[7]);
 		//executeCheckPoint(false, 7);
 
+		//----------- CORRECT SO FAR ---------------
+
 		m.release(ps[8]);
-		//executeCheckPoint(false, 8);
+		executeCheckPoint(false, 8);
 
 		m.release(ps[9]);
 		//executeCheckPoint(false, 9);
@@ -191,6 +191,8 @@ public class ComplexBatch {
 
 		m.release(ps[11]);
 		//executeCheckPoint(false, 11);
+
+		//--------------
 
 		m.release(ps[14]);
 		//executeCheckPoint(false, 14);
