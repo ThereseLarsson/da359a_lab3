@@ -168,10 +168,10 @@ public class ComplexBatch {
 		ps[19].write(zeros);
 		//executeCheckPoint(true, 19);
 
-        //----------- CORRECT SO FAR ---------------
+		//m.printLayout();
+		//System.exit(0);
 
-		m.printLayout();
-		System.exit(0);
+        //----------- CORRECT SO FAR ---------------
 		
 		// After these last releases, the memory table should be empty
 		m.release(ps[1]);
