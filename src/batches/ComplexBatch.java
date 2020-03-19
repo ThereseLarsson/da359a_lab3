@@ -205,10 +205,10 @@ public class ComplexBatch {
 		m.release(ps[18]);
 		//executeCheckPoint(false, 18);
 
-		//----------- CORRECT SO FAR ---------------
-
 		m.release(ps[19]);
-		executeCheckPoint(false, 19);
+		//executeCheckPoint(false, 19);
+
+		//----------- CORRECT SO FAR ---------------
 		
 		m.printLayout();
 
