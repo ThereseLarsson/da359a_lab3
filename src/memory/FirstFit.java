@@ -1,5 +1,7 @@
 package memory;
 
+import java.awt.*;
+
 /**
  * This memory model allocates memory cells based on the first-fit method.
  * deluppgift 1
@@ -320,48 +322,43 @@ public class FirstFit extends Memory {
             stringAllocated += "\n" + "0 - " + (pCurrent - 1);
         }
 
-		//stega igenom minnet (dvs. this.cells)
-		while(pNext > -1) {
+		//stega igenom minnet, börjar på freeList
+		while(pCurrent > -1) {
+
+			//siste lediga "hopen" i minnet
+			if(pNext == -1) {
+				if((pCurrent + this.cells[pCurrent]) == this.cells.length) { //sista lediga "hopen": finns inget upptaget efter
+					endAddress = (pCurrent + this.cells[pCurrent]) - 1;
+					stringFree += "\n" + pCurrent + " - " + endAddress;
+
+				} else if(!((pCurrent + this.cells[pCurrent]) == this.cells.length)) { //sista lediga "hopen": finns upptaget efter
+					startAddress = pCurrent + this.cells[pCurrent];
+					stringAllocated += "\n" + startAddress + " - 1099";
+				}
+
+			//inte sista lediga hopen i minnet
+			} else if(pNext != -1) {
+				//FRITT
+				endAddress = (pCurrent + this.cells[pCurrent]) - 1;
+				stringFree += "\n" + pCurrent + " - " + endAddress;
+
+				//ALLOKERAT
+				startAddress = pCurrent + this.cells[pCurrent];
+				endAddress = pNext - 1;
+				stringAllocated += "\n" + startAddress + " - " + endAddress;
+			}
+
 			/*
-			UTSKRIFTER
-			------------------------------------------------------------------------------------------
-			 */
-		    // FRITT - skriver ut det lediga block vi befinner oss på JUST NU (dvs. pCurrent)
-			endAddress = (pCurrent + this.cells[pCurrent]) - 1;
-		    stringFree += "\n" + pCurrent + " - " + endAddress;
-
-		    /*
-		    ALLOKERAT - skriver ut det allokerade blocket som finns mellan pCurrent och pNext
-		    this.cells[pCurrent] + pCurrent = var (dvs. vilken address) som det allokerade blocket STARTAR
-		    pNext - 1 = var (dvs. vilken address) som det allokerade blocket SLUTAR
-		     */
-		    startAddress = pCurrent + this.cells[pCurrent];
-		    endAddress = pNext - 1;
-            stringAllocated += "\n" + startAddress + " - " + endAddress;
-
-            /*
             NÄSTA LEDIGA "HOP" AV CELLER
             går vidare till nästa lediga block av lediga celler i minnet
             -----------------------------------------------------------------------------------------
              */
 			pCurrent = pNext;
-			pNext = this.cells[pCurrent + 1];
-
-			/*
-			SPECIALFALL - om vi har kommit till slutet av listan (dvs. pNext == -1)
-			-----------------------------------------------------------------------------------------
-			 */
-			//om vi nått fram till det sista lediga cellblocket och det finns ett allokerat block därefter, så måste vi skriva ut detta
-			if(pNext == -1) {
-				//sista cellblocket är allokerat
-				if(pNext == -1 && ((pCurrent + this.cells[pCurrent]) - 1) != (this.cells.length - 1)) {
-					startAddress = pCurrent + this.cells[pCurrent];
-					stringAllocated += "\n" + startAddress + " - " + (this.cells.length - 1);
-
-				//sista cellblocket är ledigt
-				} else {
-					stringFree += "\n" + pCurrent + " - " + (this.cells.length - 1);
-				}
+			if(pCurrent == -1) {
+				pNext = -500;
+				System.out.println("NONSENS");
+			} else {
+				pNext = this.cells[pCurrent + 1];
 			}
 		}
 
