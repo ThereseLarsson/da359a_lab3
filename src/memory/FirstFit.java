@@ -324,16 +324,21 @@ public class FirstFit extends Memory {
 
 		//stega igenom minnet, börjar på freeList
 		while(pCurrent > -1) {
+			startAddress = pCurrent + this.cells[pCurrent];
 
-			//siste lediga "hopen" i minnet
+			//sista lediga "hopen" i minnet
 			if(pNext == -1) {
 				if((pCurrent + this.cells[pCurrent]) == this.cells.length) { //sista lediga "hopen": finns inget upptaget efter
 					endAddress = (pCurrent + this.cells[pCurrent]) - 1;
 					stringFree += "\n" + pCurrent + " - " + endAddress;
 
 				} else if(!((pCurrent + this.cells[pCurrent]) == this.cells.length)) { //sista lediga "hopen": finns upptaget efter
-					startAddress = pCurrent + this.cells[pCurrent];
+					//startAddress = pCurrent + this.cells[pCurrent];
 					stringAllocated += "\n" + startAddress + " - 1099";
+				}
+
+				if(stringAllocated.equals("Allocated")) {
+					stringAllocated += "\n" + "- no allocated space -";
 				}
 
 			//inte sista lediga hopen i minnet
@@ -343,7 +348,7 @@ public class FirstFit extends Memory {
 				stringFree += "\n" + pCurrent + " - " + endAddress;
 
 				//ALLOKERAT
-				startAddress = pCurrent + this.cells[pCurrent];
+				//startAddress = pCurrent + this.cells[pCurrent];
 				endAddress = pNext - 1;
 				stringAllocated += "\n" + startAddress + " - " + endAddress;
 			}
@@ -362,10 +367,11 @@ public class FirstFit extends Memory {
 			}
 		}
 
-		System.out.println();
+		System.out.println("----------------------------");
 		System.out.println(stringAllocated);
 		System.out.println();
 		System.out.println(stringFree);
+		System.out.println("----------------------------");
 	}
 
 	public void printMemory() {
