@@ -312,7 +312,7 @@ public class FirstFit extends Memory {
 		String stringAllocated = "Allocated";
 		String stringFree = "Free";
 		int pCurrent = freeList;
-		int pNext = this.cells[freeList + 1];
+		int pNext = this.cells[pCurrent + 1];
 		int startAddress, endAddress;
 
 		//om det första cellblocket i minnet (dvs. address 0 - x) är UPPTAGET så vill vi skriva ut det
@@ -348,7 +348,7 @@ public class FirstFit extends Memory {
 			pNext = this.cells[pCurrent + 1];
 
 			/*
-			SPECIALFALL - om vi har kommit till slutet av listan (dvs. next == -1)
+			SPECIALFALL - om vi har kommit till slutet av listan (dvs. pNext == -1)
 			-----------------------------------------------------------------------------------------
 			 */
 			//om vi nått fram till det sista lediga cellblocket och det finns ett allokerat block därefter, så måste vi skriva ut detta
