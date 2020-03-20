@@ -7,6 +7,7 @@ import memory.Pointer;
 
 public class ComplexBatch {
 	private FirstFit ff;
+	private BestFit bf;
 
 	public static void main(String[] args) {
 		ComplexBatch batch = new ComplexBatch();
@@ -24,13 +25,20 @@ public class ComplexBatch {
 	}
 
 	public void run() {
-		System.out.println("First fit");
-		ff = new FirstFit(1100);
-		run(ff); // Swap this for  your own implementation
+		runFirstFit();
+		//runBestFit();
+	}
 
-		//run(new FirstFit(1100)); // Swap this for  your own implementation
-		//System.out.println("\nBest fit");
-		//run(new BestFit(1100)); // Swap this for  your own implementation
+	public void runFirstFit() {
+		System.out.println(".... Running FIRST_FIT ....");
+		ff = new FirstFit(1100);
+		run(ff);
+	}
+
+	public void runBestFit() {
+		System.out.println(".... Running BEST_FIT ....");
+		bf = new BestFit(1100);
+		run(bf);
 	}
 
 	public void run(Memory m) {
