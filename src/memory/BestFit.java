@@ -262,7 +262,7 @@ public class BestFit extends Memory {
 			stringAllocated += "\n" + "0 - " + (pCurrent - 1);
 		}
 
-		//stega igenom minnet, börjar på freeList
+		//stega igenom minnet för att hitta den optimala platsen (bästa adressen) att allokera på, börjar på freeList
 		while(pCurrent > -1) {
 			startAddress = pCurrent + this.cells[pCurrent];
 
