@@ -38,13 +38,17 @@ public class BestFit extends Memory {
 	 */
 	@Override
 	public Pointer alloc(int size) {
+		Pointer pointer = null;
 		int previous = -1; //föregående cell-adress (för ledigt "hop")
 		int current = freeList; //nuvarande cell-adress (för ledigt "hop")
 		int next = 0; //nästkommande cell-adress (för ledigt "hop")
 		int sizeToAllocate = size + this.offset; //storlek på det som ska allokeras
+
+		//bestFit
 		int bestAddressSoFar = current;
+		int previous_best = 0;
+		int next_best = 0;
 		boolean allocSucceed = false;
-		Pointer pointer = null;
 
 		//-------------------------- LETAR BÄSTA PLATS (ADRESS) ATT GÖRA ALLOKERA PÅ -------------------------------------------------------------
 		do {
@@ -55,6 +59,7 @@ public class BestFit extends Memory {
 				allocSucceed = true;
 				if(this.cells[current] < this.cells[bestAddressSoFar]) { //jämförelse: spara den bästa lösningen (bäst addressen att allokera på) hittills
 					bestAddressSoFar = current;
+					previous_best = previous;
 				}
 			}
 
@@ -83,7 +88,8 @@ public class BestFit extends Memory {
 
 			//Scenario 2.2
 			} else {
-				this.cells[previous + 1] = bestAddressSoFar + sizeToAllocate; //TODO: fixa: previous här ska vara den föregående till bestAddress, inte current
+			    System.out.println("alloc, PREVIOUS: " + previous);
+				this.cells[previous_best + 1] = bestAddressSoFar + sizeToAllocate;
 				System.out.println("Scenario 2.2");
 			}
 			//gemensamm kod för Scenario 2.1 och 2.2
