@@ -250,9 +250,14 @@ public class ComplexBatch {
 			System.out.println("------------------ efter release_p" + pointerNbr + " ------------------------------");
 		}
 
-		System.out.println("freeList = " + FirstFit.freeList);
+		//---- FirstFit ----
+		//System.out.println("freeList = " + FirstFit.freeList);
 		//ff.printMemory();
+
+		//---- BestFit ----
+		System.out.println("freeList = " + BestFit.freeList);
 		bf.printMemory();
+
 		System.out.println();
 		System.exit(0);
 	}
