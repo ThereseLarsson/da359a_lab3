@@ -102,15 +102,15 @@ public class ComplexBatch {
 		m.release(ps[5]); //+ litet mindfuck (lite svårlästa värden i minnet som inte behöver ändras)
 		//executeCheckPoint(false, 5);
 
-        //----------- BestFit: CORRECT SO FAR ---------------
-
 		ps[9] = m.alloc(10);
 		//ps[9].write(range(16, 25));
 		ps[9].write(zeros);
-		executeCheckPoint(true, 9);
+		//executeCheckPoint(true, 9);
+
+        //----------- BestFit: CORRECT SO FAR ---------------
 
 		m.release(ps[6]);
-		//executeCheckPoint(false, 6);
+		executeCheckPoint(false, 6);
 
 		ps[10] = m.alloc(40);
 		//ps[10].write(range(301, 340));
