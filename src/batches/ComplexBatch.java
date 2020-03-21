@@ -86,23 +86,25 @@ public class ComplexBatch {
 		m.release(ps[0]);
 		//executeCheckPoint(false, 0);
 
-		//----------- BestFit: CORRECT SO FAR ---------------
-
 		ps[7] = m.alloc(60);
 		//ps[7].write(range(10, 69));
 		ps[7].write(zeros);
-		executeCheckPoint(true, 7);
+		//executeCheckPoint(true, 7);
 
 		m.release(ps[4]);
 		//executeCheckPoint(false, 4);
 
+		//----------- BestFit: CORRECT SO FAR ---------------
+
 		ps[8] = m.alloc(45);
 		//ps[8].write(range(1, 45));
 		ps[8].write(zeros);
-		//executeCheckPoint(true, 8);
+		executeCheckPoint(true, 8);
 
 		m.release(ps[5]); //+ litet mindfuck (lite svårlästa värden i minnet som inte behöver ändras)
 		//executeCheckPoint(false, 5);
+
+		//----------
 
 		ps[9] = m.alloc(10);
 		//ps[9].write(range(16, 25));
@@ -116,6 +118,8 @@ public class ComplexBatch {
 		//ps[10].write(range(301, 340));
 		ps[10].write(zeros);
 		//executeCheckPoint(true, 10);
+
+		//-----------------
 
 		ps[11] = m.alloc(200); //skriver inte 0 på alla ställen för denna allokering?
 		//ps[11].write(range(1, 200));
