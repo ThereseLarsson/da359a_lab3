@@ -48,7 +48,7 @@ public class ComplexBatch {
 		ps[0] = m.alloc(100); //efter: freeList = 101
 		//ps[0].write(range(1, 100));
 		ps[0].write(zeros);
-		executeCheckPoint(true, 0);
+		//executeCheckPoint(true, 0);
 
 		ps[1] = m.alloc(200);
 		//ps[1].write(range(1001, 1200));
@@ -60,7 +60,9 @@ public class ComplexBatch {
 		ps[2].write(zeros);
 		//executeCheckPoint(true, 2);
 
-		ps[3] = m.alloc(200);
+
+        //----------- BestFit: CORRECT SO FAR ---------------
+        ps[3] = m.alloc(200);
 		//ps[3].write(range(1, 200));
 		ps[3].write(zeros);
 		//executeCheckPoint(true, 3);
@@ -215,10 +217,10 @@ public class ComplexBatch {
 
 		m.release(ps[19]);
 		//executeCheckPoint(false, 19);
-
-		//----------- CORRECT SO FAR ---------------
 		
 		m.printLayout();
+
+        //----------- FirstFit: CORRECT SO FAR ---------------
 
 		/*
 		Upptaget - FirstFit
