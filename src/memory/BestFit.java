@@ -57,9 +57,11 @@ public class BestFit extends Memory {
 			//vi har hittat ett ställe där vi kan allokera
 			if(this.cells[current] >= sizeToAllocate) {
 				allocSucceed = true;
-				if(this.cells[current] < this.cells[bestAddressSoFar]) { //jämförelse: spara den bästa lösningen (bäst addressen att allokera på) hittills
+				if(this.cells[current] <= this.cells[bestAddressSoFar]) { //jämförelse: spara den bästa lösningen (bäst addressen att allokera på) hittills
 					bestAddressSoFar = current;
 					previous_best = previous;
+					next_best = next;
+					System.out.println("next_best: " + next_best);
 				}
 			}
 
@@ -74,6 +76,8 @@ public class BestFit extends Memory {
 		} while(current > -1); //searches list (this.cells) for free space, starts with the first free space.
 
 		System.out.println("Ute ur loop - Bästa address: " + bestAddressSoFar);
+		System.out.println("previous_best: " + previous_best);
+		System.out.println("next_best: " + next_best);
 
 		//-------------------------- ALLOKERING -------------------------------------------------------------
 		/*
@@ -94,8 +98,9 @@ public class BestFit extends Memory {
 			}
 			//gemensamm kod för Scenario 2.1 och 2.2
 			this.cells[bestAddressSoFar + sizeToAllocate] = this.cells[bestAddressSoFar] - sizeToAllocate;
-			this.cells[bestAddressSoFar + sizeToAllocate + 1] = next;
+			this.cells[bestAddressSoFar + sizeToAllocate + 1] = next_best; //HÄR
 			this.cells[bestAddressSoFar] = sizeToAllocate;
+			System.out.println("NEXT: " + next);
 		}
 
 		/*

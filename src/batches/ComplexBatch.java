@@ -78,12 +78,12 @@ public class ComplexBatch {
 		ps[5].write(zeros);
 		//executeCheckPoint(true, 5);
 
-		//----------- BestFit: CORRECT SO FAR ---------------
-
 		ps[6] = m.alloc(90);
 		//ps[6].write(range(5000, 5089));
 		ps[6].write(zeros);
-		executeCheckPoint(true, 6);
+		//executeCheckPoint(true, 6);
+
+		//----------- BestFit: CORRECT SO FAR ---------------
 
 		m.release(ps[0]);
 		//executeCheckPoint(false, 0);
