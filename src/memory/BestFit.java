@@ -79,12 +79,12 @@ public class BestFit extends Memory {
 			// Scenario 2.1 - om allokeringen sker på den första lediga "hopen" i minnet (dvs. freeList)
 			if(bestAddressSoFar == freeList) {
 				freeList = bestAddressSoFar + sizeToAllocate;
-				System.out.println("allokering på första lediga hopen, dvs. bestAddress = freeList");
-				System.out.println("freeList är: " + freeList);
+				System.out.println("Scenario 2.1");
 
 			//Scenario 2.2
 			} else {
-				this.cells[previous + 1] = bestAddressSoFar + sizeToAllocate;
+				this.cells[previous + 1] = bestAddressSoFar + sizeToAllocate; //TODO: fixa: previous här ska vara den föregående till bestAddress, inte current
+				System.out.println("Scenario 2.2");
 			}
 			//gemensamm kod för Scenario 2.1 och 2.2
 			this.cells[bestAddressSoFar + sizeToAllocate] = this.cells[bestAddressSoFar] - sizeToAllocate;
@@ -100,10 +100,12 @@ public class BestFit extends Memory {
 			// Scenario 1.1
 			if(bestAddressSoFar == freeList) {
 				freeList = next;
+				System.out.println("Scenario 1.1");
 
 			//Scenario 1.1
 			} else if (previous >= 0){
 				this.cells[previous + 1] = next;
+				System.out.println("Scenario 1.1?");
 			}
 
 			//om det blir en lucka som är 1 cell stor
@@ -115,6 +117,7 @@ public class BestFit extends Memory {
 				this.cells[previous + 1] = next;
 			}
 			this.cells[bestAddressSoFar] = sizeToAllocate + 1;
+			System.out.println("Lucka: 1 cell stor");
 		}
 
 
