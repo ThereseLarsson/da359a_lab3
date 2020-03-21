@@ -137,6 +137,7 @@ public class BestFit extends Memory {
 			pointer = new Pointer(bestAddressSoFar, this);
 		}
 
+		System.out.println("///////////////////////////////////////");
 		return pointer;
 	}
 

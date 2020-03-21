@@ -99,7 +99,7 @@ public class ComplexBatch {
 		ps[8] = m.alloc(45);
 		//ps[8].write(range(1, 45));
 		ps[8].write(zeros);
-		executeCheckPoint(true, 8);
+		//executeCheckPoint(true, 8);
 
 		m.release(ps[5]); //+ litet mindfuck (lite svårlästa värden i minnet som inte behöver ändras)
 		//executeCheckPoint(false, 5);
