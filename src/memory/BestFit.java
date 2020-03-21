@@ -68,7 +68,7 @@ public class BestFit extends Memory {
 
 		} while(current > -1); //searches list (this.cells) for free space, starts with the first free space.
 
-		System.out.println("Ute ur LOOP");
+		System.out.println("Ute ur loop - Bästa address: " + bestAddressSoFar);
 
 		//-------------------------- ALLOKERING -------------------------------------------------------------
 		/*
@@ -79,7 +79,8 @@ public class BestFit extends Memory {
 			// Scenario 2.1 - om allokeringen sker på den första lediga "hopen" i minnet (dvs. freeList)
 			if(bestAddressSoFar == freeList) {
 				freeList = bestAddressSoFar + sizeToAllocate;
-				System.out.println("allokering på första lediga hopen");
+				System.out.println("allokering på första lediga hopen, dvs. bestAddress = freeList");
+				System.out.println("freeList är: " + freeList);
 
 			//Scenario 2.2
 			} else {
@@ -117,7 +118,7 @@ public class BestFit extends Memory {
 		}
 
 
-		//-------------- Allokering misslyckad -------------------
+		//-------------- Allokering lyckad! -------------------
 		if(allocSucceed) {
 			pointer = new Pointer(bestAddressSoFar, this);
 		}
