@@ -45,10 +45,10 @@ public class BestFit extends Memory {
 		int sizeToAllocate = size + this.offset; //storlek på det som ska allokeras
 
 		//bestFit
-		int bestAddressSoFar = current;
+		int bestAddressSoFar = -5;
 		int previous_best = 0;
 		int next_best = 0;
-		boolean allocSucceed = false;
+		//boolean allocSucceed = false;
 
 		//-------------------------- LETAR BÄSTA PLATS (ADRESS) ATT GÖRA ALLOKERA PÅ -------------------------------------------------------------
 		do {
@@ -56,8 +56,9 @@ public class BestFit extends Memory {
 
 			//vi har hittat ett ställe där vi kan allokera
 			if(this.cells[current] >= sizeToAllocate) {
-				allocSucceed = true;
-				if(this.cells[current] <= this.cells[bestAddressSoFar]) { //jämförelse: spara den bästa lösningen (bäst addressen att allokera på) hittills
+				//allocSucceed = true;
+
+				if(bestAddressSoFar == -5 || this.cells[current] <= this.cells[bestAddressSoFar]) { //jämförelse: spara den bästa lösningen (bäst addressen att allokera på) hittills
 					bestAddressSoFar = current;
 					previous_best = previous;
 					next_best = next;
@@ -133,7 +134,7 @@ public class BestFit extends Memory {
 
 
 		//-------------- Allokering lyckad! -------------------
-		if(allocSucceed) {
+		if(bestAddressSoFar != -5) {
 			pointer = new Pointer(bestAddressSoFar, this);
 		}
 
