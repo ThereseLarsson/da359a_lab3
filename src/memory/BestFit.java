@@ -39,77 +39,90 @@ public class BestFit extends Memory {
 	@Override
 	public Pointer alloc(int size) {
 		int previous = -1; //föregående cell-adress (för ledigt "hop")
-		int currentCellAddress = freeList; //nuvarande cell-adress (för ledigt "hop")
+		int current = freeList; //nuvarande cell-adress (för ledigt "hop")
 		int next = 0; //nästkommande cell-adress (för ledigt "hop")
 		int sizeToAllocate = size + this.offset; //storlek på det som ska allokeras
+		int bestAddressSoFar = current;
+		boolean allocSucceed = false;
+		Pointer pointer = null;
 
+		//-------------------------- LETAR BÄSTA PLATS (ADRESS) ATT GÖRA ALLOKERA PÅ -------------------------------------------------------------
 		do {
-			next = this.cells[currentCellAddress + 1]; //får adressen till nästa "hop" lediga celler
+			next = this.cells[current + 1]; //får adressen till nästa "hop" lediga celler
 
-			if(this.cells[currentCellAddress] >= sizeToAllocate) { //vi har hittat ett ställe där vi kan allokera
-				/*
-				-------- SCENARIO 2 - LUCKA --------
-				 */
-				if(this.cells[currentCellAddress] > sizeToAllocate + 1) {
-
-					// Scenario 2.1 - om allokeringen sker på den första lediga "hopen" i minnet (dvs. freeList)
-					if(currentCellAddress == freeList) {
-						freeList = currentCellAddress + sizeToAllocate;
-
-						//Scenario 2.2
-					} else {
-						this.cells[previous + 1] = currentCellAddress + sizeToAllocate;
-					}
-					//gemensamm kod för Scenario 2.1 och 2.2
-					this.cells[currentCellAddress + sizeToAllocate] = this.cells[currentCellAddress] - sizeToAllocate;
-					this.cells[currentCellAddress + sizeToAllocate + 1] = next;
-					this.cells[currentCellAddress] = sizeToAllocate;
-				}
-
-				/*
-				-------- SCENARIO 1  - INGEN LUCKA i den lediga "hopen" av lediga minnesceller --------
-				 */
-				else if(this.cells[currentCellAddress] == sizeToAllocate) { //betyder att det inte blir någon lucka i
-
-					// Scenario 1.1
-					if(currentCellAddress == freeList) {
-						freeList = next;
-
-						// Scenario 1.1
-					} else if (previous >= 0){
-						this.cells[previous + 1] = next;
-					}
-
-					//om det blir en lucka som är 1 cell stor
-				} else if(this.cells[currentCellAddress] == sizeToAllocate + 1) {
-					if(currentCellAddress == freeList) {
-						freeList = next;
-
-					} else if (previous >= 0){
-						this.cells[previous + 1] = next;
-					}
-					this.cells[currentCellAddress] = sizeToAllocate + 1;
-				}
-
-				return new Pointer(currentCellAddress, this);
-
-				//om ingen lämplig plats hittas att allokera på för denna iteration
-			} else {
-				previous = currentCellAddress;
-				currentCellAddress = next; //vill ha kvar den nuvarande cellen vi är på
-
-				if(currentCellAddress == -1) {
-					next = -500; //bara nått nonsens-värde
-					System.out.println("NONENS alloc");
-				} else {
-					next = this.cells[currentCellAddress + 1]; //får adressen till nästa "hop" lediga celler
+			//vi har hittat ett ställe där vi kan allokera
+			if(this.cells[current] >= sizeToAllocate) {
+				allocSucceed = true;
+				if(this.cells[current] < this.cells[bestAddressSoFar]) { //jämförelse: spara den bästa lösningen (bäst addressen att allokera på) hittills
+					bestAddressSoFar = current;
 				}
 			}
 
-			//kan byta ut om while(currentCellAddress > -1) ??
-		} while(currentCellAddress > -1); //searches list (this.cells) for free space, starts with the first free space. Om indexet = -1 så har vi nått this.cells slut
+			//vi går vidare till nästa lediga "hop" i minnet
+			previous = current;
+			current = next; //vill ha kvar den nuvarande cellen vi är på
 
-		return null; //kommer vi hit så har allokeringen misslyckats, då ska null returneras
+			/*if(current != -1) {
+				next = this.cells[current + 1]; //får adressen till nästa "hop" lediga celler
+			}*/
+
+		} while(current > -1); //searches list (this.cells) for free space, starts with the first free space.
+
+		System.out.println("Ute ur LOOP");
+
+		//-------------------------- ALLOKERING -------------------------------------------------------------
+		/*
+		-------- SCENARIO 2 - LUCKA --------
+		 */
+		if(this.cells[bestAddressSoFar] > sizeToAllocate + 1) {
+
+			// Scenario 2.1 - om allokeringen sker på den första lediga "hopen" i minnet (dvs. freeList)
+			if(bestAddressSoFar == freeList) {
+				freeList = bestAddressSoFar + sizeToAllocate;
+				System.out.println("allokering på första lediga hopen");
+
+			//Scenario 2.2
+			} else {
+				this.cells[previous + 1] = bestAddressSoFar + sizeToAllocate;
+			}
+			//gemensamm kod för Scenario 2.1 och 2.2
+			this.cells[bestAddressSoFar + sizeToAllocate] = this.cells[bestAddressSoFar] - sizeToAllocate;
+			this.cells[bestAddressSoFar + sizeToAllocate + 1] = next;
+			this.cells[bestAddressSoFar] = sizeToAllocate;
+		}
+
+		/*
+		 -------- SCENARIO 1  - INGEN LUCKA i den lediga "hopen" av lediga minnesceller --------
+		 */
+		else if(this.cells[bestAddressSoFar] == sizeToAllocate) { //betyder att det inte blir någon lucka i
+
+			// Scenario 1.1
+			if(bestAddressSoFar == freeList) {
+				freeList = next;
+
+			//Scenario 1.1
+			} else if (previous >= 0){
+				this.cells[previous + 1] = next;
+			}
+
+			//om det blir en lucka som är 1 cell stor
+		} else if(this.cells[bestAddressSoFar] == sizeToAllocate + 1) {
+			if(bestAddressSoFar == freeList) {
+				freeList = next;
+
+			} else if (previous >= 0){
+				this.cells[previous + 1] = next;
+			}
+			this.cells[bestAddressSoFar] = sizeToAllocate + 1;
+		}
+
+
+		//-------------- Allokering misslyckad -------------------
+		if(allocSucceed) {
+			pointer = new Pointer(bestAddressSoFar, this);
+		}
+
+		return pointer;
 	}
 
 	/**

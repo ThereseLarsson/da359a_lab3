@@ -25,8 +25,8 @@ public class ComplexBatch {
 	}
 
 	public void run() {
-		runFirstFit();
-		//runBestFit();
+		//runFirstFit();
+		runBestFit();
 	}
 
 	public void runFirstFit() {
@@ -48,7 +48,7 @@ public class ComplexBatch {
 		ps[0] = m.alloc(100); //efter: freeList = 101
 		//ps[0].write(range(1, 100));
 		ps[0].write(zeros);
-		//executeCheckPoint(true, 0);
+		executeCheckPoint(true, 0);
 
 		ps[1] = m.alloc(200);
 		//ps[1].write(range(1001, 1200));
@@ -176,8 +176,8 @@ public class ComplexBatch {
 		ps[19].write(zeros);
 		//executeCheckPoint(true, 19);
 
-		m.printLayout();
-		System.exit(0);
+		//m.printLayout();
+		//System.exit(0);
 		
 		// After these last releases, the memory table should be empty
 		m.release(ps[1]);
@@ -251,7 +251,8 @@ public class ComplexBatch {
 		}
 
 		System.out.println("freeList = " + FirstFit.freeList);
-		ff.printMemory();
+		//ff.printMemory();
+		bf.printMemory();
 		System.out.println();
 		System.exit(0);
 	}
