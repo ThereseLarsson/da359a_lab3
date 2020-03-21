@@ -73,7 +73,7 @@ public class ComplexBatch {
 		ps[4] = m.alloc(50);
 		//ps[4].write(range(51, 100));
 		ps[4].write(zeros);
-		//executeCheckPoint(true, 4);
+		executeCheckPoint(true, 4);
 
 		ps[5] = m.alloc(5);
 		//ps[5].write(range(42, 46));
