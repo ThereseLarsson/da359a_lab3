@@ -221,18 +221,6 @@ public class ComplexBatch {
 		m.printLayout();
 
         //----------- FirstFit: CORRECT SO FAR ---------------
-
-		/*
-		Upptaget - FirstFit
-		0-589
-		620-949
-		 */
-
-		/*
-		Ledigt - FirstFit
-		590-619
-		950-999
-		 */
 	}
 
     /**
