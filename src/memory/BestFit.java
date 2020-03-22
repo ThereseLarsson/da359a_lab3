@@ -127,6 +127,8 @@ public class BestFit extends Memory {
 			System.out.println("Lucka: 1 cell stor");
 		}
 
+		//TODO: testa att alloc() kan allokera HELT ledigt block när det är det sista lediga blocket i minnet
+
 
 		//-------------- Allokering lyckad! -------------------
 		if(bestAddressSoFar != -5) {
