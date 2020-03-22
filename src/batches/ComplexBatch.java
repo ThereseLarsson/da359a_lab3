@@ -135,14 +135,14 @@ public class ComplexBatch {
 		ps[14].write(zeros);
 		//executeCheckPoint(true, 14);
 
-		//----------- BestFit: CORRECT SO FAR ---------------
-
 		ps[15] = m.alloc(60);
 		//ps[15].write(range(1, 60));
 		ps[15].write(zeros);
-		executeCheckPoint(true, 15);
+		//executeCheckPoint(true, 15);
 
 		//((FirstFit) m).release(ps[3], true); //fastnar i oändlig loop här
+
+		//----------- BestFit: CORRECT SO FAR ---------------
 
 		m.release(ps[3]);
 		//executeCheckPoint(false, 3);
