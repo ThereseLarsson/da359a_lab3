@@ -148,13 +148,13 @@ public class ComplexBatch {
 		m.release(ps[13]);
 		//executeCheckPoint(false, 13);
 
-		//----------- BestFit: CORRECT SO FAR ---------------
-
 		m.release(ps[12]);
-		executeCheckPoint(false, 12);
+		//executeCheckPoint(false, 12);
 
 		//m.printLayout();
 		//System.exit(0);
+
+		//----------- BestFit: CORRECT SO FAR ---------------
 
 		ps[16] = m.alloc(170);
 		//ps[16].write(range(10001, 10170));
