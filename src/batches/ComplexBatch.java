@@ -142,16 +142,16 @@ public class ComplexBatch {
 
 		//((FirstFit) m).release(ps[3], true); //fastnar i oändlig loop här
 
-		//----------- BestFit: CORRECT SO FAR ---------------
-
 		m.release(ps[3]);
 		//executeCheckPoint(false, 3);
 
 		m.release(ps[13]);
 		//executeCheckPoint(false, 13);
 
+		//----------- BestFit: CORRECT SO FAR ---------------
+
 		m.release(ps[12]);
-		//executeCheckPoint(false, 12);
+		executeCheckPoint(false, 12);
 
 		//m.printLayout();
 		//System.exit(0);
