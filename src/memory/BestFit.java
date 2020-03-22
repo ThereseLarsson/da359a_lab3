@@ -107,22 +107,21 @@ public class BestFit extends Memory {
 
 			// Scenario 1.1
 			if(bestAddressSoFar == freeList) {
-				freeList = next;
-				System.out.println("Scenario 1.1, FL");
+				freeList = next_best;
 
 			//Scenario 1.1
 			} else if (previous >= 0){
-				this.cells[previous + 1] = next;
-				System.out.println("Scenario 1.1 ?");
+				this.cells[previous + 1] = next; //TODO: fixa fel här
+				System.out.println("Scenario 1.1 ICKE FL");
 			}
 
 			//om det blir en lucka som är 1 cell stor
 		} else if(this.cells[bestAddressSoFar] == sizeToAllocate + 1) {
 			if(bestAddressSoFar == freeList) {
-				freeList = next;
+				freeList = next_best;
 
 			} else if (previous >= 0){
-				this.cells[previous + 1] = next;
+				this.cells[previous + 1] = next; //TODO: fixa fel här
 			}
 			this.cells[bestAddressSoFar] = sizeToAllocate + 1;
 			System.out.println("Lucka: 1 cell stor");
