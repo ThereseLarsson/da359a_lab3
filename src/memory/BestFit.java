@@ -110,7 +110,7 @@ public class BestFit extends Memory {
 				freeList = next_best;
 
 			//Scenario 1.1
-			} else if (previous >= 0){
+			} else if (previous >= 0){ //TODO: fixa fel här
 				this.cells[previous + 1] = next; //TODO: fixa fel här
 				System.out.println("Scenario 1.1 ICKE FL");
 			}
@@ -120,7 +120,7 @@ public class BestFit extends Memory {
 			if(bestAddressSoFar == freeList) {
 				freeList = next_best;
 
-			} else if (previous >= 0){
+			} else if (previous >= 0){ //TODO: fixa fel här
 				this.cells[previous + 1] = next; //TODO: fixa fel här
 			}
 			this.cells[bestAddressSoFar] = sizeToAllocate + 1;
