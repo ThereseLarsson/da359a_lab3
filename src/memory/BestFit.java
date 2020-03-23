@@ -76,9 +76,6 @@ public class BestFit extends Memory {
 
 		} while(current > -1); //searches list (this.cells) for free space, starts with the first free space.
 
-		System.out.println("Ute ur loop - Bästa address: " + bestAddressSoFar);
-		System.out.println("previous_best: " + previous_best);
-		System.out.println("next_best: " + next_best);
 
 		//-------------------------- ALLOKERING -------------------------------------------------------------
 		/*
@@ -130,7 +127,6 @@ public class BestFit extends Memory {
 			pointer = new Pointer(bestAddressSoFar, this);
 		}
 
-		System.out.println("///////////////////////////////////////");
 		return pointer;
 	}
 
