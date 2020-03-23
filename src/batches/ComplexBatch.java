@@ -171,11 +171,10 @@ public class ComplexBatch {
 		ps[18].write(zeros);
 		//executeCheckPoint(true, 18);
 
-		//ps[19] = m.alloc(5);
-		ps[19] = m.alloc(8); //TA BORT SEN
+		ps[19] = m.alloc(5);
 		//ps[19].write(range(11, 15));
 		ps[19].write(zeros);
-		executeCheckPoint(true, 19);
+		//executeCheckPoint(true, 19);
 
 		//m.printLayout();
 		//System.exit(0);
