@@ -118,16 +118,14 @@ public class BestFit extends Memory {
 		} else if(this.cells[bestAddressSoFar] == sizeToAllocate + 1) {
 			if(bestAddressSoFar == freeList) {
 				freeList = next_best;
+				System.out.println("Scenario LUCKA: freeList");
 
 			} else if (previous >= 0){ //TODO: fixa fel här
 				this.cells[previous + 1] = next; //TODO: fixa fel här
+                System.out.println("Scenario LUCKA: ICKE freeList");
 			}
 			this.cells[bestAddressSoFar] = sizeToAllocate + 1;
-			System.out.println("Lucka: 1 cell stor");
 		}
-
-		//TODO: testa att alloc() kan allokera HELT ledigt block när det är det sista lediga blocket i minnet
-
 
 		//-------------- Allokering lyckad! -------------------
 		if(bestAddressSoFar != -5) {
