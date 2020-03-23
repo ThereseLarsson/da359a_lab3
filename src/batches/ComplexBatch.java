@@ -172,15 +172,13 @@ public class ComplexBatch {
 		//executeCheckPoint(true, 18);
 
 		//ps[19] = m.alloc(5);
-		ps[19] = m.alloc(28); //TA BORT SEN
+		ps[19] = m.alloc(8); //TA BORT SEN
 		//ps[19].write(range(11, 15));
 		ps[19].write(zeros);
 		executeCheckPoint(true, 19);
 
 		//m.printLayout();
 		//System.exit(0);
-
-		//----------- BestFit: CORRECT SO FAR ---------------
 		
 		// After these last releases, the memory table should be empty
 		m.release(ps[1]);
@@ -221,6 +219,7 @@ public class ComplexBatch {
 		
 		m.printLayout();
 
+		//----------- BestFit: CORRECT SO FAR ---------------
         //----------- FirstFit: CORRECT SO FAR ---------------
 	}
 

@@ -31,7 +31,7 @@ public class BestFit extends Memory {
 	 * Allocates a number of memory cells.
 	 * Här pekar vi om freeList (dvs pekaren till den första lediga cellen i minnet (dvs. this.cells))
 	 *
-	 * this.cells[currentCellAddress] = antalet celler i rad som är lediga
+	 * this.cells[current] = antalet celler i rad som är lediga
 	 *
 	 * @param size the number of cells to allocate.
 	 * @return The address of the first cell (to be allocated).
@@ -110,9 +110,8 @@ public class BestFit extends Memory {
 				freeList = next_best;
 
 			//Scenario 1.1
-			} else if (previous >= 0){ //TODO: fixa fel här
-				this.cells[previous + 1] = next; //TODO: fixa fel här
-				System.out.println("Scenario 1.1 ICKE FL");
+			} else if (previous_best >= 0){
+				this.cells[previous_best + 1] = next_best;
 			}
 
 			//om det blir en lucka som är 1 cell stor
