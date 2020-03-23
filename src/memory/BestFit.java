@@ -62,7 +62,6 @@ public class BestFit extends Memory {
 					bestAddressSoFar = current;
 					previous_best = previous;
 					next_best = next;
-					System.out.println("next_best: " + next_best);
 				}
 			}
 
