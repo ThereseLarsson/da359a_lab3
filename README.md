@@ -1,4 +1,9 @@
 # da359a_lab3
-About: 
+## Contains implementations of the following:
+  - FirstFit-allocation algorithm 
+  - BestFit allocation algorithm
+  - Deallocation algorithm
+  -  Algorithm to print out which memory cells that are free and allocated
 
+## Part of education
 Course: Systemprogramvara, da359a (Malmö University).
