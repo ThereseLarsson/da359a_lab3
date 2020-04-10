@@ -1,5 +1,4 @@
 # da359a_lab3
+About: 
 
-Kurs: Systemprogramvara, da359a.
-
-Gick: Termin 4, vt 2018.
+Course: Systemprogramvara, da359a (Malmö University).
