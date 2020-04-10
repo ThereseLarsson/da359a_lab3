@@ -6,4 +6,4 @@
   -  Algorithm to print out which memory cells that are free and allocated
 
 ## Part of education
-Course: Systemprogramvara lab3, da359a (Malmö University).
+Course: Systemprogramvara lab3 (coursecode: da359a) (Malmö University).
